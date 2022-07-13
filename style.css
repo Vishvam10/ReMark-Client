@@ -1,0 +1,173 @@
+.spacing {
+    margin: 4rem 0rem 4rem 0rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sample_container {
+    width: 40rem;
+    height: 40rem;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 1rem;
+}
+
+
+/* 
+    ********************* GLOBAL *********************
+*/
+
+ion-icon {
+    font-size: 1.6rem;
+    color: black;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+}
+
+ion-icon:hover {
+    transform: scale(1.1);
+}
+
+ion-icon:active {
+    transform: scale(1.0);
+}
+
+ion-icon[name="open-outline"] {
+    font-size: 1.2rem;
+    color: black;
+}
+
+ion-icon[name="create-outline"] {
+    font-size: 1.2rem;
+    color: blue;
+}
+
+ion-icon[name="trash-outline"] {
+    font-size: 1.2rem;
+    color: blue;
+}
+
+
+/* 
+    ********************* MODAL *********************
+*/
+
+.modal {
+    width: 40rem;
+    height: 40rem;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 1rem;
+}
+
+.modal_header {
+    padding: 1rem;
+    height: 5%;
+    min-height: 2rem;
+    max-height: 4rem;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem 1rem 0rem 0rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    /* background-color: red; */
+}
+
+.modal_actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 10%;
+    /* background-color: blue; */
+}
+
+.modal_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 70%;
+    word-wrap: break-word;
+    /* background-color: gold; */
+    padding: 1rem;
+}
+
+.modal_body {
+    /* background-color: green; */
+    padding: 2rem;
+}
+
+
+/* 
+    ********************* ANNOTATIONS *********************
+*/
+
+.annotation {
+    margin: 2rem 4rem 1rem 4rem;
+    width: 80%;
+    height: auto;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    /* background-color: palevioletred; */
+}
+
+.annotation_header {
+    padding: 1rem;
+    height: 5%;
+    min-height: 2rem;
+    max-height: 4rem;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.annotation_actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    /* background-color: blue; */
+}
+
+.user_profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 40%;
+    width: 80%;
+}
+
+.user_image {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 2rem;
+}
+
+.user_details {
+    width: 86%;
+    /* background-color: orange; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    height: 100%;
+    color: gray;
+}
+
+.user_username {
+    margin: 0rem 0rem 0.2rem 0rem;
+}
+
+.user_last_modified {
+    font-size: 0.8rem;
+}
+
+.user_message {
+    color: grey;
+    padding: 0rem 0rem 0rem 1rem;
+}
