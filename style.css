@@ -4,8 +4,8 @@
 }
 
 .sample_container {
-    width: 40rem;
-    height: 40rem;
+    width: 20rem;
+    height: auto;
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     border-radius: 1rem;
@@ -13,12 +13,75 @@
 
 
 /* 
-    ********************* GLOBAL *********************
+********************* GLOBAL *********************
 */
+
+a {
+    text-decoration: none;
+    list-style: none;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+textarea {
+    padding: 1rem 2rem 1.2rem 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: white;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    resize: none;
+    overflow-y: scroll;
+    outline: 0px !important;
+    scrollbar-width: none;
+    margin: 1rem;
+    transition: transform 0.2s ease-in;
+    border: 0.5px solid rgb(142, 142, 142);
+}
+
+textarea:focus {
+    transform: scale(1.01);
+    border: 0.5px solid #0d6efd;
+}
+
+button {
+    width: 4rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+    background-color: #0d6efd;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(1.0);
+}
+
+input {
+    height: 4rem;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
 
 ion-icon {
     font-size: 1.6rem;
-    color: black;
+    color: grey;
     transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
 }
@@ -33,17 +96,40 @@ ion-icon:active {
 
 ion-icon[name="open-outline"] {
     font-size: 1.2rem;
-    color: black;
+    color: grey;
 }
 
 ion-icon[name="create-outline"] {
     font-size: 1.2rem;
-    color: blue;
+    color: #0d6efd;
 }
 
 ion-icon[name="trash-outline"] {
     font-size: 1.2rem;
-    color: blue;
+    color: #0d6efd;
+}
+
+ion-icon[name="ellipsis-horizontal-outline"] {
+    font-size: 1.2rem;
+}
+
+ion-icon[name="paper-plane-outline"] {
+    font-size: 2rem;
+    rotate: 45deg;
+    /* color: #0d6efd; */
+}
+
+ion-icon[name="paper-plane-outline"]:hover {
+    font-size: 2rem;
+    rotate: 45deg;
+    color: #0d6efd;
+}
+
+.hide {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
 }
 
 
@@ -79,7 +165,7 @@ ion-icon[name="trash-outline"] {
     justify-content: space-between;
     align-items: center;
     width: 10%;
-    /* background-color: blue; */
+    /* background-color: #0d6efd; */
 }
 
 .modal_title {
@@ -103,12 +189,11 @@ ion-icon[name="trash-outline"] {
 */
 
 .annotation {
-    margin: 2rem 4rem 1rem 4rem;
-    width: 80%;
+    /* margin: 1rem 0rem 0rem 0rem; */
     height: auto;
-    padding: 1.2rem;
-    border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    padding: 1rem;
+    /* border-radius: 1rem; */
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
     /* background-color: palevioletred; */
 }
 
@@ -126,11 +211,29 @@ ion-icon[name="trash-outline"] {
 
 .annotation_actions {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 20%;
-    /* background-color: blue; */
+    /* background-color: #0d6efd; */
+}
+
+.annotation_reply {
+    margin: 0rem 0rem 0rem 5%;
+}
+
+.annotation_actions_options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 1rem;
+    padding: 1rem;
+    height: 4rem;
+    box-shadow: rgb(120 123 127 / 20%) 0px 8px 16px;
+    border-radius: 1rem;
+    position: relative;
+    top: 15%;
 }
 
 .user_profile {
@@ -160,14 +263,32 @@ ion-icon[name="trash-outline"] {
 }
 
 .user_username {
-    margin: 0rem 0rem 0.2rem 0rem;
+    margin: 0rem 0rem 0.4rem 0rem;
 }
 
 .user_last_modified {
+    font-weight: normal;
     font-size: 0.8rem;
 }
 
 .user_message {
+    width: 80%;
+    margin: -1rem 0rem 0rem 0rem;
     color: grey;
     padding: 0rem 0rem 0rem 1rem;
+}
+
+
+/* 
+    ********************* INPUT *********************
+*/
+
+.user_input {
+    /* background-color: black; */
+    margin: 1rem 0rem 0rem 1rem;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }

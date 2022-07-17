@@ -11,18 +11,44 @@
 
 <body>
 
-
     <div class="spacing">
         ANNOTATIONS
     </div>
     <div class="sample_container">
         <div class="annotation">
             <div class="annotation_header">
-
                 <div class="user_profile">
-                    <span>
-                        <img src="avatar.jpg" alt="User Photo" class="user_image">
-                    </span>
+                    <div class="user_details">
+                        <h4 class="user_username">
+                            John Doe
+                        </h4>
+                        <span class="user_last_modified">
+                            Modified On : 12-02-2022 5pm
+                        </span>
+                    </div>
+                </div>
+                <div class="annotation_actions">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <!-- <div class="annotation_actions_options">
+                        <div class="annotation_actions_edit">
+                            <a href="#">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </a>
+                        </div>
+                        <div class="annotation_actions_delete">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="user_message">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            </div>
+        </div>
+        <div class="annotation">
+            <div class="annotation_header">
+                <div class="user_profile">
+
                     <div class="user_details">
                         <h4 class="user_username">
                             John Doe
@@ -33,19 +59,26 @@
                     </div>
                 </div>
                 <div class="annotation_actions">
-                    <div class="annotation_actions_edit">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <!-- <div class="annotation_actions_edit">
                         <a href="#">
                             <ion-icon name="create-outline"></ion-icon>
                         </a>
                     </div>
                     <div class="annotation_actions_delete">
                         <ion-icon name="trash-outline"></ion-icon>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="user_message">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis eius maxime recusandae numquam veniam.</p>
             </div>
+        </div>
+        <div class="user_input">
+            <textarea placeholder="Text input" id="comment_input"></textarea>
+            <span id="content_input_submit">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+            </span>
         </div>
     </div>
 
@@ -76,6 +109,9 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="markdownToHTML.js"></script>
+    <script src="index.js"></script>
 
 </body>
 
