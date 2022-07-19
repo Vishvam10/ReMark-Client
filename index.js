@@ -275,12 +275,16 @@ function registerStyles(CSSCode) {
 
 function startAnnotationProcess() {
 
-    // 1. Check for API_KEY
+
+    // 1. Check if user is logged in and verify his/her authority 
 
 
 
 
-    // 2. Check if user is logged in and verify his/her authority 
+    // 2. Check for API_KEY
+    // let api_key = document.getElementById("remark_annotation_script").dataset.api_key;
+
+
 
 
 

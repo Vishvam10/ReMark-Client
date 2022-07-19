@@ -15,9 +15,24 @@
         ANNOTATIONS
     </div>
 
-    <div class="start_container">
-        <span><b>ReMark</b></span>
-        <button type="button" class="btn">Start Annotation</button>
+    <div class="signup_container">
+        <form id="signupForm">
+            <div class="form_fields">
+                <label for="username" class="form_label">Username</label>
+                <input type="text" name="username" class="form_input" id="username">
+            </div>
+            <div class="form_fields">
+                <label for="password" class="form_label">Password</label>
+                <input type="password" name="password" class="form_input" id="password">
+            </div>
+            <div class="form_fields">
+                <label for="authority" class="form_label">Authority</label>
+                <input type="text" name="authority" class="form_input" id="authority">
+            </div>
+            <div class="form_fields">
+                <button name="submit" class="form_submit">Login</button>
+            </div>
+        </form>
     </div>
 
     <div class="sample_container">
@@ -116,8 +131,8 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-    <script src="markdownToHTML.js"></script>
-    <script src="index.js"></script>
+    <!-- <script src="markdownToHTML.js"></script> -->
+    <!-- <script src="index.js"></script> -->
 
 </body>
 
