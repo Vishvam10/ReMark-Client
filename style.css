@@ -11,6 +11,22 @@
     border-radius: 1rem;
 }
 
+.start_container {
+    width: 20rem;
+    height: 4rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    z-index: 10000;
+}
+
+.btn {
+    width: 12rem;
+}
+
 
 /* 
 ********************* GLOBAL *********************
@@ -51,6 +67,10 @@ textarea:focus {
     border: 0.5px solid #0d6efd;
 }
 
+span {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 button {
     width: 4rem;
     height: 2rem;
@@ -64,7 +84,7 @@ button {
 }
 
 button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 button:active {
