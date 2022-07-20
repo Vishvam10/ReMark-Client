@@ -23,8 +23,23 @@ function init() {
 
     document.getElementById('remark_start').addEventListener("click", (e) => {
         e.preventDefault();
-        startAnnotationProcess();
-    })
+
+        // 1. Check if user is logged in and verify his/her authority 
+        const loginStatus = isLoggedIn();
+
+        if (!loginStatus) {
+            body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
+            const loginForm = document.getElementById("loginForm");
+
+            const loginBtn = document.getElementById("loginBtn");
+            loginBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginUser(loginForm);
+            })
+        } else {
+            startAnnotationProcess();
+        }
+    });
 
 }
 
@@ -39,34 +54,32 @@ function registerStyles() {
     document.getElementsByTagName("head")[0].appendChild(styleElement);
 }
 
-function startAnnotationProcess() {
+async function startAnnotationProcess() {
     const body = document.getElementsByTagName('body')[0];
+    console.log("REMARK STARTED");
 
 
-    // 1. Check if user is logged in and verify his/her authority 
-    const loginStatus = isLoggedIn();
+    // 1. Check for API_KEY
+    let api_key = document.getElementById("remark_annotation_script").dataset.api_key;
 
-    if (!loginStatus) {
-        body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
+    if ((!api_key) || (api_key == "")) {
+        //- ERROR HANDLING REQUIRED
+        console.log("Invalid API KEY");
+    }
 
-        const loginForm = document.getElementById("loginForm");
-        const loginBtn = document.getElementById("loginBtn");
-        loginBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            loginUser(loginForm);
-        })
+    // 2. Verify API_KEY
+    const token_status = await verifyToken(api_key);
+    if (token_status.status != 200) {
+        //- ERROR HANDLING REQUIRED
+        console.log("ERROR IN TOKEN VERIFICATION");
+        return -1;
     }
 
 
-
-    // 2. Check for API_KEY
-    // let api_key = document.getElementById("remark_annotation_script").dataset.api_key;
-
-
-
-
-
     // NOTE : Fetch the user preferences - Use a modal or a dediated sidebar, whichever is present as the option. Use dark theme variants if dark theme is enabled
+
+    // getUserPrefence()
+
 
 
     // 3. Load and render existing annotations if any

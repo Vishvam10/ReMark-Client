@@ -1,5 +1,5 @@
 function isLoggedIn() {
-    const username = localStorage.getItem("username");
+    const username = localStorage.getItem("user_name");
     const user_id = localStorage.getItem("user_id");
     if (username && user_id) {
         return true
@@ -36,18 +36,13 @@ function loginUser(form) {
                     localStorage.setItem("user_access_token", data["access_token"]);
                     localStorage.setItem("user_id", data["user_id"]);
                     localStorage.setItem("user_name", data["user_name"]);
+                    const loginForm = document.getElementById("loginForm");
+                    if (loginForm) {
+                        removeHTMLElement(loginForm)
+                    }
                 } else {
-                    // const markup =
-                    //     `
-                    //     <div id="error_message">
-                    //         <h3>${data["error_message"]}</h3>
-                    //     </div>   
-                    // `;
-                    // document.getElementById("lm").insertAdjacentHTML("afterbegin", markup);
-                    // setTimeout(() => {
-                    //     document.getElementById("error_message").parentNode.removeChild(document.getElementById("error_message"));
-                    // }, 2000)
                     console.log(data);
+                    return false
                 }
             })
             .catch(err => console.log(err))
