@@ -22,3 +22,20 @@ const LOGIN_MARKUP =
     </div>
 
 `
+
+
+const ERROR_MODAL = (type) => {
+    let styles;
+    if (type == "SUCCESS") {
+        styles = "background-color: #22C55E;"
+    } else if (type == "ERROR") {
+        styles = "background-color: #EF4444;"
+    }
+    const markup =
+        `
+    <div class="error_modal" style=${styles}>
+        <p style="line-height: inherit;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat.</p>
+    </div>
+    `
+
+}

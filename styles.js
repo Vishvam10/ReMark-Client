@@ -289,4 +289,16 @@ mark {
     margin: 2rem 0rem 1rem 0rem;
 }
 
+.error_modal {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    height: auto;
+    width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 0.4rem;
+    padding: 0.8rem 1.4rem 1rem 1.6rem;
+    color: white;
+}
+
 `

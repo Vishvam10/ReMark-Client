@@ -11,3 +11,8 @@ function validateForm(data) {
     }
     return "Invalid Authority"
 }
+
+function removeHTMLElement(ele) {
+    ele.parentElement.removeChild(ele);
+    return true;
+}
