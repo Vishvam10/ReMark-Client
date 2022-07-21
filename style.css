@@ -27,18 +27,19 @@
     width: 12rem;
 }
 
-#remark_overlay {
+.remark_standard_modal {
     position: fixed;
-    display: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10000;
-    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40rem;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
+    z-index: 1000;
+    transition: all 0.5s;
+    height: 30rem;
 }
 
 
@@ -116,7 +117,7 @@ input {
 ion-icon {
     font-size: 1.6rem;
     color: grey;
-    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
 }
 
@@ -171,7 +172,7 @@ ion-icon[name="paper-plane-outline"]:hover {
     ********************* MODAL *********************
 */
 
-.modal {
+.remark_standard_modal {
     width: 40rem;
     height: 40rem;
     font-family: Arial, Helvetica, sans-serif;
@@ -179,41 +180,38 @@ ion-icon[name="paper-plane-outline"]:hover {
     border-radius: 1rem;
 }
 
-.modal_header {
+.remark_standard_modal_header {
     padding: 1rem;
     height: 5%;
+    margin: -1rem -1rem 0rem -1rem;
     min-height: 2rem;
     max-height: 4rem;
     width: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #e8e8e8;
     border-radius: 1rem 1rem 0rem 0rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    /* background-color: red; */
 }
 
-.modal_actions {
+.remark_standard_modal_actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 10%;
-    /* background-color: #0d6efd; */
 }
 
-.modal_title {
+.remark_standard_modal_title {
     display: flex;
     flex-direction: row;
     justify-content: start;
     width: 70%;
     word-wrap: break-word;
-    /* background-color: gold; */
     padding: 1rem;
 }
 
-.modal_body {
-    /* background-color: green; */
+.remark_standard_modal_body {
     padding: 2rem;
 }
 

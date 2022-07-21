@@ -73,95 +73,20 @@ mark {
     pointer-events: none;
 }
 
-.spacing {
-    margin: 4rem 0rem 4rem 0rem;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.sample_container {
-    width: 20rem;
-    height: auto;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    border-radius: 1rem;
-}
-
-.start_container {
-    width: 20rem;
-    height: 4rem;
-    border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1rem;
-    z-index: 10000;
-}
-
-.btn {
-    width: 12rem;
-}
-
-
-
-.start_container {
-    width: 20rem;
-    height: 4rem;
-    border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1rem;
-    z-index: 10000;
-}
-
-.modal {
+.remark_standard_modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 40rem;
-    height: 40rem;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    background-color: white;
     border-radius: 1rem;
-}
-
-.modal_header {
     padding: 1rem;
-    height: 5%;
-    min-height: 2rem;
-    max-height: 4rem;
-    width: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 1rem 1rem 0rem 0rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    /* background-color: red; */
+    box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
+    z-index: 1000;
+    transition: all 0.5s;
+    height: 20rem;
 }
-
-.modal_actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 10%;
-    /* background-color: #0d6efd; */
-}
-
-.modal_title {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    width: 70%;
-    word-wrap: break-word;
-    /* background-color: gold; */
-    padding: 1rem;
-}
-
-.modal_body {
-    /* background-color: green; */
-    padding: 2rem;
-}
-
 
 /* 
     ********************* ANNOTATIONS *********************

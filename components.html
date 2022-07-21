@@ -11,6 +11,74 @@
 
 <body>
 
+    <div class="remark_standard_modal hide">
+        <div class="annotation">
+            <div class="annotation_header">
+                <div class="user_profile">
+                    <div class="user_details">
+                        <h4 class="user_username">
+                            John Doe
+                        </h4>
+                        <span class="user_last_modified">
+                                Modified On : 12-02-2022 5pm
+                            </span>
+                    </div>
+                </div>
+                <div class="annotation_actions">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <!-- <div class="annotation_actions_options">
+                            <div class="annotation_actions_edit">
+                                <a href="#">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                            </div>
+                            <div class="annotation_actions_delete">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </div>
+                        </div> -->
+                </div>
+            </div>
+            <div class="user_message">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            </div>
+        </div>
+        <div class="annotation">
+            <div class="annotation_header">
+                <div class="user_profile">
+
+                    <div class="user_details">
+                        <h4 class="user_username">
+                            John Doe
+                        </h4>
+                        <span class="user_last_modified">
+                            Last Modified On : 12-02-2022 5pm
+                        </span>
+                    </div>
+                </div>
+                <div class="annotation_actions">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <!-- <div class="annotation_actions_edit">
+                        <a href="#">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="annotation_actions_delete">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </div> -->
+                </div>
+            </div>
+            <div class="user_message">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis eius maxime recusandae numquam veniam.</p>
+            </div>
+        </div>
+        <div class="user_input">
+            <textarea placeholder="Text input" id="comment_input"></textarea>
+            <span id="content_input_submit">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+            </span>
+        </div>
+    </div>
+
     <div class="error_modal">
         <p style="line-height: inherit;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat.</p>
     </div>
@@ -41,23 +109,22 @@
 
     <button class="btn" id="toggleOverlay">Toggle overlay</button>
 
-    <div id="remark_overlay">
-        <div class="sample_container">
-            <div class="annotation">
-                <div class="annotation_header">
-                    <div class="user_profile">
-                        <div class="user_details">
-                            <h4 class="user_username">
-                                John Doe
-                            </h4>
-                            <span class="user_last_modified">
+    <div class="sample_container">
+        <div class="annotation">
+            <div class="annotation_header">
+                <div class="user_profile">
+                    <div class="user_details">
+                        <h4 class="user_username">
+                            John Doe
+                        </h4>
+                        <span class="user_last_modified">
                                 Modified On : 12-02-2022 5pm
                             </span>
-                        </div>
                     </div>
-                    <div class="annotation_actions">
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                        <!-- <div class="annotation_actions_options">
+                </div>
+                <div class="annotation_actions">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <!-- <div class="annotation_actions_options">
                             <div class="annotation_actions_edit">
                                 <a href="#">
                                     <ion-icon name="create-outline"></ion-icon>
@@ -67,11 +134,10 @@
                                 <ion-icon name="trash-outline"></ion-icon>
                             </div>
                         </div> -->
-                    </div>
                 </div>
-                <div class="user_message">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                </div>
+            </div>
+            <div class="user_message">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
             </div>
         </div>
         <div class="annotation">
@@ -115,21 +181,21 @@
         MODAL
     </div>
 
-    <div class="modal">
-        <div class="modal_header">
-            <h3 class="modal_title">Sample Title</h3>
-            <div class="modal_actions">
-                <div class="modal_open_tab">
+    <div class="remark_standard_modal">
+        <div class="remark_standard_modal_header">
+            <h3 class="remark_standard_modal_title">Sample Title</h3>
+            <div class="remark_standard_modal_actions">
+                <div class="remark_standard_modal_open_tab">
                     <a href="#">
                         <ion-icon name="open-outline"></ion-icon>
                     </a>
                 </div>
-                <div class="modal_close_btn">
+                <div class="remark_standard_modal_close_btn">
                     <ion-icon name="close-outline"></ion-icon>
                 </div>
             </div>
         </div>
-        <div class="modal_body">
+        <div class="remark_standard_modal_body">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, dolorum ex reprehenderit, est repudiandae earum facere similique eos cupiditate exercitationem deserunt aut voluptates sequi sed quos labore omnis beatae tempore.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ex facilis amet ea quibusdam quaerat consequuntur exercitationem culpa sed esse doloribus, vel sint nobis illo, rerum perferendis, quidem id itaque?</p>
         </div>
