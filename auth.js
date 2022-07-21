@@ -36,6 +36,7 @@ function loginUser(form) {
                     localStorage.setItem("user_access_token", data["access_token"]);
                     localStorage.setItem("user_id", data["user_id"]);
                     localStorage.setItem("user_name", data["user_name"]);
+                    localStorage.setItem("user_authority", data["user_authority"]);
                     const loginForm = document.getElementById("loginForm");
                     if (loginForm) {
                         removeHTMLElement(loginForm)

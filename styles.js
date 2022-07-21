@@ -301,4 +301,8 @@ mark {
     color: white;
 }
 
+.remark_annotation_border {
+    border: dashed 2px grey;    
+}
+
 `

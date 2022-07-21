@@ -55,12 +55,14 @@ function registerStyles() {
 }
 
 async function startAnnotationProcess() {
-    const body = document.getElementsByTagName('body')[0];
+    // const body = document.getElementsByTagName('body')[0];
+    const remarkScriptTag = document.getElementById("remark_annotation_script");
+
     console.log("REMARK STARTED");
 
 
     // 1. Check for API_KEY
-    let api_key = document.getElementById("remark_annotation_script").dataset.api_key;
+    let api_key = remarkScriptTag.dataset.api_key;
 
     if ((!api_key) || (api_key == "")) {
         //- ERROR HANDLING REQUIRED
@@ -80,21 +82,37 @@ async function startAnnotationProcess() {
 
     // getUserPrefence()
 
-
+    dark_theme = false
+    layout = "modal"
 
     // 3. Load and render existing annotations if any
+    const website_id = remarkScriptTag.dataset.website_id
+    if ((!website_id) || (website_id == "")) {
+        //- ERROR HANDLING REQUIRED
+        console.log("Invalid website ID");
+    }
 
+    const annotations = getAnnotationByWebsiteID(website_id, api_key);
 
+    if (annotations.length > 0) {
+        //- renderAnnotations()
 
-    // If there are, use render the no. of comments as a bubble 
-    // and upon clicking, use a modal to load the annotation's 
-    // comments. 
+        // If there are, use render the no. of comments as a bubble 
+        // and upon clicking, use a modal to load the annotation's 
+        // comments. 
 
-    // This would also have the input for adding new comments. 
-    // Upon submission, refresh the UI
+        // This would also have the input for adding new comments. 
+        // Upon submission, refresh the UI
+    }
+
 
 
     // 4. (ADMIN ONLY) Start the highlight process
+
+    console.log("STARTING HIGHLIGHT PROCESS . . .");
+    highlightElements()
+
+
 
 
 
@@ -119,4 +137,39 @@ async function startAnnotationProcess() {
 
 
 
+}
+
+
+function highlightElements() {
+    document.addEventListener("mouseover", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const tag = e.target.tagName;
+        if (VALID_HTML_ELEMENTS.includes(tag)) {
+            const targetHTMLElement = e.target;
+            targetHTMLElement.classList.toggle("remark_annotation_border");
+        }
+    });
+    document.addEventListener("mouseout", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const tag = e.target.tagName;
+        if (VALID_HTML_ELEMENTS.includes(tag)) {
+            const targetHTMLElement = e.target;
+            targetHTMLElement.classList.toggle("remark_annotation_border");
+        }
+    });
+    document.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const tag = e.target.tagName;
+        if (VALID_HTML_ELEMENTS.includes(tag)) {
+            const targetHTMLElement = e.target;
+            console.log(targetHTMLElement);
+            if (e.ctrlKey) {
+                console.log("CTRL + CLICKED . . .");
+            }
+
+        }
+    });
 }
