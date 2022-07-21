@@ -23,7 +23,6 @@ const LOGIN_MARKUP =
 
 `
 
-
 const ERROR_MODAL = (type) => {
     let styles;
     if (type == "SUCCESS") {
@@ -37,5 +36,53 @@ const ERROR_MODAL = (type) => {
         <p style="line-height: inherit;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat.</p>
     </div>
     `
+}
 
+const ANNOTATION_MODAL = () => {
+    const userMessage = "Sample text.";
+    const userMessageModifiedOn = "12-02-2022 5pm";
+    const userName = "John Doe";
+    const authority = "admin";
+    let editMenu = "";
+
+    if (authority == "admin") {
+        editMenu =
+            `
+        <div class="annotation_actions">
+            <ion-icon name="ellipsis-horizontal-outline"></ion-icon>        
+        </div>
+        `
+    }
+
+    const markup =
+        `
+    <div class="sample_container">
+        <div class="annotation">
+            <div class="annotation_header">
+                <div class="user_profile">
+                    <div class="user_details">
+                        <h4 class="user_username">
+                            ${userName}
+                        </h4>
+                        <span class="user_last_modified">
+                            Modified On : ${userMessageModifiedOn}
+                        </span>
+                    </div>
+                </div>
+                ${editMenu}
+            </div>
+            <div class="user_message">
+                <p>${userMessage}</p>
+            </div>
+        </div>
+
+        <div class="user_input">
+            <textarea placeholder="Text input" id="comment_input"></textarea>
+            <span id="content_input_submit">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+            </span>
+        </div>
+    </div>
+    `
+    return markup;
 }

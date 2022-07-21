@@ -8,8 +8,9 @@ window.addEventListener("load", (e) => {
 function init() {
     const body = document.getElementsByTagName('body')[0];
 
-    // 1. Register the styles
+    // 1. Register the styles and scripts (for icons)
     registerStyles();
+    registerScripts();
 
     // 2. Add the START button
     const remark_markup =
@@ -52,6 +53,12 @@ function registerStyles() {
         styleElement.appendChild(document.createTextNode(STYLES));
     }
     document.getElementsByTagName("head")[0].appendChild(styleElement);
+}
+
+function registerScripts() {
+    const scriptElement = document.createElement("script");
+    scriptElement.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
+    document.head.appendChild(scriptElement);
 }
 
 async function startAnnotationProcess() {
@@ -113,14 +120,23 @@ async function startAnnotationProcess() {
     highlightElements()
 
 
-
-
-
     // 5. (ADMIN ONLY) Handle click event for highlighted element
 
-
-    //  If it is a new annotation, create the empty modal where users can add comments.
-
+    document.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.ctrlKey) {
+            console.log("CTRL + CLICKED . . .");
+            const tag = e.target.tagName;
+            if (VALID_HTML_ELEMENTS.includes(tag)) {
+                const targetHTMLElement = e.target;
+                //* TODO : CHECK IF IT IS A NEW ANNOTATION
+                //  If it is a new annotation, create the empty modal where users can add comments.
+                renderNewAnnotationModal(targetHTMLElement);
+            }
+        }
+        return;
+    });
 
     // 6. (USERS) Handle the ADD, EDIT and DELETE methods for comments
 
@@ -137,39 +153,4 @@ async function startAnnotationProcess() {
 
 
 
-}
-
-
-function highlightElements() {
-    document.addEventListener("mouseover", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
-            const targetHTMLElement = e.target;
-            targetHTMLElement.classList.toggle("remark_annotation_border");
-        }
-    });
-    document.addEventListener("mouseout", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
-            const targetHTMLElement = e.target;
-            targetHTMLElement.classList.toggle("remark_annotation_border");
-        }
-    });
-    document.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
-            const targetHTMLElement = e.target;
-            console.log(targetHTMLElement);
-            if (e.ctrlKey) {
-                console.log("CTRL + CLICKED . . .");
-            }
-
-        }
-    });
 }

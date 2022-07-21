@@ -73,6 +73,36 @@ mark {
     pointer-events: none;
 }
 
+.spacing {
+    margin: 4rem 0rem 4rem 0rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sample_container {
+    width: 20rem;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 1rem;
+}
+
+.start_container {
+    width: 20rem;
+    height: 4rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    z-index: 10000;
+}
+
+.btn {
+    width: 12rem;
+}
+
+
 
 .start_container {
     width: 20rem;
@@ -212,6 +242,7 @@ mark {
 }
 
 .user_username {
+    font-size: 1.2rem;
     margin: 0rem 0rem 0.4rem 0rem;
 }
 
