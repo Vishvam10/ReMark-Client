@@ -16,4 +16,8 @@ window.addEventListener("contextmenu", e => {
     contextMenu.style.top = `${y}px`;
     contextMenu.style.visibility = "visible";
 });
-document.addEventListener("click", () => contextMenu.style.visibility = "hidden");
+document.addEventListener("click", (e) => {
+    setTimeout(() => {
+        contextMenu.style.visibility = "hidden";
+    }, 100);
+})
