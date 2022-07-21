@@ -73,6 +73,10 @@ mark {
     pointer-events: none;
 }
 
+/*
+    ********************* MODAL *********************
+*/
+
 .remark_standard_modal {
     position: fixed;
     top: 50%;
@@ -87,6 +91,42 @@ mark {
     transition: all 0.5s;
     height: 20rem;
 }
+
+.remark_standard_modal_header {
+    padding: 1rem;
+    height: 5%;
+    margin: -1rem -1rem 0rem -1rem;
+    min-height: 2rem;
+    max-height: 4rem;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+    border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.remark_standard_modal_actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 10%;
+}
+
+.remark_standard_modal_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 70%;
+    word-wrap: break-word;
+    padding: 1rem;
+}
+
+.remark_standard_modal_body {
+    padding: 2rem;
+}
+
 
 /* 
     ********************* ANNOTATIONS *********************

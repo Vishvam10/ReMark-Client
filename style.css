@@ -27,21 +27,6 @@
     width: 12rem;
 }
 
-.remark_standard_modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40rem;
-    background-color: white;
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
-    z-index: 1000;
-    transition: all 0.5s;
-    height: 30rem;
-}
-
 
 /* 
 ********************* GLOBAL *********************
@@ -173,11 +158,19 @@ ion-icon[name="paper-plane-outline"]:hover {
 */
 
 .remark_standard_modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 40rem;
-    height: 40rem;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    background-color: white;
     border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
+    z-index: 1000;
+    transition: all 0.5s;
+    height: 30rem;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .remark_standard_modal_header {
