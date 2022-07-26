@@ -6,6 +6,8 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 # Todo
 
+- [] **Create a class to initialize and store globals**
+
 - [] **Create a function to make overlays**
 
 - [] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
