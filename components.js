@@ -65,16 +65,16 @@ const CREATE_ANNOTATION_MODAL = (node, html_node_data_tag) => {
         <div class="remark_standard_modal_body">
             <form id="createAnnotationForm" class="remark_form">
                 <div class="remark_form_fields">
-                    <label for="username" class="remark_form_label">Annotation Name</label>
-                    <input type="text" name="username" class="remark_form_input" id="username">
+                    <label for="annotation_name" class="remark_form_label">Annotation Name</label>
+                    <input type="text" name="annotation_name" class="remark_form_input" id="annotation_name">
                 </div>
                 <div class="remark_form_fields">
                     <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
                     <input type="tags" name="tags" class="remark_form_input" id="tags">
                 </div>
                 <div class="remark_form_fields">
-                    <label for="tag_id" class="remark_form_label">Tag ID</label>
-                    <input type="tag_id" name="tag_id" class="remark_form_input" id="tag_id" value=${html_node_data_tag} readonly>
+                    <label for="html_node_data_tag" class="remark_form_label">Tag ID</label>
+                    <input type="html_node_data_tag" name="html_node_data_tag" class="remark_form_input" id="html_node_data_tag" value=${html_node_data_tag} readonly>
                 </div>
                 <div class="remark_form_fields">
                     <label for="tag" class="remark_form_label">Selected Node</label>
@@ -93,6 +93,7 @@ const CREATE_ANNOTATION_MODAL = (node, html_node_data_tag) => {
 function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
+    const user_id = localStorage.getItem("user_id");
     for (var pair of form.entries()) {
         if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
             console.log("Only alphanumeric values and comma are allowed !");
@@ -100,5 +101,8 @@ function handleCreateAnnotation(formElement) {
         }
         data[pair[0]] = pair[1].trim();
     }
-    console.log(data);
+    data["website_uri"] = window.location.href;
+    data["user_id"] = user_id;
+    data["website_id"] = website_id;
+    createAnnotation(data);
 }

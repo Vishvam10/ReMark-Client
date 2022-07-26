@@ -1,5 +1,8 @@
 //- INITIALIZE
 
+var website_id;
+var api_key;
+
 window.addEventListener("load", (e) => {
     e.preventDefault()
     init();
@@ -67,9 +70,8 @@ async function startAnnotationProcess() {
 
     console.log("REMARK STARTED");
 
-
     // 1. Check for API_KEY
-    let api_key = remarkScriptTag.dataset.api_key;
+    api_key = remarkScriptTag.dataset.api_key;
 
     if ((!api_key) || (api_key == "")) {
         //- ERROR HANDLING REQUIRED
@@ -93,7 +95,7 @@ async function startAnnotationProcess() {
     layout = "modal"
 
     // 3. Load and render existing annotations if any
-    const website_id = remarkScriptTag.dataset.website_id
+    website_id = remarkScriptTag.dataset.website_id
     if ((!website_id) || (website_id == "")) {
         //- ERROR HANDLING REQUIRED
         console.log("Invalid website ID");
@@ -103,7 +105,7 @@ async function startAnnotationProcess() {
 
     if (annotations.length > 0) {
         //- renderAnnotations()
-
+        console.log("INIT ANNOTATIONS : ", annotations);
         // If there are, use render the no. of comments as a bubble 
         // and upon clicking, use a modal to load the annotation's 
         // comments. 
@@ -136,7 +138,6 @@ async function startAnnotationProcess() {
             const tag = e.target.tagName;
             if (VALID_HTML_ELEMENTS.includes(tag)) {
                 const targetHTMLElement = e.target;
-                console.log("CTRL+CLICK", targetHTMLElement);
                 //* TODO : CHECK IF IT IS A NEW ANNOTATION
                 //  If it is a new annotation, create the empty modal where users can add comments.
                 renderNewAnnotationModal(targetHTMLElement, tag);
