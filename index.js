@@ -125,14 +125,21 @@ async function startAnnotationProcess() {
     document.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        const className = e.target.className;
+        if (className) {
+            if (className.includes("remark_")) {
+                console.log(className);
+                return;
+            }
+        }
         if (e.ctrlKey) {
-            console.log("CTRL + CLICKED . . .");
             const tag = e.target.tagName;
             if (VALID_HTML_ELEMENTS.includes(tag)) {
                 const targetHTMLElement = e.target;
+                console.log("CTRL+CLICK", targetHTMLElement);
                 //* TODO : CHECK IF IT IS A NEW ANNOTATION
                 //  If it is a new annotation, create the empty modal where users can add comments.
-                renderNewAnnotationModal(targetHTMLElement);
+                renderNewAnnotationModal(targetHTMLElement, tag);
             }
         }
         return;

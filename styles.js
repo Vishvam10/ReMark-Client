@@ -16,7 +16,7 @@ const STYLES = `
 }
 
 ion-icon {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: grey;
     transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
@@ -31,7 +31,7 @@ ion-icon:active {
 }
 
 ion-icon[name="open-outline"] {
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
     color: grey;
 }
 
@@ -41,7 +41,7 @@ ion-icon[name="create-outline"] {
 }
 
 ion-icon[name="trash-outline"] {
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
     color: #0d6efd;
 }
 
@@ -89,15 +89,13 @@ mark {
     box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
     z-index: 1000;
     transition: all 0.5s;
-    height: 20rem;
+    height: auto;
 }
 
 .remark_standard_modal_header {
     padding: 1rem;
-    height: 5%;
+    height: 6rem;
     margin: -1rem -1rem 0rem -1rem;
-    min-height: 2rem;
-    max-height: 4rem;
     width: auto;
     display: flex;
     justify-content: space-between;
@@ -121,10 +119,17 @@ mark {
     width: 70%;
     word-wrap: break-word;
     padding: 1rem;
+    margin: 1rem 1rem 1rem 1rem;
+    font-size: 1.6rem;
+}
+
+.remark_standard_modal_close_btn {
+    margin: 0.4rem 0rem 0rem 0rem;
 }
 
 .remark_standard_modal_body {
     padding: 2rem;
+    font-size: 1.2rem;
 }
 
 
@@ -251,38 +256,58 @@ mark {
     width: 80%;
 }
 
-.form_input {
+.remark_form_fields {
+    margin: 1.6rem 0rem 0rem 0rem;
+}
+
+.remark_form_input {
     padding: 1rem 2rem 1.2rem 1rem;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-appearance: none;
     -moz-appearance: none;
-    height: 0.8rem;
+    height: 4rem;
     width: 100%;
     border-radius: 0.6rem;
     background-color: white;
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     outline: 0px !important;
     margin: 0.4rem 0rem 1rem 0rem;
     transition: border 0.2s ease-in;
     border: 0.5px solid rgb(142, 142, 142);
-    font-size: 0.8rem;
-}
-
-.form_input:focus {
-    border: 0.5px solid #0d6efd;
-}
-
-.form_label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     color: grey;
 }
 
-.form_submit {
-    width: 8rem;
-    height: 3rem;
-    margin: 2rem 0rem 1rem 0rem;
+.remark_form_input:focus {
+    border: 0.5px solid #0d6efd;
+}
+
+.remark_form_label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    color: grey;
+}
+
+.remark_standard_button {
+    background-color: var(--color-primary);
+    font-size: 1.6rem;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    padding: 1.25rem 4.5rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 3rem 0rem 2rem 0rem;
+    width: 100%;   
+}
+
+.remark_standard_button:hover {
+    transform: scale(1.05);
+}
+
+.remark_standard_button:active {
+    transform: scale(1.0);
 }
 
 .error_modal {
@@ -297,7 +322,7 @@ mark {
     color: white;
 }
 
-.remark_annotation_border {
+.highlight_element_border {
     border: dashed 2px grey;    
 }
 
