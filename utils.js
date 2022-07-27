@@ -76,3 +76,35 @@ function isAlphaNumeric(s) {
     }
     return true;
 };
+
+function getNodeXpath(ele) {
+    if (ele.id !== '')
+        return 'id("' + ele.id + '")';
+    if (ele === document.body)
+        return ele.tagName;
+
+    var ix = 0;
+    var siblings = ele.parentNode.childNodes;
+    for (var i = 0; i < siblings.length; i++) {
+        var sibling = siblings[i];
+        if (sibling === ele)
+            return getNodeXpath(ele.parentNode) + '/' + ele.tagName + '[' + (ix + 1) + ']';
+        if (sibling.nodeType === 1 && sibling.tagName === ele.tagName)
+            ix++;
+    }
+}
+
+function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
+
+function getPageXY(element) {
+    var x = 0,
+        y = 0;
+    while (element) {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+    }
+    return [x, y];
+}

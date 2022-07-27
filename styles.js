@@ -323,7 +323,15 @@ mark {
 }
 
 .highlight_element_border {
-    border: dashed 2px grey;    
+    outline: dashed 2px grey;    
+    border-radius: 0.4rem;
+    padding: 0.4rem;
+}
+
+.highlight_element_strong {
+    outline: 2.8px solid var(--color-primary);
+    border-radius: 0.4rem;
+    padding: 0.4rem;
 }
 
 `

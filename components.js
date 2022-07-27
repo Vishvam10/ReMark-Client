@@ -38,18 +38,11 @@ const ERROR_MODAL = (type) => {
     `
 }
 
-const CREATE_ANNOTATION_MODAL = (node, html_node_data_tag) => {
+const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
     }
-    const annotation_name = "";
-    const website_id = "";
-    const website_uri = ""
-    const created_by = localStorage.getItem("user_name")
-
-    let tags;
-
 
     const markup =
         `
@@ -73,8 +66,8 @@ const CREATE_ANNOTATION_MODAL = (node, html_node_data_tag) => {
                     <input type="tags" name="tags" class="remark_form_input" id="tags">
                 </div>
                 <div class="remark_form_fields">
-                    <label for="html_node_data_tag" class="remark_form_label">Tag ID</label>
-                    <input type="html_node_data_tag" name="html_node_data_tag" class="remark_form_input" id="html_node_data_tag" value=${html_node_data_tag} readonly>
+                    <label for="node_xpath" class="remark_form_label">Node XPath</label>
+                    <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value=${node_xpath} readonly>
                 </div>
                 <div class="remark_form_fields">
                     <label for="tag" class="remark_form_label">Selected Node</label>
@@ -95,9 +88,11 @@ function handleCreateAnnotation(formElement) {
     let data = {}
     const user_id = localStorage.getItem("user_id");
     for (var pair of form.entries()) {
-        if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-            console.log("Only alphanumeric values and comma are allowed !");
-            return;
+        if (pair[0] == "annotation_name" || pair[0] == "tags") {
+            if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+                console.log("Only alphanumeric values and comma are allowed !");
+                return;
+            }
         }
         data[pair[0]] = pair[1].trim();
     }

@@ -10,13 +10,12 @@ async function getAnnotationByWebsiteID() {
         },
     })
     const data = await res.json();
-    console.log(data);
     return data;
 }
 
 async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
-    console.log(url);
+    console.log(bodyData);
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: 'POST',
@@ -29,6 +28,6 @@ async function createAnnotation(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
-    console.log(data);
+    getAnnotationByWebsiteID();
     return data;
 }

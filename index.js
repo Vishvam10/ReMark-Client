@@ -18,10 +18,10 @@ function init() {
     // 2. Add the START button
     const remark_markup =
         `
-    <div class="start_container">
-    <span class="user_message"><b>ReMark</b></span>
-    <button type="button" class="btn" id="remark_start">Start Annotation</button>
-    </div>
+        <div class="start_container">
+        <span class="user_message"><b>ReMark</b></span>
+        <button type="button" class="btn" id="remark_start">Start Annotation</button>
+        </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
 
@@ -101,11 +101,9 @@ async function startAnnotationProcess() {
         console.log("Invalid website ID");
     }
 
-    const annotations = getAnnotationByWebsiteID(website_id, api_key);
-
+    const annotations = await getAnnotationByWebsiteID(website_id, api_key);
     if (annotations.length > 0) {
-        //- renderAnnotations()
-        console.log("INIT ANNOTATIONS : ", annotations);
+        renderExistingAnnotations(annotations);
         // If there are, use render the no. of comments as a bubble 
         // and upon clicking, use a modal to load the annotation's 
         // comments. 
