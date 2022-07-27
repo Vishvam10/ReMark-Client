@@ -28,6 +28,7 @@ function renderExistingAnnotations(annotations) {
         ele.classList.add("highlight_element_strong")
     });
 
+
     // THIS WILL BE DONE USING THE CONTEXT MENU
     // 2. On show, trigger the sidebar (or modal)
 

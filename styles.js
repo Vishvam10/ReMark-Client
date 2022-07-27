@@ -322,7 +322,7 @@ mark {
     color: white;
 }
 
-.highlight_element_border {
+.highlight_element_light {
     outline: dashed 2px grey;    
     border-radius: 0.4rem;
     padding: 0.4rem;
@@ -332,6 +332,51 @@ mark {
     outline: 2.8px solid var(--color-primary);
     border-radius: 0.4rem;
     padding: 0.4rem;
+}
+
+.remark_contextmenu_wrapper {
+    visibility: hidden;
+    position: fixed;
+    width: 20rem;
+    height: 16rem;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.remark_contextmenu_menu_list {
+    padding: 1rem;
+}
+
+.remark_item {
+    list-style: none;
+    font-size: 1rem;
+    height: 2.4rem;
+    display: flex;
+    width: 90%;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0 0.3125rem 0 0.625rem;
+    transition: background, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 0.4rem 0rem 0rem 0rem;
+}
+
+.remark_contextmenu_content .remark_item:hover {
+    background: #f2f2f2;
+    transform: scale(1.05);
+}
+
+.remark_contextmenu_content .remark_item:active {
+    background: #f2f2f2;
+    transform: scale(1.0);
+}
+
+.remark_context_menu_item_name {
+    margin: 1rem 0rem 1rem 1rem;
+    font-size: 1.2rem;
+    color: grey;
 }
 
 `

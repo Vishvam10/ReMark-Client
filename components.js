@@ -101,3 +101,30 @@ function handleCreateAnnotation(formElement) {
     data["website_id"] = website_id;
     createAnnotation(data);
 }
+
+const CONTEXT_MENU_MARKUP =
+    `
+<div class="remark_contextmenu_wrapper" id="remark_context_menu">
+    <div class="remark_contextmenu_content">
+        <ul class="remark_contextmenu_menu_list">
+            <li class="remark_item">
+                <ion-icon name="create-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                <span class="remark_context_menu_item_name">Preview</span>
+            </li>
+            <li class="remark_item">
+                <ion-icon name="create-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                <span class="remark_context_menu_item_name">Open in modal</span>
+            </li>
+            <li class="remark_item">
+                <ion-icon name="create-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                <span class="remark_context_menu_item_name">Rename</span>
+            </li>
+            <li class="remark_item">
+                <ion-icon name="create-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                <span class="remark_context_menu_item_name">Delete</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+`

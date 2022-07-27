@@ -65,7 +65,6 @@ function registerScripts() {
 }
 
 async function startAnnotationProcess() {
-    // const body = document.getElementsByTagName('body')[0];
     const remarkScriptTag = document.getElementById("remark_annotation_script");
 
     console.log("REMARK STARTED");
@@ -104,24 +103,15 @@ async function startAnnotationProcess() {
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);
     if (annotations.length > 0) {
         renderExistingAnnotations(annotations);
-        // If there are, use render the no. of comments as a bubble 
-        // and upon clicking, use a modal to load the annotation's 
-        // comments. 
-
-        // This would also have the input for adding new comments. 
-        // Upon submission, refresh the UI
     }
 
 
-
     // 4. (ADMIN ONLY) Start the highlight process
-
     console.log("STARTING HIGHLIGHT PROCESS . . .");
     highlightElements()
 
 
     // 5. (ADMIN ONLY) Handle click event for highlighted element
-
     document.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -143,6 +133,20 @@ async function startAnnotationProcess() {
         }
         return;
     });
+
+    document.addEventListener("contextmenu", (e) => {
+        const className = e.target.className;
+        if (className.includes("highlight_element_strong")) {
+            const contextMenu = document.getElementById("remark_context_menu");
+            if (contextMenu) {
+                e.preventDefault();
+                return;
+            }
+            e.preventDefault();
+            overrideContextMenu(e);
+
+        }
+    })
 
     // 6. (USERS) Handle the ADD, EDIT and DELETE methods for comments
 
