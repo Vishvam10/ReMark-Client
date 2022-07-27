@@ -338,29 +338,44 @@ mark {
     visibility: hidden;
     position: fixed;
     width: 20rem;
-    height: 16rem;
+    height: 24rem;
     border-radius: 1rem;
     background: #fff;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
     font-family: Arial, Helvetica, sans-serif;
+    padding: 1rem;
+    z-index: 100000;
+}
+
+.remark_contextmenu_content {
+    height: 100%;
 }
 
 .remark_contextmenu_menu_list {
     padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .remark_item {
     list-style: none;
     font-size: 1rem;
-    height: 2.4rem;
+    height: 3.2rem;
     display: flex;
-    width: 90%;
+    width: 98%;
     cursor: pointer;
     align-items: center;
     border-radius: 0.5rem;
     padding: 0 0.3125rem 0 0.625rem;
     transition: background, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
-    margin: 0.4rem 0rem 0rem 0rem;
+    margin: 0.4rem 0rem 0.4rem 0rem;
+}
+
+.remark_contextmenu_icon {
+    font-size: 1.6rem !important;
+    color: grey !important;
 }
 
 .remark_contextmenu_content .remark_item:hover {
@@ -374,8 +389,8 @@ mark {
 }
 
 .remark_context_menu_item_name {
-    margin: 1rem 0rem 1rem 1rem;
-    font-size: 1.2rem;
+    margin: 1.2rem 0rem 1rem 1.2rem;
+    font-size: 1.4rem;
     color: grey;
 }
 

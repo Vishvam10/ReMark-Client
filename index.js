@@ -139,8 +139,7 @@ async function startAnnotationProcess() {
         if (className.includes("highlight_element_strong")) {
             const contextMenu = document.getElementById("remark_context_menu");
             if (contextMenu) {
-                e.preventDefault();
-                return;
+                removeHTMLElement(contextMenu);
             }
             e.preventDefault();
             overrideContextMenu(e);

@@ -108,31 +108,3 @@ function getPageXY(element) {
     }
     return [x, y];
 }
-
-function overrideContextMenu(e) {
-    const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", CONTEXT_MENU_MARKUP);
-    const contextMenu = document.getElementById("remark_context_menu");
-
-    const posX = e.clientX;
-    const posY = e.clientY;
-    positionContextMenu(contextMenu, posX, posY);
-    // console.log(pos);
-
-    // contextMenu.style.left = `${x}px`;
-    // contextMenu.style.top = `${y}px`;
-    // contextMenu.style.visibility = "visible";
-    document.addEventListener("click", (e) => {
-        setTimeout(() => {
-            removeHTMLElement(contextMenu)
-        }, 100);
-    })
-}
-
-function positionContextMenu(contextMenu, x, y) {
-    const i = contextMenu.style;
-    i.top = y + "px";
-    i.left = x + "px";
-    i.visibility = "visible";
-    i.opacity = "1";
-}
