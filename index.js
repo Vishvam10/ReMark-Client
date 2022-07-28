@@ -118,7 +118,6 @@ async function startAnnotationProcess() {
         const className = e.target.className;
         if (className) {
             if (className.includes("remark_")) {
-                console.log(className);
                 return;
             }
         }

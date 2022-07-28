@@ -24,12 +24,11 @@ function renderExistingAnnotations(annotations) {
     annotations.forEach((annotation) => {
         const node_xpath = annotation["node_xpath"];
         const ele = getElementByXpath(node_xpath);
-        console.log(ele);
         ele.classList.add("highlight_element_strong")
     });
 
 
-    // THIS WILL BE DONE USING THE CONTEXT MENU
     // 2. On show, trigger the sidebar (or modal)
+    // THIS WILL BE DONE USING THE CONTEXT MENU
 
 }
