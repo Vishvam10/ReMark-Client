@@ -24,11 +24,22 @@ function renderExistingAnnotations(annotations) {
     annotations.forEach((annotation) => {
         const node_xpath = annotation["node_xpath"];
         const ele = getElementByXpath(node_xpath);
-        ele.classList.add("highlight_element_strong")
+        ele.classList.add("highlight_element_strong");
     });
 
 
     // 2. On show, trigger the sidebar (or modal)
     // THIS WILL BE DONE USING THE CONTEXT MENU
 
+}
+
+
+function renderSideBar() {
+    const sideBar = SIDEBAR();
+    const body = document.getElementsByTagName('body')[0];
+    const check = document.getElementById("remark_annotations_sidebar");
+    if (check) {
+        removeHTMLElement(check);
+    }
+    body.insertAdjacentHTML("afterbegin", sideBar);
 }

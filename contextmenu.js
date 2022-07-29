@@ -30,7 +30,7 @@ function positionContextMenu(contextMenu, x, y) {
 function handleContextMenuOptions(option) {
     switch (option) {
         case "open":
-            initSidebar()
+            renderSideBar()
 
             // In the future 
         case "rename":

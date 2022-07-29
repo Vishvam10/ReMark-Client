@@ -3,6 +3,16 @@
 var website_id;
 var api_key;
 
+// DEBUG
+
+document.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.ctrlKey) {
+        renderSideBar();
+    }
+})
+
 window.addEventListener("load", (e) => {
     e.preventDefault()
     init();

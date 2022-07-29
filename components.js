@@ -116,3 +116,65 @@ const CONTEXT_MENU_MARKUP =
     </div>
 
 `
+
+const SIDEBAR = () => {
+
+    const annotation_name = "Annotation Name"
+
+
+    const markup =
+        `
+        <div class="remark_standard_sidebar" id="remark_annotations_sidebar">
+        <div class="remark_standard_modal_header">
+            <h3 class="remark_standard_modal_title">${annotation_name}</h3>
+            <div class="remark_standard_modal_actions">
+                <button class="resolve_btn">RESOLVE</button>
+                <div class="remark_standard_modal_close_btn">
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div class="remark_standard_modal_body remark_standard_sidebar_body">
+            <div class="remark_annotation">
+                <div class="remark_annotation_header">
+                    <div class="remark_annotation_user_profile">
+                        <div class="remark_annotation_user_details">
+                            <h4 class="remark_annotation_user_username">
+                                John Doe
+                            </h4>
+                            <span class="remark_annotation_user_last_modified">
+                                    Modified On : 12-02-2022 5pm
+                                </span>
+                        </div>
+                    </div>
+                    <div class="remark_annotation_actions">
+                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                        <!-- <div class="remark_annotation_actions_options">
+                                <div class="remark_annotation_actions_edit">
+                                    <a href="#">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </a>
+                                </div>
+                                <div class="remark_annotation_actions_delete">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+                <div class="remark_annotation_user_message">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                </div>
+            </div>
+        </div>
+        <div class="remark_annotation_user_input">
+            <textarea placeholder="Text input" id="comment_input"></textarea>
+            <span id="content_input_submit">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+            </span>
+        </div>
+    </div>
+    `
+
+    return markup;
+
+}

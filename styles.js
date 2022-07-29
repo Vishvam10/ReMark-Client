@@ -109,7 +109,7 @@ mark {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 10%;
+    width: 20%;
 }
 
 .remark_standard_modal_title {
@@ -119,7 +119,7 @@ mark {
     width: 70%;
     word-wrap: break-word;
     padding: 1rem;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 0rem 1rem 2rem;
     font-size: 1.6rem;
 }
 
@@ -132,21 +132,67 @@ mark {
     font-size: 1.2rem;
 }
 
+.remark_standard_sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 52rem;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
+    z-index: 1000;
+    height: 72rem;
+    background: aliceblue;
+    padding: 1rem;
+    animation: sidebar_animation 0.6s;
+}
+
+@keyframes sidebar_animation {
+    from {
+        width: 0px;
+    }
+    to {
+        width: 52rem;
+    }
+  }
+}
 
 /* 
     ********************* ANNOTATIONS *********************
 */
 
-.annotation {
+
+
+.resolve_btn {
+    background-color: var(--color-primary);
+    font-size: 1.6rem;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    padding: 1.25rem 4.5rem;
+    border-radius: 10rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 1rem; 
+    width: 10rem;
+}   
+
+.resolve_btn:hover {
+    background-color: var(--color-primary-darker);
+}
+
+.remark_annotation {
     /* margin: 1rem 0rem 0rem 0rem; */
     height: auto;
     padding: 1rem;
     /* border-radius: 1rem; */
     /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
     /* background-color: palevioletred; */
+    font-family: "arial";
 }
 
-.annotation_header {
+.remark_annotation_header {
     padding: 1rem;
     height: 5%;
     min-height: 2rem;
@@ -158,7 +204,7 @@ mark {
     /* background-color: red; */
 }
 
-.annotation_actions {
+.remark_annotation_actions {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -167,7 +213,7 @@ mark {
     /* background-color: #0d6efd; */
 }
 
-.annotation_reply {
+.remark_annotation_reply {
     margin: 0rem 0rem 0rem 5%;
 }
 
@@ -185,22 +231,23 @@ mark {
     top: 15%;
 }
 
-.user_profile {
+.remark_annotation_user_profile {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     height: 40%;
-    width: 80%;
+    width: 100%;
+    font-family: inherit;
 }
 
-.user_image {
+.remark_annotation_user_image {
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 2rem;
 }
 
-.user_details {
+.remark_annotation_user_details {
     width: 86%;
     /* background-color: orange; */
     display: flex;
@@ -209,23 +256,27 @@ mark {
     align-items: start;
     height: 100%;
     color: gray;
+    font-family: inherit;
 }
 
-.user_username {
+.remark_annotation_user_username {
     font-size: 1.2rem;
     margin: 0rem 0rem 0.4rem 0rem;
+    font-family: inherit;
 }
 
-.user_last_modified {
+.remark_annotation_user_last_modified {
     font-weight: normal;
     font-size: 0.8rem;
+    font-family: inherit;
 }
 
-.user_message {
+.remark_annotation_user_message {
     width: 80%;
     margin: -1rem 0rem 0rem 0rem;
     color: grey;
     padding: 0rem 0rem 0rem 1rem;
+    font-family: inherit;
 }
 
 
@@ -233,10 +284,43 @@ mark {
     ********************* INPUT *********************
 */
 
-.user_input {
+textarea {
+    padding: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 6rem;
+    width: 100%;
+    border-radius: 1.4rem;
+    background-color: white;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    resize: none;
+    overflow-y: scroll;
+    outline: 0px !important;
+    scrollbar-width: none;
+    margin: 1rem;
+    transition: transform 0.2s ease-in;
+    border: 0.5px solid rgb(142, 142, 142);
+}
+
+textarea:focus {
+    transform: scale(1.01);
+    border: 0.5px solid #0d6efd;
+}
+
+.remark_standard_sidebar_body {
+    height: 90%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.remark_annotation_user_input {
     /* background-color: black; */
-    margin: 1rem 0rem 0rem 1rem;
-    width: 80%;
+    position: absolute;
+    bottom: 1rem;
+    margin: 2rem 0rem 0rem 0rem;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
