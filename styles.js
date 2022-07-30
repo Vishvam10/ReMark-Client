@@ -46,11 +46,11 @@ ion-icon[name="trash-outline"] {
 }
 
 ion-icon[name="ellipsis-horizontal-outline"] {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
 }
 
 ion-icon[name="paper-plane-outline"] {
-    font-size: 2rem;
+    font-size: 2.8rem;
     rotate: 45deg;
     /* color: #0d6efd; */
 }
@@ -143,7 +143,7 @@ mark {
     box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
     z-index: 1000;
     height: 72rem;
-    background: aliceblue;
+    background: white;
     padding: 1rem;
     animation: sidebar_animation 0.6s;
 }
@@ -161,7 +161,6 @@ mark {
 /* 
     ********************* ANNOTATIONS *********************
 */
-
 
 
 .resolve_btn {
@@ -183,12 +182,11 @@ mark {
 }
 
 .remark_annotation {
-    /* margin: 1rem 0rem 0rem 0rem; */
+    margin: 1.6rem 0rem 2rem 0rem;
     height: auto;
     padding: 1rem;
-    /* border-radius: 1rem; */
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
-    /* background-color: palevioletred; */
+    border: 1px solid #e8e8e8;
+    border-radius: 1rem; 
     font-family: "arial";
 }
 
@@ -238,7 +236,6 @@ mark {
     justify-content: space-between;
     height: 40%;
     width: 100%;
-    font-family: inherit;
 }
 
 .remark_annotation_user_image {
@@ -249,34 +246,34 @@ mark {
 
 .remark_annotation_user_details {
     width: 86%;
-    /* background-color: orange; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     height: 100%;
     color: gray;
-    font-family: inherit;
 }
 
 .remark_annotation_user_username {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
     margin: 0rem 0rem 0.4rem 0rem;
-    font-family: inherit;
 }
 
 .remark_annotation_user_last_modified {
     font-weight: normal;
-    font-size: 0.8rem;
-    font-family: inherit;
+    font-size: 1rem;
+    margin: -0.7rem 0rem 0rem 0rem;
 }
 
 .remark_annotation_user_message {
-    width: 80%;
-    margin: -1rem 0rem 0rem 0rem;
+    width: 90%;
+    margin: 1rem 0rem 1rem 0rem;
     color: grey;
     padding: 0rem 0rem 0rem 1rem;
     font-family: inherit;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
 }
 
 
@@ -293,26 +290,28 @@ textarea {
     width: 100%;
     border-radius: 1.4rem;
     background-color: white;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     resize: none;
     overflow-y: scroll;
     outline: 0px !important;
     scrollbar-width: none;
     margin: 1rem;
     transition: transform 0.2s ease-in;
-    border: 0.5px solid rgb(142, 142, 142);
+    border: 1px solid #9c9c9c;
+}
+
+textarea:hover {
+    border: 0.5px solid #444444;
 }
 
 textarea:focus {
-    transform: scale(1.01);
     border: 0.5px solid #0d6efd;
 }
 
 .remark_standard_sidebar_body {
-    height: 90%;
+    height: 80%;
     overflow-x: hidden;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .remark_annotation_user_input {

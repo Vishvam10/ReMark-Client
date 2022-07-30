@@ -128,7 +128,7 @@ const SIDEBAR = () => {
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                <button class="resolve_btn">RESOLVE</button>
+                <button class="btn_resolve">RESOLVE</button>
                 <div class="remark_standard_modal_close_btn">
                     <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
                 </div>
@@ -162,7 +162,7 @@ const SIDEBAR = () => {
                     </div>
                 </div>
                 <div class="remark_annotation_user_message">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt excepturi ipsum porro sapiente, voluptatum labore optio mollitia, assumenda impedit aliquam accusantium, dicta praesentium enim non corrupti vero voluptatem amet? Autem.</p>
                 </div>
             </div>
         </div>

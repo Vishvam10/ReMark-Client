@@ -48,9 +48,8 @@ function highlightElements() {
 }
 
 function handleCloseModal(ele) {
-    // removeHTMLElement(ele);
-    // console.log("REMOVED : ", ele);
-    ele.classList.toggle("hide")
+    removeHTMLElement(ele);
+    console.log("REMOVED : ", ele);
 }
 
 function generateRandomID(len) {
