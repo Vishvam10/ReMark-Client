@@ -36,13 +36,19 @@ ion-icon[name="open-outline"] {
 }
 
 ion-icon[name="create-outline"] {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+}
+
+ion-icon[name="create-outline"]:hover {
     color: #0d6efd;
 }
 
 ion-icon[name="trash-outline"] {
-    // font-size: 1.2rem;
-    color: #0d6efd;
+    font-size: 1.6rem;
+}
+
+ion-icon[name="trash-outline"]:hover {
+    color: var(--color-tertiary);
 }
 
 ion-icon[name="ellipsis-horizontal-outline"] {
@@ -59,6 +65,26 @@ ion-icon[name="paper-plane-outline"]:hover {
     font-size: 3.2rem;
     rotate: 45deg;
     color: #0d6efd;
+}
+
+ion-icon[name="arrow-up-outline"] {
+    font-size: 1.6rem;
+    margin: 0rem 0rem -0.3rem 0.4rem;
+}
+
+ion-icon[name="arrow-up-outline"]:hover {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+}
+
+ion-icon[name="arrow-down-outline"] {
+    font-size: 1.6rem;
+    margin: 0rem 0rem -0.3rem 0.4rem;
+}
+
+ion-icon[name="arrow-down-outline"]:hover {
+    font-size: 1.8rem;
+    color: var(--color-tertiary);
 }
 
 mark {
@@ -202,9 +228,9 @@ mark {
     /* background-color: red; */
 }
 
-.remark_annotation_actions {
+.remark_comment_actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 20%;
@@ -267,7 +293,7 @@ mark {
 }
 
 .remark_annotation_user_message {
-    width: 90%;
+    width: 97%;
     margin: 1rem 0rem 1rem 0rem;
     color: grey;
     padding: 0rem 0rem 0rem 1rem;
@@ -276,6 +302,14 @@ mark {
     line-height: 1.8rem;
 }
 
+.remark_annotation_vote {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 24%;
+    margin: 2rem 1rem 1rem 1rem;
+}
 
 /* 
     ********************* INPUT *********************

@@ -8,7 +8,6 @@
 async function createComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
-    console.log(bodyData);
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: 'POST',
@@ -19,6 +18,23 @@ async function createComment(bodyData) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyData)
+    })
+    const data = await res.json();
+    return data;
+}
+
+async function deleteComment(comment_id) {
+    const url = `${BASE_API_URL}/api/comment/${comment_id}`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'API_KEY': `${api_key}`,
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': `Bearer ${auth_token}`,
+            'Content-Type': 'application/json'
+        },
     })
     const data = await res.json();
     return data;

@@ -174,22 +174,23 @@ const COMMENTS_MARKUP = (comment) => {
                     </span>
                 </div>
             </div>
-            <div class="remark_annotation_actions">
-                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                <!-- <div class="remark_annotation_actions_options">
-                        <div class="remark_annotation_actions_edit">
-                            <a href="#">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </a>
-                        </div>
-                        <div class="remark_annotation_actions_delete">
-                            <ion-icon name="trash-outline"></ion-icon>
-                        </div>
-                </div> -->
+            <div class="remark_comment_actions">
+                <ion-icon name="create-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
+                <ion-icon name="trash-outline" id="${comment["comment_id"]}" onclick="handleDeleteComment(this.id)"></ion-icon>
             </div>
         </div>
         <div class="remark_annotation_user_message">
             <p>${comment["content"]}</p>
+        </div>
+        <div class="remark_annotation_vote">
+            <span class="remark_annotation_vote_option">
+                ${comment["upvotes"]}
+                <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(remark_annotations_sidebar)data-comment_id="${comment["comment_id"]}"></ion-icon>
+            </span>
+            <span class="remark_annotation_vote_option">
+                ${comment["downvotes"]}
+                <ion-icon name="arrow-down-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
+            </span>
         </div>
     </div>
     `
@@ -233,4 +234,12 @@ function handleCreateComment() {
     data["user_name"] = user_name;
     data["parent_node"] = null;
     createComment(data);
+}
+
+
+
+
+function handleDeleteComment(comment_id) {
+    // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
+    deleteComment(comment_id);
 }
