@@ -4,11 +4,11 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 <br>
 
-# Todo
+# Major Todo
 
 - [] **Create a class to initialize and store globals**
 
-- [] **Create a function to make overlays**
+- [] ~~**Create a function to make overlays**~~
 
 - [] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
 
@@ -19,3 +19,11 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [] **Bundle with `Parcel`**
 
 - [] **Testing**
+
+<br>
+
+# Minor Todo
+
+- [] Update DOM dynamically
+- [] Fix the login form
+- [] Add signup form
