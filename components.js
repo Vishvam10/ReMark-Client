@@ -118,7 +118,7 @@ const SIDEBAR = (xpath) => {
     let comment_markup = ""
 
     comments.forEach((comment) => {
-        const m = COMMENTS_MARKUP();
+        const m = COMMENTS_MARKUP(comment);
         comment_markup += m;
     });
 
@@ -140,7 +140,7 @@ const SIDEBAR = (xpath) => {
         <div class="remark_annotation_user_input">
             <textarea placeholder="Text input" id="remark_comment_input" data-annotation_id=${annotation_id}></textarea>
             <span id="content_input_submit">
-                <ion-icon name="paper-plane-outline" class="remark_" onclick="handleCreateComment(remark_comment_input)">></ion-icon>
+                <ion-icon name="paper-plane-outline" class="remark_" onclick="handleCreateComment(remark_comment_input)"></ion-icon>
             </span>
         </div>
     </div>
@@ -150,7 +150,15 @@ const SIDEBAR = (xpath) => {
 
 }
 
-const COMMENTS_MARKUP = () => {
+const COMMENTS_MARKUP = (comment) => {
+
+    console.log(comment);
+    let d;
+    if (comment["updated_at"]) {
+        d = comment["updated_at"];
+    } else {
+        d = comment["created_at"]
+    }
 
     const markup =
         `
@@ -159,10 +167,10 @@ const COMMENTS_MARKUP = () => {
             <div class="remark_annotation_user_profile">
                 <div class="remark_annotation_user_details">
                     <h4 class="remark_annotation_user_username">
-                        John
+                        ${comment["created_by"]}
                     </h4>
                     <span class="remark_annotation_user_last_modified">
-                        Modified On : Monday
+                        Modified On : ${d}
                     </span>
                 </div>
             </div>
@@ -181,8 +189,7 @@ const COMMENTS_MARKUP = () => {
             </div>
         </div>
         <div class="remark_annotation_user_message">
-            <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque sapiente culpa perspiciatis alias officia necessitatibus distinctio dolore odit perferendis optio blanditiis cumque, ad, officiis amet magnam! Modi alias iusto voluptatum?</p>
+            <p>${comment["content"]}</p>
         </div>
     </div>
     `
@@ -192,14 +199,11 @@ const COMMENTS_MARKUP = () => {
 
 
 
-
-
-
-
 function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
     const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
     for (var pair of form.entries()) {
         if (pair[0] == "annotation_name" || pair[0] == "tags") {
             if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
@@ -211,6 +215,7 @@ function handleCreateAnnotation(formElement) {
     }
     data["website_uri"] = window.location.href;
     data["user_id"] = user_id;
+    data["user_name"] = user_name;
     data["website_id"] = website_id;
     createAnnotation(data);
 }
@@ -218,10 +223,14 @@ function handleCreateAnnotation(formElement) {
 function handleCreateComment() {
     let data = {}
     const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
     const textarea = document.getElementById("remark_comment_input");
     const text = textarea.value;
     data["content"] = text;
+    data["content_html"] = "";
     data["annotation_id"] = textarea.dataset.annotation_id;
-    data["created_by"] = user_id;
+    data["user_id"] = user_id;
+    data["user_name"] = user_name;
     data["parent_node"] = null;
+    createComment(data);
 }
