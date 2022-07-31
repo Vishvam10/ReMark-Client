@@ -56,7 +56,7 @@ ion-icon[name="paper-plane-outline"] {
 }
 
 ion-icon[name="paper-plane-outline"]:hover {
-    font-size: 2rem;
+    font-size: 3.2rem;
     rotate: 45deg;
     color: #0d6efd;
 }
@@ -287,7 +287,7 @@ textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 6rem;
-    width: 100%;
+    width: 90%;
     border-radius: 1.4rem;
     background-color: white;
     resize: none;
@@ -337,6 +337,10 @@ textarea:focus {
 
 #loginForm {
     width: 80%;
+}
+
+#createCommentForm {
+    width: 100%;
 }
 
 .remark_form_fields {

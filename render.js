@@ -19,23 +19,26 @@ function renderNewAnnotationModal(node, html_tag) {
 }
 
 
-function renderExistingAnnotations(annotations) {
+function renderExistingAnnotations() {
+
+    const annotations = remarkGlobalData["annotations"];
+
     // 1. Indicate the elements on which the annotations are present
     annotations.forEach((annotation) => {
         const node_xpath = annotation["node_xpath"];
         const ele = getElementByXpath(node_xpath);
         ele.classList.add("highlight_element_strong");
+        ele.dataset.xpath = node_xpath;
     });
 
 
     // 2. On show, trigger the sidebar (or modal)
     // THIS WILL BE DONE USING THE CONTEXT MENU
-
 }
 
 
-function renderSideBar() {
-    const sideBar = SIDEBAR();
+function renderSideBar(xpath) {
+    const sideBar = SIDEBAR(xpath);
     const body = document.getElementsByTagName('body')[0];
     const check = document.getElementById("remark_annotations_sidebar");
     if (check) {

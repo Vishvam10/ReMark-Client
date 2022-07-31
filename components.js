@@ -83,6 +83,119 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
     return markup;
 }
 
+const CONTEXT_MENU_MARKUP =
+    `
+    <div class="remark_contextmenu_wrapper" id="remark_context_menu">
+        <div class="remark_contextmenu_content">
+            <ul class="remark_contextmenu_menu_list">
+                <li class="remark_item">
+                    <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                    <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open In Sidebar</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+`
+
+const SIDEBAR = (xpath) => {
+
+    const annotations = remarkGlobalData["annotations"];
+    let curAnnotation;
+
+    annotations.forEach((annotation) => {
+        if (annotation["node_xpath"] == xpath) {
+            curAnnotation = annotation;
+        }
+    });
+
+    console.log(curAnnotation);
+
+    const annotation_name = curAnnotation["annotation_name"];
+    const annotation_id = curAnnotation["annotation_id"];
+    const comments = curAnnotation["comments"];
+
+    let comment_markup = ""
+
+    comments.forEach((comment) => {
+        const m = COMMENTS_MARKUP();
+        comment_markup += m;
+    });
+
+    const markup =
+        `
+        <div class="remark_standard_sidebar" id="remark_annotations_sidebar">
+        <div class="remark_standard_modal_header">
+            <h3 class="remark_standard_modal_title">${annotation_name}</h3>
+            <div class="remark_standard_modal_actions">
+                <button class="btn_resolve">RESOLVE</button>
+                <div class="remark_standard_modal_close_btn">
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div class="remark_standard_modal_body remark_standard_sidebar_body">
+            ${comment_markup}
+        </div>
+        <div class="remark_annotation_user_input">
+            <textarea placeholder="Text input" id="remark_comment_input" data-annotation_id=${annotation_id}></textarea>
+            <span id="content_input_submit">
+                <ion-icon name="paper-plane-outline" class="remark_" onclick="handleCreateComment(remark_comment_input)">></ion-icon>
+            </span>
+        </div>
+    </div>
+    `
+
+    return markup;
+
+}
+
+const COMMENTS_MARKUP = () => {
+
+    const markup =
+        `
+    <div class="remark_annotation">
+        <div class="remark_annotation_header">
+            <div class="remark_annotation_user_profile">
+                <div class="remark_annotation_user_details">
+                    <h4 class="remark_annotation_user_username">
+                        John
+                    </h4>
+                    <span class="remark_annotation_user_last_modified">
+                        Modified On : Monday
+                    </span>
+                </div>
+            </div>
+            <div class="remark_annotation_actions">
+                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                <!-- <div class="remark_annotation_actions_options">
+                        <div class="remark_annotation_actions_edit">
+                            <a href="#">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </a>
+                        </div>
+                        <div class="remark_annotation_actions_delete">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="remark_annotation_user_message">
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque sapiente culpa perspiciatis alias officia necessitatibus distinctio dolore odit perferendis optio blanditiis cumque, ad, officiis amet magnam! Modi alias iusto voluptatum?</p>
+        </div>
+    </div>
+    `
+
+    return markup;
+}
+
+
+
+
+
+
+
 function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
@@ -102,79 +215,13 @@ function handleCreateAnnotation(formElement) {
     createAnnotation(data);
 }
 
-const CONTEXT_MENU_MARKUP =
-    `
-    <div class="remark_contextmenu_wrapper" id="remark_context_menu">
-        <div class="remark_contextmenu_content">
-            <ul class="remark_contextmenu_menu_list">
-                <li class="remark_item">
-                    <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
-                    <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open In Sidebar</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-`
-
-const SIDEBAR = () => {
-
-    const annotation_name = "Annotation Name"
-
-
-    const markup =
-        `
-        <div class="remark_standard_sidebar" id="remark_annotations_sidebar">
-        <div class="remark_standard_modal_header">
-            <h3 class="remark_standard_modal_title">${annotation_name}</h3>
-            <div class="remark_standard_modal_actions">
-                <button class="btn_resolve">RESOLVE</button>
-                <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
-                </div>
-            </div>
-        </div>
-        <div class="remark_standard_modal_body remark_standard_sidebar_body">
-            <div class="remark_annotation">
-                <div class="remark_annotation_header">
-                    <div class="remark_annotation_user_profile">
-                        <div class="remark_annotation_user_details">
-                            <h4 class="remark_annotation_user_username">
-                                John Doe
-                            </h4>
-                            <span class="remark_annotation_user_last_modified">
-                                    Modified On : 12-02-2022 5pm
-                                </span>
-                        </div>
-                    </div>
-                    <div class="remark_annotation_actions">
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                        <!-- <div class="remark_annotation_actions_options">
-                                <div class="remark_annotation_actions_edit">
-                                    <a href="#">
-                                        <ion-icon name="create-outline"></ion-icon>
-                                    </a>
-                                </div>
-                                <div class="remark_annotation_actions_delete">
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </div>
-                            </div> -->
-                    </div>
-                </div>
-                <div class="remark_annotation_user_message">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt excepturi ipsum porro sapiente, voluptatum labore optio mollitia, assumenda impedit aliquam accusantium, dicta praesentium enim non corrupti vero voluptatem amet? Autem.</p>
-                </div>
-            </div>
-        </div>
-        <div class="remark_annotation_user_input">
-            <textarea placeholder="Text input" id="comment_input"></textarea>
-            <span id="content_input_submit">
-                <ion-icon name="paper-plane-outline"></ion-icon>
-            </span>
-        </div>
-    </div>
-    `
-
-    return markup;
-
+function handleCreateComment() {
+    let data = {}
+    const user_id = localStorage.getItem("user_id");
+    const textarea = document.getElementById("remark_comment_input");
+    const text = textarea.value;
+    data["content"] = text;
+    data["annotation_id"] = textarea.dataset.annotation_id;
+    data["created_by"] = user_id;
+    data["parent_node"] = null;
 }

@@ -1,17 +1,21 @@
 //- INITIALIZE
 
-var website_id;
-var api_key;
+var remarkGlobalData = {
+    "website_id": "",
+    "api_key": "",
+    "annotations": [],
+    "theme": "light",
+}
 
 // DEBUG
 
-document.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.ctrlKey) {
-        renderSideBar();
-    }
-})
+// document.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     if (e.ctrlKey) {
+//         renderSideBar();
+//     }
+// })
 
 window.addEventListener("load", (e) => {
     e.preventDefault()
@@ -80,12 +84,15 @@ async function startAnnotationProcess() {
     console.log("REMARK STARTED");
 
     // 1. Check for API_KEY
-    api_key = remarkScriptTag.dataset.api_key;
+    const api_key = remarkScriptTag.dataset.api_key;
 
     if ((!api_key) || (api_key == "")) {
         //- ERROR HANDLING REQUIRED
         console.log("Invalid API KEY");
+    } else {
+        remarkGlobalData["api_key"] = api_key;
     }
+
 
     // 2. Verify API_KEY
     const token_status = await verifyToken(api_key);
@@ -100,8 +107,6 @@ async function startAnnotationProcess() {
 
     // getUserPrefence()
 
-    dark_theme = false
-    layout = "modal"
 
     // 3. Load and render existing annotations if any
     website_id = remarkScriptTag.dataset.website_id
@@ -111,8 +116,10 @@ async function startAnnotationProcess() {
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);
+
     if (annotations.length > 0) {
-        renderExistingAnnotations(annotations);
+        remarkGlobalData["annotations"] = annotations;
+        renderExistingAnnotations();
     }
 
 
@@ -151,7 +158,8 @@ async function startAnnotationProcess() {
                 removeHTMLElement(contextMenu);
             }
             e.preventDefault();
-            overrideContextMenu(e);
+            const xpath = e.target.dataset.xpath
+            overrideContextMenu(e, xpath);
 
         }
     })

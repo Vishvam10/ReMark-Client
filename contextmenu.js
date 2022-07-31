@@ -1,4 +1,4 @@
-function overrideContextMenu(e) {
+function overrideContextMenu(e, xpath) {
     const body = document.getElementsByTagName("body")[0];
     body.insertAdjacentHTML("afterbegin", CONTEXT_MENU_MARKUP);
     const contextMenu = document.getElementById("remark_context_menu");
@@ -7,15 +7,14 @@ function overrideContextMenu(e) {
     const posY = e.clientY;
     positionContextMenu(contextMenu, posX, posY);
 
-    document.addEventListener("click", (e) => {
+    contextMenu.addEventListener("click", (e) => {
         const option = e.target.dataset.remark_contextmenu_option;
-        handleContextMenuOptions(option);
-
-        setTimeout(() => {
-            if (contextMenu) {
+        handleContextMenuOptions(option, xpath);
+        if (contextMenu) {
+            setTimeout(() => {
                 removeHTMLElement(contextMenu)
-            }
-        }, 100);
+            }, 100);
+        }
     })
 }
 
@@ -27,10 +26,10 @@ function positionContextMenu(contextMenu, x, y) {
     i.opacity = "1";
 }
 
-function handleContextMenuOptions(option) {
+function handleContextMenuOptions(option, xpath) {
     switch (option) {
         case "open":
-            renderSideBar()
+            renderSideBar(xpath);
 
             // In the future 
         case "rename":

@@ -1,5 +1,6 @@
 async function getAnnotationByWebsiteID() {
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;
+    const api_key = remarkGlobalData["api_key"];
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -16,6 +17,7 @@ async function getAnnotationByWebsiteID() {
 async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     console.log(bodyData);
+    const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: 'POST',
