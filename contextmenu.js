@@ -1,6 +1,10 @@
-function overrideContextMenu(e, xpath) {
+function overrideContextMenu(e, data) {
     const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", CONTEXT_MENU_MARKUP);
+    console.log(data["annotation_present"]);
+    const contextMenuMarkup = CONTEXT_MENU_MARKUP(data["annotation_present"])
+
+    body.insertAdjacentHTML("afterbegin", contextMenuMarkup);
+
     const contextMenu = document.getElementById("remark_context_menu");
 
     const posX = e.clientX;
@@ -8,8 +12,10 @@ function overrideContextMenu(e, xpath) {
     positionContextMenu(contextMenu, posX, posY);
 
     contextMenu.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         const option = e.target.dataset.remark_contextmenu_option;
-        handleContextMenuOptions(option, xpath);
+        handleContextMenuOptions(option, data);
         if (contextMenu) {
             setTimeout(() => {
                 removeHTMLElement(contextMenu)
@@ -26,13 +32,15 @@ function positionContextMenu(contextMenu, x, y) {
     i.opacity = "1";
 }
 
-function handleContextMenuOptions(option, xpath) {
+function handleContextMenuOptions(option, data) {
     switch (option) {
         case "open":
-            renderSideBar(xpath);
+            renderSideBar(data["xpath"]);
+            break;
         case "create":
-
-            // In the future 
+            console.log("CREATE REACHED");
+            //* TODO : CHECK IF IT IS A NEW ANNOTATION
+            renderNewAnnotationModal(data["node"], data["tag"]);
         case "rename":
             break;
         case "delete":

@@ -8,16 +8,6 @@ var remarkGlobalData = {
     "currentXPath": "",
 }
 
-// DEBUG
-
-// document.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     if (e.ctrlKey) {
-//         renderSideBar();
-//     }
-// })
-
 window.addEventListener("load", (e) => {
     e.preventDefault()
     init();
@@ -47,16 +37,11 @@ function init() {
         const loginStatus = isLoggedIn();
 
         if (!loginStatus) {
-            body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
-            const loginForm = document.getElementById("loginForm");
-
-            const loginBtn = document.getElementById("loginBtn");
-            loginBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                loginUser(loginForm);
-            })
+            renderLoginModal();
         } else {
-            startAnnotationProcess();
+            if (localStorage.getItem("user_authority") == "admin") {
+                startAnnotationProcess();
+            }
         }
     });
 
@@ -152,16 +137,86 @@ async function startAnnotationProcess() {
     });
 
     document.addEventListener("contextmenu", (e) => {
-        const className = e.target.className;
-        if (className.includes("highlight_element_strong")) {
-            const contextMenu = document.getElementById("remark_context_menu");
-            if (contextMenu) {
-                removeHTMLElement(contextMenu);
-            }
-            e.preventDefault();
-            const xpath = e.target.dataset.xpath
-            overrideContextMenu(e, xpath);
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("CONTEXT MENU : ", e);
 
+        const node = e.target;
+        const className = node.className;
+        const tag = node.tagName;
+
+        const contextMenu = document.getElementById("remark_context_menu");
+
+        if (contextMenu) {
+            removeHTMLElement(contextMenu);
+        }
+
+        if (className) {
+            if (className.includes("remark_")) {
+                return;
+            }
+        }
+        if (className.includes("highlight_element_light")) {
+            console.log("IN LIGHT");
+            if (VALID_HTML_ELEMENTS.includes(tag)) {
+
+                let xpath = getNodeXpath(node);
+                xpath = `//${xpath.toLowerCase()}`
+
+                const contextMenuData = {
+                    node,
+                    xpath,
+                    tag,
+                    className,
+                    "annotation_present": false
+                }
+
+                overrideContextMenu(e, contextMenuData);
+            }
+
+        } else if (className.includes("highlight_element_strong")) {
+            console.log("IN STRONG");
+            if (VALID_HTML_ELEMENTS.includes(tag)) {
+
+                let xpath = getNodeXpath(node);
+                xpath = `//${xpath.toLowerCase()}`
+
+                const contextMenuData = {
+                    node,
+                    xpath,
+                    tag,
+                    className,
+                    "annotation_present": true
+                }
+
+                overrideContextMenu(e, contextMenuData);
+            }
+        }
+    })
+
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "Escape") {
+            const create_modal_check = document.getElementById("remark_create_annotation_modal");
+
+            const sidebar_check = document.getElementById("remark_annotations_sidebar");
+
+            const login_modal_check = document.getElementById("remark_login_modal");
+
+            const signup_modal_check = document.getElementById("remark_signup_modal");
+
+            if (create_modal_check) {
+                removeHTMLElement(create_modal_check);
+            }
+            if (sidebar_check) {
+                removeHTMLElement(sidebar_check);
+            }
+            if (login_modal_check) {
+                removeHTMLElement(login_modal_check);
+            }
+            if (signup_modal_check) {
+                removeHTMLElement(signup_modal_check);
+            }
         }
     })
 

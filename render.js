@@ -4,8 +4,10 @@ function renderNewAnnotationModal(node, html_tag) {
         console.log("Create annotation modal already present.");
         return;
     }
+
     let node_xpath = getNodeXpath(node);
     node_xpath = `//${node_xpath.toLowerCase()}`
+
     const body = document.getElementsByTagName('body')[0];
     const xpath_check = getElementByXpath(node_xpath);
 
@@ -17,7 +19,6 @@ function renderNewAnnotationModal(node, html_tag) {
         return;
     }
 }
-
 
 function renderExistingAnnotations() {
 
@@ -36,7 +37,6 @@ function renderExistingAnnotations() {
     // THIS WILL BE DONE USING THE CONTEXT MENU
 }
 
-
 function renderSideBar(xpath) {
     const sideBar = SIDEBAR(xpath);
     const body = document.getElementsByTagName('body')[0];
@@ -46,4 +46,14 @@ function renderSideBar(xpath) {
         removeHTMLElement(check);
     }
     body.insertAdjacentHTML("afterbegin", sideBar);
+}
+
+function renderLoginModal() {
+    const body = document.getElementsByTagName('body')[0];
+    body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
+}
+
+function renderSignupModal() {
+    const body = document.getElementsByTagName('body')[0];
+    body.insertAdjacentHTML("afterbegin", SIGNUP_MARKUP);
 }

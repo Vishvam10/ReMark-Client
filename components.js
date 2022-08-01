@@ -1,27 +1,124 @@
+//    ********************** MARKUPS *************************
+
+
 const LOGIN_MARKUP =
     `
-    
-    <div class="signup_container">
-        <form id="loginForm">
-            <div class="form_fields">
-                <label for="username" class="remark_form_label">Username</label>
-                <input type="text" name="username" class="form_input" id="username">
+    <div class="remark_standard_modal" id="remark_login_modal">
+        <div class="remark_standard_modal_header">
+            <h3 class="remark_standard_modal_title">Login</h3>
+            <div class="remark_standard_modal_actions">
+                <div class="remark_standard_modal_close_btn">
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_login_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                </div>
             </div>
-            <div class="form_fields">
-                <label for="password" class="remark_form_label">Password</label>
-                <input type="password" name="password" class="form_input" id="password">
+        </div>
+        <div class="remark_standard_modal_body">
+            <form id="loginForm" class="remark_form">
+                <div class="remark_form_fields">
+                    <label for="username" class="remark_form_label">Username</label>
+                    <input type="text" name="username" class="remark_form_input" id="username">
+                </div>
+                <div class="remark_form_fields">
+                    <label for="password" class="remark_form_label">Password </label>
+                    <input type="password" name="password" class="remark_form_input" id="password">
+                </div>
+                <div class="remark_form_fields">
+                    <label for="authority" class="remark_form_label">Authority</label>
+                    <input type="authority" name="authority" class="remark_form_input" id="authority">
+                </div>
+                <div class="remark_form_fields">
+                    <button name="submit" class="remark_standard_button" onclick="handleLoginUser(event, loginForm)">Login</button>
+                </div>
+                <div class="remark_form_fields">
+                <p>Don't have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_login_modal)">Sign up</span></p>
+                </div>
+            </form>
+        </div>
+    </div>
+`
+
+const SIGNUP_MARKUP =
+    `    
+    <div class="remark_standard_modal" id="remark_signup_modal">
+        <div class="remark_standard_modal_header">
+            <h3 class="remark_standard_modal_title">Signup</h3>
+            <div class="remark_standard_modal_actions">
+                <div class="remark_standard_modal_close_btn">
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_signup_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                </div>
             </div>
-            <div class="form_fields">
-                <label for="authority" class="remark_form_label">Authority</label>
-                <input type="text" name="authority" class="form_input" id="authority">
-            </div>
-            <div class="form_fields">
-                <button name="submit" class="form_submit" id="loginBtn">Login</button>
-            </div>
-        </form>
+        </div>
+        <div class="remark_standard_modal_body">
+            <form id="signupForm" class="remark_form">
+                <div class="remark_form_fields">
+                    <label for="username" class="remark_form_label">Username</label>
+                    <input type="text" name="username" class="remark_form_input" id="username">
+                </div>
+                <div class="remark_form_fields">
+                    <label for="password" class="remark_form_label">Password </label>
+                    <input type="password" name="password" class="remark_form_input" id="password">
+                </div>
+                <div class="remark_form_fields">
+                    <label for="email_id" class="remark_form_label">Email ID</label>
+                    <input type="email" name="email_id" class="remark_form_input" id="email_id">
+                </div>
+                <div class="remark_form_fields">
+                    <label for="bio" class="remark_form_label">Bio</label>
+                    <input name="bio" class="remark_form_input" id="bio">
+                </div>
+                <div class="remark_form_fields">
+                    <button name="submit" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
+                </div>
+                <div class="remark_form_fields">
+                <p>Already have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_signup_modal)">Login</span></p>
+                </div>
+            </form>
+        </div>
     </div>
 
 `
+
+const CONTEXT_MENU_MARKUP = (annotation_present) => {
+
+    let markup = ""
+    if (annotation_present) {
+        markup =
+            `
+            <div class="remark_contextmenu_wrapper" id="remark_context_menu">
+                <div class="remark_contextmenu_content">
+                    <ul class="remark_contextmenu_menu_list">
+                        <li class="remark_item">
+                            <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open Annotation</span>
+                        </li>
+                        <li class="remark_item">
+                            <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="rename">Rename Annotation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `
+    } else {
+        markup =
+            `
+            <div class="remark_contextmenu_wrapper" id="remark_context_menu">
+                <div class="remark_contextmenu_content">
+                    <ul class="remark_contextmenu_menu_list">
+                        <li class="remark_item">
+                            <ion-icon name="add-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="create">Create Annotation</span>
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `
+
+    }
+    return markup;
+}
+
 
 const ERROR_MODAL = (type) => {
     let styles;
@@ -82,21 +179,6 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
     `
     return markup;
 }
-
-const CONTEXT_MENU_MARKUP =
-    `
-    <div class="remark_contextmenu_wrapper" id="remark_context_menu">
-        <div class="remark_contextmenu_content">
-            <ul class="remark_contextmenu_menu_list">
-                <li class="remark_item">
-                    <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
-                    <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open In Sidebar</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-`
 
 const SIDEBAR = (xpath) => {
 
@@ -199,6 +281,12 @@ const COMMENTS_MARKUP = (comment) => {
     return markup;
 }
 
+
+
+
+//    ********************** HANDLERS *************************
+
+
 function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
@@ -232,10 +320,33 @@ function handleCreateComment() {
     data["user_id"] = user_id;
     data["user_name"] = user_name;
     data["parent_node"] = null;
+    textarea.value = "";
     createComment(data);
 }
 
 function handleDeleteComment(comment_id) {
     // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
     deleteComment(comment_id);
+}
+
+function handleLoginSignupSwitch(component) {
+    if (component) {
+        if (component.id == "remark_login_modal") {
+            removeHTMLElement(component);
+            renderSignupModal()
+        } else {
+            removeHTMLElement(component);
+            renderLoginModal()
+        }
+    }
+}
+
+function handleLoginUser(e, formElement) {
+    e.preventDefault();
+    loginUser(formElement);
+}
+
+function handleSignupUser(e, formElement) {
+    e.preventDefault();
+    signupUser(formElement);
 }
