@@ -5,6 +5,7 @@ var remarkGlobalData = {
     "api_key": "",
     "annotations": [],
     "theme": "light",
+    "currentXPath": "",
 }
 
 // DEBUG

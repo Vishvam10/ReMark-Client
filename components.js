@@ -46,39 +46,39 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
 
     const markup =
         `
-    <div class="remark_standard_modal" id="remark_create_annotation_modal">
-        <div class="remark_standard_modal_header">
-            <h3 class="remark_standard_modal_title">Create Annotation</h3>
-            <div class="remark_standard_modal_actions">
-                <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_create_annotation_modal)"></ion-icon>
+        <div class="remark_standard_modal" id="remark_create_annotation_modal">
+            <div class="remark_standard_modal_header">
+                <h3 class="remark_standard_modal_title">Create Annotation</h3>
+                <div class="remark_standard_modal_actions">
+                    <div class="remark_standard_modal_close_btn">
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_create_annotation_modal)"></ion-icon>
+                    </div>
                 </div>
             </div>
+            <div class="remark_standard_modal_body">
+                <form id="createAnnotationForm" class="remark_form">
+                    <div class="remark_form_fields">
+                        <label for="annotation_name" class="remark_form_label">Annotation Name</label>
+                        <input type="text" name="annotation_name" class="remark_form_input" id="annotation_name">
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
+                        <input type="tags" name="tags" class="remark_form_input" id="tags">
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="node_xpath" class="remark_form_label">Node XPath</label>
+                        <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value=${node_xpath} readonly>
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="tag" class="remark_form_label">Selected Node</label>
+                        <input type="tag" name="tag" class="remark_form_input" id="tag" value="<${node.toLowerCase()}></${node.toLowerCase()}>" readonly disabled>
+                    </div>
+                    <div class="remark_form_fields">
+                        <button name="submit" class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm)">Create</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="remark_standard_modal_body">
-            <form id="createAnnotationForm" class="remark_form">
-                <div class="remark_form_fields">
-                    <label for="annotation_name" class="remark_form_label">Annotation Name</label>
-                    <input type="text" name="annotation_name" class="remark_form_input" id="annotation_name">
-                </div>
-                <div class="remark_form_fields">
-                    <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
-                    <input type="tags" name="tags" class="remark_form_input" id="tags">
-                </div>
-                <div class="remark_form_fields">
-                    <label for="node_xpath" class="remark_form_label">Node XPath</label>
-                    <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value=${node_xpath} readonly>
-                </div>
-                <div class="remark_form_fields">
-                    <label for="tag" class="remark_form_label">Selected Node</label>
-                    <input type="tag" name="tag" class="remark_form_input" id="tag" value="<${node.toLowerCase()}></${node.toLowerCase()}>" readonly disabled>
-                </div>
-                <div class="remark_form_fields">
-                    <button name="submit" class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm)">Create</button>
-                </div>
-            </form>
-        </div>
-    </div>
     `
     return markup;
 }
@@ -101,6 +101,8 @@ const CONTEXT_MENU_MARKUP =
 const SIDEBAR = (xpath) => {
 
     const annotations = remarkGlobalData["annotations"];
+    remarkGlobalData["currentXPath"] = xpath;
+
     let curAnnotation;
 
     annotations.forEach((annotation) => {
@@ -134,7 +136,7 @@ const SIDEBAR = (xpath) => {
                 </div>
             </div>
         </div>
-        <div class="remark_standard_modal_body remark_standard_sidebar_body">
+        <div class="remark_standard_modal_body remark_standard_sidebar_body" id="remark_comments_body">
             ${comment_markup}
         </div>
         <div class="remark_annotation_user_input">
@@ -151,7 +153,6 @@ const SIDEBAR = (xpath) => {
 }
 
 const COMMENTS_MARKUP = (comment) => {
-
     console.log(comment);
     let d;
     if (comment["updated_at"]) {
@@ -162,43 +163,41 @@ const COMMENTS_MARKUP = (comment) => {
 
     const markup =
         `
-    <div class="remark_annotation">
-        <div class="remark_annotation_header">
-            <div class="remark_annotation_user_profile">
-                <div class="remark_annotation_user_details">
-                    <h4 class="remark_annotation_user_username">
-                        ${comment["created_by"]}
-                    </h4>
-                    <span class="remark_annotation_user_last_modified">
-                        Modified On : ${d}
-                    </span>
+        <div class="remark_annotation" id="${comment["comment_id"]}">
+            <div class="remark_annotation_header">
+                <div class="remark_annotation_user_profile">
+                    <div class="remark_annotation_user_details">
+                        <h4 class="remark_annotation_user_username">
+                            ${comment["created_by"]}
+                        </h4>
+                        <span class="remark_annotation_user_last_modified">
+                            Modified On : ${d}
+                        </span>
+                    </div>
+                </div>
+                <div class="remark_comment_actions">
+                    <ion-icon name="create-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
+                    <ion-icon name="trash-outline" id="${comment["comment_id"]}" onclick="handleDeleteComment(this.id)"></ion-icon>
                 </div>
             </div>
-            <div class="remark_comment_actions">
-                <ion-icon name="create-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
-                <ion-icon name="trash-outline" id="${comment["comment_id"]}" onclick="handleDeleteComment(this.id)"></ion-icon>
+            <div class="remark_annotation_user_message">
+                <p>${comment["content"]}</p>
+            </div>
+            <div class="remark_annotation_vote">
+                <span class="remark_annotation_vote_option">
+                    ${comment["upvotes"]}
+                    <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(remark_annotations_sidebar)data-comment_id="${comment["comment_id"]}"></ion-icon>
+                </span>
+                <span class="remark_annotation_vote_option">
+                    ${comment["downvotes"]}
+                    <ion-icon name="arrow-down-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
+                </span>
             </div>
         </div>
-        <div class="remark_annotation_user_message">
-            <p>${comment["content"]}</p>
-        </div>
-        <div class="remark_annotation_vote">
-            <span class="remark_annotation_vote_option">
-                ${comment["upvotes"]}
-                <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(remark_annotations_sidebar)data-comment_id="${comment["comment_id"]}"></ion-icon>
-            </span>
-            <span class="remark_annotation_vote_option">
-                ${comment["downvotes"]}
-                <ion-icon name="arrow-down-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
-            </span>
-        </div>
-    </div>
     `
 
     return markup;
 }
-
-
 
 function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
@@ -235,9 +234,6 @@ function handleCreateComment() {
     data["parent_node"] = null;
     createComment(data);
 }
-
-
-
 
 function handleDeleteComment(comment_id) {
     // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION

@@ -42,6 +42,7 @@ function renderSideBar(xpath) {
     const body = document.getElementsByTagName('body')[0];
     const check = document.getElementById("remark_annotations_sidebar");
     if (check) {
+        console.log(check);
         removeHTMLElement(check);
     }
     body.insertAdjacentHTML("afterbegin", sideBar);

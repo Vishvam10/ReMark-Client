@@ -20,6 +20,11 @@ async function createComment(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
+    if (data.status == 201) {
+        const comment = data.data;
+        const markup = COMMENTS_MARKUP(comment);
+        document.getElementById("remark_comments_body").insertAdjacentHTML("beforeend", markup);
+    }
     return data;
 }
 
@@ -37,5 +42,10 @@ async function deleteComment(comment_id) {
         },
     })
     const data = await res.json();
+    if (data.status == 200) {
+        const comment = document.getElementById(comment_id);
+        console.log(comment, comment_id);
+        removeHTMLElement(comment);
+    }
     return data;
 }
