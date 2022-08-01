@@ -23,7 +23,6 @@ function highlightElements() {
         e.stopPropagation();
         const className = e.target.className;
         if (className.includes("remark_") || className.includes("highlight_element_strong")) {
-            console.log("IN UTIL ");
             return;
         }
         const tag = e.target.tagName;

@@ -465,13 +465,14 @@ textarea:focus {
     outline: 2.8px solid var(--color-primary);
     border-radius: 0.4rem;
     padding: 0.4rem;
+    margin: 0.8rem;
 }
 
 .remark_contextmenu_wrapper {
     visibility: hidden;
     position: fixed;
     width: 22rem;
-    height: 24rem;
+    height: auto;
     border-radius: 1rem;
     background: #fff;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
