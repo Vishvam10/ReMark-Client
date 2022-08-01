@@ -17,7 +17,6 @@ async function getAnnotationByWebsiteID() {
 
 async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
-    console.log(bodyData);
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
@@ -44,7 +43,8 @@ async function createAnnotation(bodyData) {
 }
 
 async function editAnnotation(bodyData) {
-    const annotation_id = bodyData["annotation_id"]
+    console.log(bodyData);
+    const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -63,6 +63,12 @@ async function editAnnotation(bodyData) {
     if (edit_modal_check) {
         removeHTMLElement(edit_modal_check)
     }
+
+    // const new_resolved = bodyData["new_resolved"];
+    // if(new_resolved == true) {
+
+    // }
+    console.log(data);
     getAnnotationByWebsiteID();
     return data;
 }

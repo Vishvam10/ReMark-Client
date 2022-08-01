@@ -79,7 +79,6 @@ async function startAnnotationProcess() {
         remarkGlobalData["api_key"] = api_key;
     }
 
-
     // 2. Verify API_KEY
     const token_status = await verifyToken(api_key);
     if (token_status.status != 200) {
@@ -87,12 +86,6 @@ async function startAnnotationProcess() {
         console.log("ERROR IN TOKEN VERIFICATION");
         return -1;
     }
-
-
-    // NOTE : Fetch the user preferences - Use a modal or a dediated sidebar, whichever is present as the option. Use dark theme variants if dark theme is enabled
-
-    // getUserPrefence()
-
 
     // 3. Load and render existing annotations if any
     website_id = remarkScriptTag.dataset.website_id
@@ -114,27 +107,7 @@ async function startAnnotationProcess() {
     highlightElements()
 
 
-    // 5. (ADMIN ONLY) Handle click event for highlighted element
-    document.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const className = e.target.className;
-        if (className) {
-            if (className.includes("remark_")) {
-                return;
-            }
-        }
-        if (e.ctrlKey) {
-            const tag = e.target.tagName;
-            if (VALID_HTML_ELEMENTS.includes(tag)) {
-                const targetHTMLElement = e.target;
-                //* TODO : CHECK IF IT IS A NEW ANNOTATION
-                //  If it is a new annotation, create the empty modal where users can add comments.
-                renderNewAnnotationModal(targetHTMLElement, tag);
-            }
-        }
-        return;
-    });
+    // 5. (ADMIN ONLY) Handle contextmenu event for highlighted element
 
     document.addEventListener("contextmenu", (e) => {
         e.preventDefault();
@@ -199,14 +172,26 @@ async function startAnnotationProcess() {
         if (e.key == "Escape") {
             const create_modal_check = document.getElementById("remark_create_annotation_modal");
 
+            const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
+
+            const delete_modal_check = document.getElementById("remark_delete_annotation_modal");
+
             const sidebar_check = document.getElementById("remark_annotations_sidebar");
 
             const login_modal_check = document.getElementById("remark_login_modal");
 
             const signup_modal_check = document.getElementById("remark_signup_modal");
 
+            const context_menu_check = document.getElementById("remark_context_menu");
+
             if (create_modal_check) {
                 removeHTMLElement(create_modal_check);
+            }
+            if (edit_modal_check) {
+                removeHTMLElement(edit_modal_check);
+            }
+            if (delete_modal_check) {
+                removeHTMLElement(delete_modal_check);
             }
             if (sidebar_check) {
                 removeHTMLElement(sidebar_check);
@@ -217,21 +202,11 @@ async function startAnnotationProcess() {
             if (signup_modal_check) {
                 removeHTMLElement(signup_modal_check);
             }
+            if (context_menu_check) {
+                removeHTMLElement(context_menu_check);
+            }
         }
     })
-
-    // 6. (USERS) Handle the ADD, EDIT and DELETE methods for comments
-
-    // Parse Markdown as well
-
-    // 7. (USERS AND ADMIN) Handle upvotes and downvotes of comments
-
-
-
-    // 8. (ADMIN ONLY) Handle RESOLVED event
-
-
-    // 9. 
 
 
 

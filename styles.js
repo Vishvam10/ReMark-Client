@@ -129,7 +129,7 @@ mark {
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
-    z-index: 1000;
+    z-index: 1000000;
     transition: all 0.5s;
     height: auto;
 }
@@ -433,6 +433,10 @@ textarea:focus {
     transition: all 0.1s;
     margin: 3rem 0rem 2rem 0rem;
     width: 100%;   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .remark_standard_button:hover {
@@ -444,6 +448,18 @@ textarea:focus {
 }
 
 .remark_delete_button {
+    background-color: var(--color-tertiary);
+    color: white;
+}
+
+.remark_resolve_button {
+    margin: 0rem 0rem 0rem -8rem;
+    height: 3rem;
+    border-radius: 1.1rem;
+    font-size: 1.3rem;
+}
+
+.remark_unresolve_button {
     background-color: var(--color-tertiary);
     color: white;
 }

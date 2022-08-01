@@ -174,7 +174,7 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
                         <input type="tag" name="tag" class="remark_form_input" id="tag" value="<${node.toLowerCase()}></${node.toLowerCase()}>" readonly disabled>
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit" class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm)">Create</button>
+                        <button class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm, event)">Create</button>
                     </div>
                 </form>
             </div>
@@ -272,12 +272,13 @@ const DELETE_ANNOTATION_MODAL = (node_xpath) => {
             <div class="remark_standard_modal_body">
                 <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath="${node_xpath}">
                     <div class="remark_form_fields">
-                        <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
+                        <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
+                        Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
                         
                         <input type="text" name="deleteConfirmation" class="remark_form_input" id="deleteConfirmation">
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit"  class="remark_standard_button remark_delete_button" onclick="handleDeleteAnnotation(deleteAnnotationForm)">Delete</button>
+                        <button name="submit"  class="remark_standard_button remark_delete_button" onclick="handleDeleteAnnotation(deleteAnnotationForm, event)">Delete</button>
                     </div>
                 </form>
             </div>
@@ -285,8 +286,6 @@ const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     `
     return markup;
 }
-
-
 
 const SIDEBAR = (xpath) => {
 
@@ -305,13 +304,28 @@ const SIDEBAR = (xpath) => {
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
     const comments = curAnnotation["comments"];
+    const resolved = curAnnotation["resolved"];
 
     let comment_markup = ""
+    let resolve_button_markup = ""
 
     comments.forEach((comment) => {
         const m = COMMENTS_MARKUP(comment);
         comment_markup += m;
     });
+
+
+    if (resolved) {
+        resolve_button_markup =
+            `
+            <button class="remark_standard_button remark_resolve_button remark_unresolve_button" data-annotation_id="${annotation_id}" data-annotation_resolved="${resolved}" onclick="handleResolveAnnotation(this, event)">Unresolve</button>
+        `
+    } else {
+        resolve_button_markup =
+            `
+            <button class="remark_standard_button remark_resolve_button" data-annotation_id="${annotation_id}" data-annotation_resolved="${resolved}" onclick="handleResolveAnnotation(this, event)">Resolve</button>
+        `
+    }
 
     const markup =
         `
@@ -319,7 +333,7 @@ const SIDEBAR = (xpath) => {
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                <button class="btn_resolve">RESOLVE</button>
+                ${resolve_button_markup}
                 <div class="remark_standard_modal_close_btn">
                     <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
                 </div>
@@ -392,7 +406,9 @@ const COMMENTS_MARKUP = (comment) => {
 //    ********************** HANDLERS *************************
 
 
-function handleCreateAnnotation(formElement) {
+function handleCreateAnnotation(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
     let form = new FormData(formElement);
     let data = {}
     const user_id = localStorage.getItem("user_id");
@@ -411,6 +427,26 @@ function handleCreateAnnotation(formElement) {
     data["user_name"] = user_name;
     data["website_id"] = website_id;
     createAnnotation(data);
+}
+
+function handleResolveAnnotation(ele, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const resolved = ele.dataset.annotation_resolved;
+    const annotation_id = ele.dataset.annotation_id;
+
+    let data = {}
+    data["annotation_id"] = annotation_id;
+    data["action_type"] = "edit_resolved";
+    if (resolved)
+        data["new_resolved"] = true;
+    else {
+        data["new_resolved"] = false;
+    }
+
+    editAnnotation(data)
+
 }
 
 function handleEditAnnotation(formElement) {
@@ -440,7 +476,10 @@ function handleEditAnnotation(formElement) {
     editAnnotation(data);
 }
 
-function handleDeleteAnnotation(formElement) {
+function handleDeleteAnnotation(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(formElement);
     let form = new FormData(formElement);
     let data = {}
     for (var pair of form.entries()) {
