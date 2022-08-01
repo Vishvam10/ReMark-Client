@@ -99,6 +99,22 @@ mark {
     pointer-events: none;
 }
 
+.loginSignupSwitch {
+    color: var(--color-primary);
+    font-weight: 700;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.loginSignupSwitch:hover {
+    font-size: 1.2rem;
+}
+
+.loginSignupSwitch:active {
+    font-size: 1.1rem;
+}
+
 /*
     ********************* MODAL *********************
 */
@@ -135,7 +151,7 @@ mark {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 20%;
+    width: 10%;
 }
 
 .remark_standard_modal_title {
@@ -369,10 +385,6 @@ textarea:focus {
     padding: 2rem;
 }
 
-#loginForm {
-    width: 80%;
-}
-
 #createCommentForm {
     width: 100%;
 }
@@ -458,7 +470,7 @@ textarea:focus {
 .remark_contextmenu_wrapper {
     visibility: hidden;
     position: fixed;
-    width: 20rem;
+    width: 22rem;
     height: 24rem;
     border-radius: 1rem;
     background: #fff;
@@ -477,25 +489,25 @@ textarea:focus {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .remark_item {
     list-style: none;
     font-size: 1rem;
-    height: 3.2rem;
+    height: 4.2rem;
     display: flex;
     width: 98%;
     cursor: pointer;
     align-items: center;
-    border-radius: 0.5rem;
+    border-radius: 0.7rem;
     padding: 0 0.3125rem 0 0.625rem;
     transition: background, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
     margin: 0.4rem 0rem 0.4rem 0rem;
 }
 
 .remark_contextmenu_icon {
-    font-size: 1.6rem !important;
+    font-size: 2rem !important;
     color: grey !important;
 }
 
