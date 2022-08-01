@@ -33,17 +33,23 @@ function positionContextMenu(contextMenu, x, y) {
 }
 
 function handleContextMenuOptions(option, data) {
+
+    remarkGlobalData["currentXPath"] = data["xpath"];
+    remarkGlobalData["currentNode"] = data["node"];
+
     switch (option) {
         case "open":
             renderSideBar(data["xpath"]);
             break;
         case "create":
-            console.log("CREATE REACHED");
             //* TODO : CHECK IF IT IS A NEW ANNOTATION
             renderNewAnnotationModal(data["node"], data["tag"]);
-        case "rename":
+            break;
+        case "edit":
+            renderEditAnnotatioModal(data["node"]);
             break;
         case "delete":
+            renderDeleteAnnotationModal(data["node"]);
             break;
         default:
             break;

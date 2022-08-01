@@ -43,6 +43,29 @@ function renderEditAnnotatioModal(node) {
     }
 }
 
+function renderDeleteAnnotationModal(node) {
+    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (delete_modal_check) {
+        console.log("Delete annotation modal already present.");
+        return;
+    }
+
+    let node_xpath = getNodeXpath(node);
+    node_xpath = `//${node_xpath.toLowerCase()}`
+
+    const body = document.getElementsByTagName('body')[0];
+    const xpath_check = getElementByXpath(node_xpath).dataset.xpath;
+
+
+    if (xpath_check == node_xpath) {
+        const deleteAnnotationModal = DELETE_ANNOTATION_MODAL(node_xpath);
+        body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
+    } else {
+        console.log("Xpath not matched. Please try again !");
+        return;
+    }
+}
+
 function renderExistingAnnotations() {
 
     const annotations = remarkGlobalData["annotations"];

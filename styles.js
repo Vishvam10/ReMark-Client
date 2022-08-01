@@ -430,17 +430,22 @@ textarea:focus {
     padding: 1.25rem 4.5rem;
     border-radius: 1.2rem;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.1s;
     margin: 3rem 0rem 2rem 0rem;
     width: 100%;   
 }
 
 .remark_standard_button:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .remark_standard_button:active {
     transform: scale(1.0);
+}
+
+.remark_delete_button {
+    background-color: var(--color-tertiary);
+    color: white;
 }
 
 .error_modal {

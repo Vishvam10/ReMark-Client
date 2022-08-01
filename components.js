@@ -95,6 +95,10 @@ const CONTEXT_MENU_MARKUP = (annotation_present) => {
                             <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="edit">Edit Annotation</span>
                         </li>
+                        <li class="remark_item">
+                            <ion-icon name="trash-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="delete">Delete Annotation</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -207,7 +211,7 @@ const EDIT_ANNOTATION_MODAL = (node_xpath) => {
                 </div>
             </div>
             <div class="remark_standard_modal_body">
-                <form id="editAnnotationForm" class="remark_form">
+                <form id="editAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}">
                     <div class="remark_form_fields">
                         <label for="old_name" class="remark_form_label">Old Annotation Name</label>
                         <input type="text" name="old_name" class="remark_form_input" id="old_name" value="${curAnnotation["annotation_name"]}" readonly disabled>
@@ -237,6 +241,52 @@ const EDIT_ANNOTATION_MODAL = (node_xpath) => {
     `
     return markup;
 }
+
+const DELETE_ANNOTATION_MODAL = (node_xpath) => {
+    const authority = localStorage.getItem("user_authority");
+    if (authority != "admin") {
+        return;
+    }
+
+    const annotations = remarkGlobalData["annotations"];
+
+    let curAnnotation;
+
+    annotations.forEach((annotation) => {
+        if (annotation["node_xpath"] == node_xpath) {
+            curAnnotation = annotation;
+        }
+    });
+
+    const markup =
+        `
+        <div class="remark_standard_modal" id="remark_delete_annotation_modal">
+            <div class="remark_standard_modal_header">
+                <h3 class="remark_standard_modal_title">Delete Annotation</h3>
+                <div class="remark_standard_modal_actions">
+                    <div class="remark_standard_modal_close_btn">
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_delete_annotation_modal)"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="remark_standard_modal_body">
+                <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath="${node_xpath}">
+                    <div class="remark_form_fields">
+                        <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
+                        
+                        <input type="text" name="deleteConfirmation" class="remark_form_input" id="deleteConfirmation">
+                    </div>
+                    <div class="remark_form_fields">
+                        <button name="submit"  class="remark_standard_button remark_delete_button" onclick="handleDeleteAnnotation(deleteAnnotationForm)">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `
+    return markup;
+}
+
+
 
 const SIDEBAR = (xpath) => {
 
@@ -365,6 +415,7 @@ function handleCreateAnnotation(formElement) {
 
 function handleEditAnnotation(formElement) {
     let form = new FormData(formElement);
+    const annotation_id = formElement.dataset.annotation_id;
     let data = {}
     for (var pair of form.entries()) {
         //* TODO : Validation
@@ -385,6 +436,28 @@ function handleEditAnnotation(formElement) {
     }
     actions = actions.join(",");
     data["action_type"] = actions;
+    data["annotation_id"] = annotation_id;
+    editAnnotation(data);
+}
+
+function handleDeleteAnnotation(formElement) {
+    let form = new FormData(formElement);
+    let data = {}
+    for (var pair of form.entries()) {
+        data[pair[0]] = pair[1].trim();
+    }
+    if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
+        const annotation_id = formElement.dataset.annotation_id;
+        const xpath = formElement.dataset.xpath;
+        if (annotation_id && xpath) {
+            data["annotation_id"] = annotation_id;
+            data["node_xpath"] = xpath;
+            deleteAnnotation(data);
+        }
+    } else {
+        console.log("Annotation names don't match.");
+        return;
+    }
 }
 
 function handleCreateComment() {
