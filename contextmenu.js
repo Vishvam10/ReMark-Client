@@ -30,6 +30,7 @@ function handleContextMenuOptions(option, xpath) {
     switch (option) {
         case "open":
             renderSideBar(xpath);
+        case "create":
 
             // In the future 
         case "rename":
