@@ -27,3 +27,5 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [x] Update DOM dynamically
 - [x] Fix the login form
 - [x] Add signup form
+- [] Implement upvote and downvotes
+- [] Implement EDIT comments
