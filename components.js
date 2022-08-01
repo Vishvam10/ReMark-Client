@@ -93,7 +93,7 @@ const CONTEXT_MENU_MARKUP = (annotation_present) => {
                         </li>
                         <li class="remark_item">
                             <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
-                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="rename">Rename Annotation</span>
+                            <span class="remark_context_menu_item_name" data-remark_contextmenu_option="edit">Edit Annotation</span>
                         </li>
                     </ul>
                 </div>
@@ -118,7 +118,6 @@ const CONTEXT_MENU_MARKUP = (annotation_present) => {
     }
     return markup;
 }
-
 
 const ERROR_MODAL = (type) => {
     let styles;
@@ -180,6 +179,65 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
     return markup;
 }
 
+const EDIT_ANNOTATION_MODAL = (node_xpath) => {
+    const authority = localStorage.getItem("user_authority");
+    if (authority != "admin") {
+        return;
+    }
+
+    const annotations = remarkGlobalData["annotations"];
+
+    let curAnnotation;
+
+    annotations.forEach((annotation) => {
+        if (annotation["node_xpath"] == node_xpath) {
+            curAnnotation = annotation;
+        }
+    });
+
+    const markup =
+        `
+        <div class="remark_standard_modal" id="remark_edit_annotation_modal">
+            <div class="remark_standard_modal_header">
+                <h3 class="remark_standard_modal_title">Edit Annotation</h3>
+                <div class="remark_standard_modal_actions">
+                    <div class="remark_standard_modal_close_btn">
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_edit_annotation_modal)"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="remark_standard_modal_body">
+                <form id="editAnnotationForm" class="remark_form">
+                    <div class="remark_form_fields">
+                        <label for="old_name" class="remark_form_label">Old Annotation Name</label>
+                        <input type="text" name="old_name" class="remark_form_input" id="old_name" value="${curAnnotation["annotation_name"]}" readonly disabled>
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="new_name" class="remark_form_label">New Annotation Name</label>
+                        <input type="text" name="new_name" class="remark_form_input" id="new_name">
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="old_tags" class="remark_form_label">Old Tags ( Comma Separated )</label>
+                        <input type="text" name="old_tags" class="remark_form_input" id="old_tags" value="${curAnnotation["tags"]}" readonly disabled>
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="new_tags" class="remark_form_label">New Tags ( Comma Separated )</label>
+                        <input type="text" name="new_tags" class="remark_form_input" id="new_tags">
+                    </div>
+                    <div class="remark_form_fields">
+                        <label for="annotation_id" class="remark_form_label</label>
+                        <input type="text" name="annotation_id" class="remark_form_input" value=${curAnnotation["annotation_id"]} readonly>
+                    </div>
+                    <div class="remark_form_fields">
+                        <button name="submit"  class="remark_standard_button" onclick="handleEditAnnotation(editAnnotationForm)">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `
+    return markup;
+}
+
 const SIDEBAR = (xpath) => {
 
     const annotations = remarkGlobalData["annotations"];
@@ -193,7 +251,6 @@ const SIDEBAR = (xpath) => {
         }
     });
 
-    console.log(curAnnotation);
 
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
@@ -282,8 +339,6 @@ const COMMENTS_MARKUP = (comment) => {
 }
 
 
-
-
 //    ********************** HANDLERS *************************
 
 
@@ -306,6 +361,30 @@ function handleCreateAnnotation(formElement) {
     data["user_name"] = user_name;
     data["website_id"] = website_id;
     createAnnotation(data);
+}
+
+function handleEditAnnotation(formElement) {
+    let form = new FormData(formElement);
+    let data = {}
+    for (var pair of form.entries()) {
+        //* TODO : Validation
+        // if (pair[0] == "new_name" || pair[0] == "new_tags") {
+        // if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+        // console.log("Only alphanumeric values and comma are allowed !", pair[0], pair[1]);
+        // return;
+        // }
+        // }
+        data[pair[0]] = pair[1].trim();
+    }
+    let actions = [];
+    if (data["new_annotation"] != "") {
+        actions.push("edit_name");
+    }
+    if (data["new_tags"] != "") {
+        actions.push("edit_tags");
+    }
+    actions = actions.join(",");
+    data["action_type"] = actions;
 }
 
 function handleCreateComment() {

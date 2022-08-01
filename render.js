@@ -12,8 +12,31 @@ function renderNewAnnotationModal(node, html_tag) {
     const xpath_check = getElementByXpath(node_xpath);
 
     if (xpath_check == node) {
-        const annotationModal = CREATE_ANNOTATION_MODAL(html_tag, node_xpath);
-        body.insertAdjacentHTML("afterbegin", annotationModal);
+        const createAnnotationModal = CREATE_ANNOTATION_MODAL(html_tag, node_xpath);
+        body.insertAdjacentHTML("afterbegin", createAnnotationModal);
+    } else {
+        console.log("Xpath not matched. Please try again !");
+        return;
+    }
+}
+
+function renderEditAnnotatioModal(node) {
+    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (edit_modal_check) {
+        console.log("Edit annotation modal already present.");
+        return;
+    }
+
+    let node_xpath = getNodeXpath(node);
+    node_xpath = `//${node_xpath.toLowerCase()}`
+
+    const body = document.getElementsByTagName('body')[0];
+    const xpath_check = getElementByXpath(node_xpath).dataset.xpath;
+
+
+    if (xpath_check == node_xpath) {
+        const editAnnotationModal = EDIT_ANNOTATION_MODAL(node_xpath);
+        body.insertAdjacentHTML("afterbegin", editAnnotationModal);
     } else {
         console.log("Xpath not matched. Please try again !");
         return;
