@@ -8,6 +8,7 @@ function renderNewAnnotationModal(node, html_tag) {
     let node_xpath = getNodeXpath(node);
     node_xpath = `//${node_xpath.toLowerCase()}`
     console.log(node_xpath);
+
     const body = document.getElementsByTagName('body')[0];
     const xpath_check = getElementByXpath(node_xpath);
 

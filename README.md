@@ -6,6 +6,10 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 # Major Todo
 
+- [] **Dynamic Checking for Annotations** : When XPath fails
+
+- [] **Handle Popups and Dynamic Content**
+
 - [] **Create a class to initialize and store globals**
 
 - [] ~~**Create a function to make overlays**~~
