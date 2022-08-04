@@ -1,34 +1,42 @@
 const STYLES = `
 
 :root {
-    --color-primary: #0d6efd;
-    --color-secondary: #ffcb03;
-    --color-tertiary: #ff585f;
-    --color-primary-darker: #0b5dd7;
-    --color-secondary-darker: #ffbb00;
-    --color-tertiary-darker: #fd424b;
-    --color-primary-opacity: #5ec5763a;
-    --color-secondary-opacity: #ffcd0331;
-    --color-grey-light-3: #f2f2f2;
-    --color-grey-light-2: #d0d0d0;
-    --color-grey-light-1: #9c9c9c;
-    --color-grey: #808080;
-    --color-grey-dark-1: #6c6c6c;
-    --color-grey-dark-2: #444444;
-    --color-white: #FFFFFF;
-    --color-tertiary-opacity: #ff58602d;
-    --color-tertiary-opacity: #ff58602d;
+    --remark-color-primary: #0d6efd;
+    --remark-color-primary-lighter: #5498ff;
+    --remark-color-primary-darker: #0b5dd7;
+
+    --remark-color-success: #5ec576;
+    --remark-color-success-darker: #4bbb7d;
+
+    --remark-color-warning: #ffcb03;
+    --remark-color-warning-darker: #ffbb00;
+    
+    --remark-color-danger: #ff585f;
+    --remark-color-danger-darker: #fd424b;
+
+    --remark-color-grey-light-3: #f2f2f2;
+    --remark-color-grey-light-2: #d0d0d0;
+    --remark-color-grey-light-1: #9c9c9c;
+    --remark-color-grey: #808080;
+    --remark-color-grey-dark-1: #6c6c6c;
+    --remark-color-grey-dark-2: #444444;
+    --remark-color-black: #000000;
+    --remark-color-white: #FFFFFF;
+    --remark-color-danger-opacity: #ff58602d;
+    --remark-color-danger-opacity: #ff58602d;
+
     --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
     --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
-    --default-box-shadow-light: rgba(120, 123, 127, 0.2) 0px 8px 16px;
-    --default-box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
-    /* --box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
-    --default-sanserif-font: Arial, Helvetica, sans-serif;
+
+    --remark-default-box-shadow-light: rgba(120, 123, 127, 0.2) 0px 8px 16px;
+    --remark-default-box-shadow: rgba(75, 77, 80, 0.2) 0px 8px 24px;
+
+    --remark-default-sanserif-font: Arial, Helvetica, sans-serif;
 }
 
 ion-icon {
     font-size: 2rem;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
     transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
 }
@@ -42,7 +50,7 @@ ion-icon:active {
 }
 
 ion-icon[name="open-outline"] {
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
 }
 
 ion-icon[name="create-outline"] {
@@ -50,7 +58,7 @@ ion-icon[name="create-outline"] {
 }
 
 ion-icon[name="create-outline"]:hover {
-    color: var(--color-primary);
+    color: var(--remark-color-primary);
 }
 
 ion-icon[name="trash-outline"] {
@@ -58,7 +66,7 @@ ion-icon[name="trash-outline"] {
 }
 
 ion-icon[name="trash-outline"]:hover {
-    color: var(--color-tertiary);
+    color: var(--remark-color-danger);
 }
 
 ion-icon[name="ellipsis-horizontal-outline"] {
@@ -68,13 +76,12 @@ ion-icon[name="ellipsis-horizontal-outline"] {
 ion-icon[name="paper-plane-outline"] {
     font-size: 2.8rem;
     rotate: 45deg;
-    /* color: var(--color-primary); */
 }
 
 ion-icon[name="paper-plane-outline"]:hover {
     font-size: 3.2rem;
     rotate: 45deg;
-    color: var(--color-primary);
+    color: var(--remark-color-primary);
 }
 
 ion-icon[name="arrow-up-outline"] {
@@ -84,7 +91,7 @@ ion-icon[name="arrow-up-outline"] {
 
 ion-icon[name="arrow-up-outline"]:hover {
     font-size: 1.8rem;
-    color: var(--color-primary);
+    color: var(--remark-color-success);
 }
 
 ion-icon[name="arrow-down-outline"] {
@@ -94,7 +101,7 @@ ion-icon[name="arrow-down-outline"] {
 
 ion-icon[name="arrow-down-outline"]:hover {
     font-size: 1.8rem;
-    color: var(--color-tertiary);
+    color: var(--remark-color-danger);
 }
 
 .hide {
@@ -105,7 +112,7 @@ ion-icon[name="arrow-down-outline"]:hover {
 }
 
 .loginSignupSwitch {
-    color: var(--color-primary);
+    color: var(--remark-color-primary);
     font-weight: 700;
     transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
@@ -120,6 +127,41 @@ ion-icon[name="arrow-down-outline"]:hover {
     font-size: 1.1rem;
 }
 
+.remark_init_container {
+    width: 40rem;
+    background: var(--remark-color-white);
+    padding: 1rem;
+    height: 8rem;
+    border-radius: 1.6rem;
+    position: fixed;
+    z-index: 10000000;
+    bottom: 3rem;
+    left: 36%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    box-shadow: var(--remark-default-box-shadow);
+}
+
+.remark_init_button {
+    width: 60% !important;
+    font-size: 1.6rem !important;
+    padding: 1rem !important;
+    background-color: var(--remark-color-primary) !important;
+    color: var(--remark-color-black);
+    height: 5rem !important;
+    margin: 0.5rem 0rem 0rem 1rem !important;
+}
+
+#remark_init_text {
+    width: 30%;
+    font-size: 2rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /*
     ********************* MODAL *********************
@@ -128,13 +170,13 @@ ion-icon[name="arrow-down-outline"]:hover {
 .remark_standard_modal {
     position: fixed;
     top: 50%;
-    left: 50%;
+    left: 49.8%;
     transform: translate(-50%, -50%);
     width: 40rem;
-    background-color: var(--color-white);
+    background-color: var(--remark-color-white);
     border-radius: 1rem;
     padding: 1rem;
-    box-shadow: var(--default-box-shadow);
+    box-shadow: var(--remark-default-box-shadow);
     z-index: 1000000;
     transition: all 0.5s;
     height: auto;
@@ -148,7 +190,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--color-grey-light-1);
+    border-bottom: 1px solid var(--remark-color-grey-light-1);
     border-radius: 1rem 1rem 0rem 0rem;
 }
 
@@ -185,13 +227,13 @@ ion-icon[name="arrow-down-outline"]:hover {
     top: 0;
     right: 0;
     width: 52rem;
-    background-color: var(--color-white);
+    background-color: var(--remark-color-white);
     border-radius: 1rem;
     padding: 1rem;
-    box-shadow: var(--default-box-shadow);
+    box-shadow: var(--remark-default-box-shadow);
     z-index: 1000;
     height: 72rem;
-    background: var(--color-white);
+    background: var(--remark-color-white);
     padding: 1rem;
     animation: remark_sidebar_animation 0.6s;
 }
@@ -218,7 +260,7 @@ ion-icon[name="arrow-down-outline"]:hover {
 */
 
 .resolve_btn {
-    background-color: var(--color-primary);
+    background-color: var(--remark-color-primary);
     font-size: 1.6rem;
     font-family: inherit;
     font-weight: 500;
@@ -232,14 +274,14 @@ ion-icon[name="arrow-down-outline"]:hover {
 }
 
 .resolve_btn:hover {
-    background-color: var(--color-primary-darker);
+    background-color: var(--remark-color-primary-darker);
 }
 
 .remark_annotation {
     margin: 1.6rem 0rem 2rem 0rem;
     height: auto;
     padding: 1rem;
-    border: 1px solid var(--color-grey-light-1);
+    border: 1px solid var(--remark-color-grey-light-1);
     border-radius: 1rem;
     font-family: "arial";
 }
@@ -275,7 +317,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     width: 1rem;
     padding: 1rem;
     height: 4rem;
-    box-shadow: var(--default-box-shadow);
+    box-shadow: var(--remark-default-box-shadow);
     border-radius: 1rem;
     position: relative;
     top: 15%;
@@ -303,7 +345,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     justify-content: center;
     align-items: start;
     height: 100%;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
 }
 
 .remark_annotation_user_username {
@@ -321,7 +363,7 @@ ion-icon[name="arrow-down-outline"]:hover {
 .remark_annotation_user_message {
     width: 97%;
     margin: 1rem 0rem 1rem 0rem;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
     padding: 0rem 0rem 0rem 1rem;
     font-family: inherit;
     font-size: 1.3rem;
@@ -344,28 +386,28 @@ ion-icon[name="arrow-down-outline"]:hover {
 
 textarea {
     padding: 2rem;
-    font-family: var(--default-sanserif-font);
+    font-family: var(--remark-default-sanserif-font);
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 6rem;
     width: 90%;
     border-radius: 1.4rem;
-    background-color: var(--color-white);
+    background-color: var(--remark-color-white);
     resize: none;
     overflow-y: scroll;
     outline: 0px !important;
     scrollbar-width: none;
     margin: 1rem;
     transition: transform 0.2s ease-in;
-    border: 1px solid var(--color-grey-light-1);
+    border: 1px solid var(--remark-color-grey-light-1);
 }
 
 textarea:hover {
-    border: 0.5px solid var(--color-grey-dark-2);
+    border: 0.5px solid var(--remark-color-grey-dark-2);
 }
 
 textarea:focus {
-    border: 0.5px solid var(--color-primary);
+    border: 0.5px solid var(--remark-color-primary);
 }
 
 .remark_annotation_user_input {
@@ -382,8 +424,8 @@ textarea:focus {
 .signup_container {
     height: auto;
     width: 20rem;
-    background-color: var(--color-white);
-    box-shadow: var(--default-box-shadow-light);
+    background-color: var(--remark-color-white);
+    box-shadow: var(--remark-default-box-shadow-light);
     border-radius: 1rem;
     padding: 2rem;
 }
@@ -398,34 +440,34 @@ textarea:focus {
 
 .remark_form_input {
     padding: 1rem 2rem 1.2rem 1rem;
-    font-family: var(--default-sanserif-font);
+    font-family: var(--remark-default-sanserif-font);
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 4rem;
     width: 100%;
     border-radius: 0.6rem;
-    background-color: var(--color-white);
+    background-color: var(--remark-color-white);
     border: none;
     outline: 0px !important;
     margin: 0.4rem 0rem 1rem 0rem;
     transition: border 0.2s ease-in;
-    border: 0.5px solid var(--color-grey);
+    border: 0.5px solid var(--remark-color-grey);
     font-size: 1.2rem;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
 }
 
 .remark_form_input:focus {
-    border: 0.5px solid var(--color-primary);
+    border: 0.5px solid var(--remark-color-primary);
 }
 
 .remark_form_label {
-    font-family: var(--default-sanserif-font);
+    font-family: var(--remark-default-sanserif-font);
     font-size: 1.2rem;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
 }
 
 .remark_standard_button {
-    background-color: var(--color-primary);
+    background-color: var(--remark-color-primary);
     font-size: 1.6rem;
     font-family: inherit;
     font-weight: 500;
@@ -451,8 +493,8 @@ textarea:focus {
 }
 
 .remark_delete_button {
-    background-color: var(--color-tertiary);
-    color: var(--color-white);
+    background-color: var(--remark-color-danger);
+    color: var(--remark-color-white);
 }
 
 .remark_resolve_button {
@@ -463,12 +505,12 @@ textarea:focus {
 }
 
 .remark_unresolve_button {
-    background-color: var(--color-tertiary);
-    color: var(--color-white);
+    background-color: var(--remark-color-danger);
+    color: var(--remark-color-white);
 }
 
 .error_modal {
-    font-family: var(--default-sanserif-font);
+    font-family: var(--remark-default-sanserif-font);
     font-size: 1rem;
     line-height: 1.4rem;
     height: auto;
@@ -476,17 +518,17 @@ textarea:focus {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     border-radius: 0.4rem;
     padding: 0.8rem 1.4rem 1rem 1.6rem;
-    color: var(--color-white);
+    color: var(--remark-color-white);
 }
 
 .highlight_element_light {
-    outline: dashed 2px var(--color-grey);
+    outline: dashed 2px var(--remark-color-grey);
     border-radius: 0.4rem;
     padding: 0.4rem;
 }
 
 .highlight_element_strong {
-    outline: 2.8px solid var(--color-primary);
+    outline: 2.8px solid var(--remark-color-primary);
     border-radius: 0.4rem;
     padding: 0.4rem;
     margin: 0.8rem;
@@ -498,9 +540,9 @@ textarea:focus {
     width: 22rem;
     height: auto;
     border-radius: 1rem;
-    background: var(--color-white);
+    background: var(--remark-color-white);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
-    font-family: var(--default-sanserif-font);
+    font-family: var(--remark-default-sanserif-font);
     padding: 1rem;
     z-index: 100000;
 }
@@ -533,7 +575,7 @@ textarea:focus {
 
 .remark_contextmenu_icon {
     font-size: 2rem !important;
-    color: var(--color-grey) !important;
+    color: var(--remark-color-grey) !important;
 }
 
 .remark_contextmenu_content .remark_item:hover {
@@ -549,7 +591,7 @@ textarea:focus {
 .remark_context_menu_item_name {
     margin: 1.2rem 0rem 1rem 1.2rem;
     font-size: 1.4rem;
-    color: var(--color-grey);
+    color: var(--remark-color-grey);
 }
 
 `

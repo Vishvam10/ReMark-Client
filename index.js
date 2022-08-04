@@ -23,9 +23,9 @@ function init() {
     // 2. Add the START button
     const remark_markup =
         `
-        <div class="start_container">
-        <span class="user_message"><b>ReMark</b></span>
-        <button type="button" class="btn" id="remark_start">Start Annotation</button>
+        <div class="remark_init_container">
+        <span id="remark_init_text"><b>ReMark</b></span>
+        <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
@@ -41,6 +41,7 @@ function init() {
         } else {
             if (localStorage.getItem("user_authority") == "admin") {
                 startAnnotationProcess();
+                document.getElementById('remark_start').textContent = "Stop Annotation"
             }
         }
     });
