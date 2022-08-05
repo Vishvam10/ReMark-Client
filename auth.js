@@ -89,3 +89,11 @@ function signupUser(form) {
             .catch(err => console.log(err))
     }
 }
+
+function isAdmin() {
+    const authority = localStorage.getItem("user_authority");
+    if (authority == "admin") {
+        return true;
+    }
+    return false;
+}

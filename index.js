@@ -39,10 +39,10 @@ function init() {
         if (!loginStatus) {
             renderLoginModal();
         } else {
-            if (localStorage.getItem("user_authority") == "admin") {
-                startAnnotationProcess();
-                document.getElementById('remark_start').textContent = "Stop Annotation"
-            }
+            // if (isAdmin()) {
+            startAnnotationProcess();
+            document.getElementById('remark_start').textContent = "Stop Annotation"
+                // }
         }
     });
 
@@ -102,10 +102,11 @@ async function startAnnotationProcess() {
         renderExistingAnnotations();
     }
 
-
     // 4. (ADMIN ONLY) Start the highlight process
     console.log("STARTING HIGHLIGHT PROCESS . . .");
-    highlightElements()
+    if (isAdmin()) {
+        highlightElements();
+    }
 
 
     // 5. (ADMIN ONLY) Handle contextmenu event for highlighted element
@@ -208,7 +209,6 @@ async function startAnnotationProcess() {
             }
         }
     })
-
 
 
 }
