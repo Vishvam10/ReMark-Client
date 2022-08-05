@@ -6,21 +6,21 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 # Major Todo
 
-- [] **Dynamic Checking for Annotations** : When XPath fails
+- [ ] **Dynamic Checking for Annotations** : When XPath fails
 
-- [] **Create a class to initialize and store globals**
+- [ ] **Create a class to initialize and store globals**
 
-- [] ~~**Create a function to make overlays**~~
+- [ ] ~~**Create a function to make overlays**~~
 
-- [] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
+- [ ] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
 
 - [x] **Update CSS :** Currently, the CSS code has duplications. Need to use `:root` to declare global stylings. This includes `colors`, `fonts`, `shadows`, etc. Have to make sure not to override the website's styling
 
-- [] **Convert to ES6 Syntax :** Currently, we have to include multiple `script` tags. Need to convert all files to ES6 modules 
+- [ ] **Convert to ES6 Syntax :** Currently, we have to include multiple `script` tags. Need to convert all files to ES6 modules 
 
-- [] **Bundle with `Parcel`**
+- [ ] **Bundle with `Parcel`**
 
-- [] **Testing**
+- [ ] **Testing**
 
 <br>
 
@@ -29,5 +29,5 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [x] Update DOM dynamically
 - [x] Fix the login form
 - [x] Add signup form
-- [] Implement upvote and downvotes
-- [] Implement EDIT comments
+- [ ] Implement upvote and downvotes
+- [ ] Implement EDIT comments
