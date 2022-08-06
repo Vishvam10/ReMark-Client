@@ -1,3 +1,3 @@
 const errorModal = () => {
-    return null
+    return null;
 }
