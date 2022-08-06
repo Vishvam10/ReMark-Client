@@ -1,0 +1,3 @@
+const errorModal = () => {
+    return null
+}
