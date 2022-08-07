@@ -179,7 +179,8 @@ ion-icon[name="arrow-down-outline"]:hover {
     left: 36%;
     display: flex;
     box-shadow: var(--remark-default-box-shadow);
-    font-size: 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
     color: var(--remark-color-black);
     flex-direction: column;
     justify-content: center;
