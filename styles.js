@@ -167,6 +167,44 @@ ion-icon[name="arrow-down-outline"]:hover {
     ********************* MODAL *********************
 */
 
+.remark_error_container {
+    width: 40rem;
+    background: var(--remark-color-white);
+    padding: 1rem;
+    height: 8rem;
+    border-radius: 1.6rem;
+    position: fixed;
+    z-index: 10000002;
+    bottom: 3rem;
+    left: 36%;
+    display: flex;
+    box-shadow: var(--remark-default-box-shadow);
+    font-size: 2rem;
+    color: var(--remark-color-black);
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.remark_error_text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+remark_error_container_error {
+    background: var(--remark-color-danger);
+}
+
+remark_error_container_intimation {
+    background: var(--remark-color-warning);
+}
+
+remark_error_container_success {
+    background: var(--remark-color-success);
+}
+
 .remark_standard_modal {
     position: fixed;
     top: 50%;

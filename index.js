@@ -15,6 +15,9 @@ window.addEventListener("load", (e) => {
 
 function init() {
     const body = document.getElementsByTagName('body')[0];
+    const em = errorModal("ERROR", "Please enter a correct value !");
+    console.log(em);
+    body.insertAdjacentHTML("afterbegin", em)
 
     // 1. Register the styles and scripts (for icons)
     registerStyles();
@@ -29,7 +32,6 @@ function init() {
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
-
     document.getElementById('remark_start').addEventListener("click", (e) => {
         e.preventDefault();
 
