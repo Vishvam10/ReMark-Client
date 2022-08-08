@@ -95,7 +95,13 @@ function getNodeXpath(ele) {
 }
 
 function getElementByXpath(path) {
-    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    let ele = null;
+    try {
+        ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    } catch (error) {
+        console.log("XPath not valid");
+    }
+    return ele;
 }
 
 function getPageXY(element) {
@@ -107,4 +113,12 @@ function getPageXY(element) {
         element = element.offsetParent;
     }
     return [x, y];
+}
+
+function checkXPathMatch(node, xpath) {
+    const res = getElementByXpath(xpath);
+    if (res == node) {
+        return true;
+    }
+    return false;
 }
