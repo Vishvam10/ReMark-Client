@@ -1,27 +1,48 @@
-function renderNewAnnotationModal(node, html_tag) {
+/*
+    
+    1. Check with XPath
+    2. If that fails, check with ID
+    3. If that fails, check with textContent
+    4. If that fails, check with className + Xpath (extract the 
+       child node number from XPath) 
+    
+*/
+
+function renderNewAnnotationModal(node, html_tag, id, textContent) {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
     if (create_modal_check) {
-        console.log("Create annotation modal already present.");
         return;
     }
+    const body = document.getElementsByTagName('body')[0];
 
     let node_xpath = getNodeXpath(node);
     node_xpath = `//${node_xpath.toLowerCase()}`
-    console.log(node_xpath);
 
-    const body = document.getElementsByTagName('body')[0];
-    const xpath_check = getElementByXpath(node_xpath);
+    console.log("RA : ", node, html_tag, id, textContent);
 
-    if (xpath_check == node) {
-        const createAnnotationModal = CREATE_ANNOTATION_MODAL(html_tag, node_xpath);
+
+    if (checkXPathMatch(node, node_xpath)) {
+        const createAnnotationModal = CREATE_ANNOTATION_MODAL(node_xpath, html_tag, null, null);
         body.insertAdjacentHTML("afterbegin", createAnnotationModal);
     } else {
-        console.log("Xpath not matched. Please try again !");
+        console.log("Xpath not matched. Trying ID match.");
+        if (id == "" || id == null) {
+            console.log("ID not matched. Trying textContent match.");
+            if (textContent == "" || textContent == null) {
+                console.log("Text content not matched. Trying textContent + Xpath match.");
+            }
+        } else {
+            const createAnnotationModal = CREATE_ANNOTATION_MODAL(null, null, id, null);
+            body.insertAdjacentHTML("afterbegin", createAnnotationModal);
+        }
         return;
     }
+
+
+
 }
 
-function renderEditAnnotatioModal(node) {
+function renderEditAnnotationModal(node) {
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
         console.log("Edit annotation modal already present.");

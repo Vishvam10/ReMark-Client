@@ -42,11 +42,11 @@ function handleContextMenuOptions(option, data) {
             renderSideBar(data["xpath"]);
             break;
         case "create":
-            //* TODO : CHECK IF IT IS A NEW ANNOTATION
-            renderNewAnnotationModal(data["node"], data["tag"]);
+            console.log("CREATING", data);
+            renderNewAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
             break;
         case "edit":
-            renderEditAnnotatioModal(data["node"]);
+            renderEditAnnotationModal(data["node"]);
             break;
         case "delete":
             renderDeleteAnnotationModal(data["node"]);

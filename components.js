@@ -138,7 +138,7 @@ const ERROR_MODAL = (type) => {
     `
 }
 
-const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
+const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_id, html_text_content) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -171,7 +171,15 @@ const CREATE_ANNOTATION_MODAL = (node, node_xpath) => {
                     </div>
                     <div class="remark_form_fields">
                         <label for="tag" class="remark_form_label">Selected Node</label>
-                        <input type="tag" name="tag" class="remark_form_input" id="tag" value="<${node.toLowerCase()}></${node.toLowerCase()}>" readonly disabled>
+                        <input type="tag" name="tag" class="remark_form_input" id="tag" value="<${html_tag.toLowerCase()}></${html_tag.toLowerCase()}>" readonly disabled>
+                    <div class="remark_form_fields">
+                        <label for="html_id" class="remark_form_label">HTML Node ID</label>
+                        <input type="html_id" name="html_id" class="remark_form_input" id="html_id" value="${html_id}" readonly>
+                    </div>
+                    </div>
+                        <div class="remark_form_fields">
+                        <label for="html_text_content" class="remark_form_label">HTML Text Content </label>
+                        <input type="html_text_content" name="html_text_content" class="remark_form_input" id="html_text_content" value="${html_text_content}" readonly>
                     </div>
                     <div class="remark_form_fields">
                         <button class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm, event)">Create</button>

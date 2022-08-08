@@ -15,9 +15,8 @@ window.addEventListener("load", (e) => {
 
 function init() {
     const body = document.getElementsByTagName('body')[0];
-    const em = errorModal("ERROR", "Please enter a correct value !");
-    console.log(em);
-    body.insertAdjacentHTML("afterbegin", em)
+    // const em = errorModal("ERROR", "Please enter a correct value !");
+    // body.insertAdjacentHTML("afterbegin", em)
 
     // 1. Register the styles and scripts (for icons)
     registerStyles();
@@ -121,6 +120,8 @@ async function startAnnotationProcess() {
         const node = e.target;
         const className = node.className;
         const tag = node.tagName;
+        const textContent = node.textContent;
+        const id = node.id;
 
         const contextMenu = document.getElementById("remark_context_menu");
 
@@ -145,6 +146,8 @@ async function startAnnotationProcess() {
                     xpath,
                     tag,
                     className,
+                    textContent,
+                    id,
                     "annotation_present": false
                 }
 
