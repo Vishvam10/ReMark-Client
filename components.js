@@ -277,7 +277,7 @@ const DELETE_ANNOTATION_MODAL = (node_xpath) => {
                 </div>
             </div>
             <div class="remark_standard_modal_body">
-                <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath="${node_xpath}">
+                <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath='${node_xpath}' data-html_tag=${curAnnotation["html_tag"]} data-html_text_content="${curAnnotation["html_text_content"]}">
                     <div class="remark_form_fields">
                         <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
                         Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
@@ -497,9 +497,15 @@ function handleDeleteAnnotation(formElement, event) {
     if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
         const annotation_id = formElement.dataset.annotation_id;
         const xpath = formElement.dataset.xpath;
+        const html_id = formElement.dataset.html_id;
+        const html_tag = formElement.dataset.html_tag;
+        const html_text_content = formElement.dataset.html_text_content;
         if (annotation_id && xpath) {
             data["annotation_id"] = annotation_id;
             data["node_xpath"] = xpath;
+            data["html_id"] = html_id;
+            data["html_tag"] = html_tag;
+            data["html_text_content"] = html_text_content;
             deleteAnnotation(data);
         }
     } else {

@@ -35,7 +35,7 @@ async function createAnnotation(bodyData) {
         if (create_modal_check) {
             removeHTMLElement(create_modal_check)
         }
-        const ele = getElementByXpath(bodyData["node_xpath"]);
+        const ele = getElementAfterCheck(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
         ele.classList.add("highlight_element_strong");
     }
     getAnnotationByWebsiteID();
@@ -43,7 +43,6 @@ async function createAnnotation(bodyData) {
 }
 
 async function editAnnotation(bodyData) {
-    console.log(bodyData);
     const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
@@ -63,12 +62,6 @@ async function editAnnotation(bodyData) {
     if (edit_modal_check) {
         removeHTMLElement(edit_modal_check)
     }
-
-    // const new_resolved = bodyData["new_resolved"];
-    // if(new_resolved == true) {
-
-    // }
-    console.log(data);
     getAnnotationByWebsiteID();
     return data;
 }
@@ -93,7 +86,7 @@ async function deleteAnnotation(bodyData) {
         if (delete_modal_check) {
             removeHTMLElement(delete_modal_check);
         }
-        const ele = getElementByXpath(bodyData["node_xpath"]);
+        const ele = getElementAfterCheck(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
         ele.classList.remove("highlight_element_strong");
     }
     getAnnotationByWebsiteID();
