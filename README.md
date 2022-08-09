@@ -12,7 +12,7 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 - [ ] ~~**Create a function to make overlays**~~
 
-- [ ] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
+- [x] **Proper error handling :** Currently the code just logs the error. Need to improve the error modal component and create a generalized error handler
 
 - [x] **Update CSS :** Currently, the CSS code has duplications. Need to use `:root` to declare global stylings. This includes `colors`, `fonts`, `shadows`, etc. Have to make sure not to override the website's styling
 
