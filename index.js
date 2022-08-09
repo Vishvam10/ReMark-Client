@@ -26,8 +26,8 @@ function init() {
     const remark_markup =
         `
         <div class="remark_init_container">
-        <span id="remark_init_text"><b>ReMark</b></span>
-        <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
+            <span class="remark_init_text">REMARK</span>
+            <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
@@ -40,10 +40,9 @@ function init() {
         if (!loginStatus) {
             renderLoginModal();
         } else {
-            // if (isAdmin()) {
             startAnnotationProcess();
             document.getElementById('remark_start').textContent = "Stop Annotation"
-                // }
+            repositionStart();
         }
     });
 
@@ -64,6 +63,12 @@ function registerScripts() {
     const scriptElement = document.createElement("script");
     scriptElement.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
     document.head.appendChild(scriptElement);
+}
+
+function repositionStart() {
+    const ele = document.querySelector(".remark_init_container");
+    ele.style.left = "4%";
+    ele.style.width = "30rem";
 }
 
 async function startAnnotationProcess() {

@@ -149,15 +149,16 @@ ion-icon[name="arrow-down-outline"]:hover {
     font-size: 1.6rem !important;
     padding: 1rem !important;
     background-color: var(--remark-color-primary) !important;
-    color: var(--remark-color-black);
+    color: var(--remark-color-white);
     height: 5rem !important;
     margin: 0.5rem 0rem 0rem 1rem !important;
 }
 
-#remark_init_text {
+.remark_init_text {
     width: 30%;
-    font-size: 2rem;
-    color: black;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--remark-color-grey-dark-1);
     display: flex;
     align-items: center;
     justify-content: center;

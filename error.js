@@ -27,3 +27,17 @@ const errorModal = (type, message) => {
     }
     return markup;
 }
+
+function hideAlert() {
+    const ele = document.querySelector('.remark_error_container');
+    if (ele) {
+        removeHTMLElement(ele)
+    }
+}
+
+function showError(type, message) {
+    hideAlert();
+    const markup = errorModal(type, message)
+    document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
+    window.setTimeout(hideAlert, time * 1000);
+}
