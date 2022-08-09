@@ -42,14 +42,13 @@ function handleContextMenuOptions(option, data) {
             renderSideBar(data["xpath"]);
             break;
         case "create":
-            console.log("CREATING", data);
-            renderNewAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
+            renderNewAnnotationModal(data["node"], data["tag"], data["className"].replace("highlight_element_light", ""), data["id"], data["textContent"]);
             break;
         case "edit":
-            renderEditAnnotationModal(data["node"]);
+            renderEditAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
             break;
         case "delete":
-            renderDeleteAnnotationModal(data["node"]);
+            renderDeleteAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
             break;
         default:
             break;
