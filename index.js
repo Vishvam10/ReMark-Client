@@ -10,10 +10,10 @@ var remarkGlobalData = {
 
 window.addEventListener("load", (e) => {
     e.preventDefault()
-    init();
+    remark_init();
 })
 
-function init() {
+function remark_init() {
     const body = document.getElementsByTagName('body')[0];
     // const em = errorModal("ERROR", "Please enter a correct value !");
     // body.insertAdjacentHTML("afterbegin", em)
@@ -31,21 +31,40 @@ function init() {
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
+
     document.getElementById('remark_start').addEventListener("click", (e) => {
         e.preventDefault();
 
         // 1. Check if user is logged in and verify his/her authority 
         const loginStatus = isLoggedIn();
+        const remark_started = localStorage.getItem("remark_started");
 
-        if (!loginStatus) {
-            renderLoginModal();
+        if (remark_started) {
+            localStorage.removeItem("remark_started");
         } else {
-            startAnnotationProcess();
-            document.getElementById('remark_start').textContent = "Stop Annotation"
-            repositionStart();
+            localStorage.setItem("remark_started", true);
+        }
+
+        console.log(remark_started);
+        if (remark_started) {
+            if (!loginStatus) {
+                renderLoginModal();
+            } else {
+                console.log("REMARK STARTED");
+                startAnnotationProcess();
+                document.getElementById('remark_start').textContent = "Stop Annotation";
+                repositionStart();
+            }
+        } else {
+            document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
+            document.getElementById('remark_start').textContent = "Start Annotation";
         }
     });
 
+}
+
+function remark_destroy() {
+    return;
 }
 
 function registerStyles() {
@@ -67,21 +86,18 @@ function registerScripts() {
 
 function repositionStart() {
     const ele = document.querySelector(".remark_init_container");
-    ele.style.left = "4%";
-    ele.style.width = "30rem";
+    ele.classList.add("remark_init_container_resize");
 }
 
 async function startAnnotationProcess() {
     const remarkScriptTag = document.getElementById("remark_annotation_script");
 
-    console.log("REMARK STARTED");
-
     // 1. Check for API_KEY
     const api_key = remarkScriptTag.dataset.api_key;
 
     if ((!api_key) || (api_key == "")) {
-        //- ERROR HANDLING REQUIRED
-        console.log("Invalid API KEY");
+        showError("ERROR", "Invalid API KEY", 1);
+        return;
     } else {
         remarkGlobalData["api_key"] = api_key;
     }
@@ -89,16 +105,14 @@ async function startAnnotationProcess() {
     // 2. Verify API_KEY
     const token_status = await verifyToken(api_key);
     if (token_status.status != 200) {
-        //- ERROR HANDLING REQUIRED
-        console.log("ERROR IN TOKEN VERIFICATION");
-        return -1;
+        showError("ERROR", "Error in token verification", 1);
+        return;
     }
 
     // 3. Load and render existing annotations if any
     website_id = remarkScriptTag.dataset.website_id
     if ((!website_id) || (website_id == "")) {
-        //- ERROR HANDLING REQUIRED
-        console.log("Invalid website ID");
+        showError("ERROR", "Invalid website ID", 1);
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);
@@ -109,7 +123,6 @@ async function startAnnotationProcess() {
     }
 
     // 4. (ADMIN ONLY) Start the highlight process
-    console.log("STARTING HIGHLIGHT PROCESS . . .");
     if (isAdmin()) {
         highlightElements();
     }
@@ -182,41 +195,7 @@ async function startAnnotationProcess() {
 
     document.addEventListener("keydown", (e) => {
         if (e.key == "Escape") {
-            const create_modal_check = document.getElementById("remark_create_annotation_modal");
-
-            const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
-
-            const delete_modal_check = document.getElementById("remark_delete_annotation_modal");
-
-            const sidebar_check = document.getElementById("remark_annotations_sidebar");
-
-            const login_modal_check = document.getElementById("remark_login_modal");
-
-            const signup_modal_check = document.getElementById("remark_signup_modal");
-
-            const context_menu_check = document.getElementById("remark_context_menu");
-
-            if (create_modal_check) {
-                removeHTMLElement(create_modal_check);
-            }
-            if (edit_modal_check) {
-                removeHTMLElement(edit_modal_check);
-            }
-            if (delete_modal_check) {
-                removeHTMLElement(delete_modal_check);
-            }
-            if (sidebar_check) {
-                removeHTMLElement(sidebar_check);
-            }
-            if (login_modal_check) {
-                removeHTMLElement(login_modal_check);
-            }
-            if (signup_modal_check) {
-                removeHTMLElement(signup_modal_check);
-            }
-            if (context_menu_check) {
-                removeHTMLElement(context_menu_check);
-            }
+            removeAllExistingModals();
         }
     })
 

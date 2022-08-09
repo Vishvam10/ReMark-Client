@@ -6,10 +6,10 @@ const STYLES = `
     --remark-color-primary-darker: #0b5dd7;
 
     --remark-color-success: #5ec576;
-    --remark-color-success-darker: #4bbb7d;
+    --remark-color-success-darker: #2b7a4e;
 
     --remark-color-warning: #ffcb03;
-    --remark-color-warning-darker: #ffbb00;
+    --remark-color-warning-darker: #eaac00;
     
     --remark-color-danger: #ff585f;
     --remark-color-danger-darker: #fd424b;
@@ -142,6 +142,12 @@ ion-icon[name="arrow-down-outline"]:hover {
     justify-content: space-around;
     align-content: center;
     box-shadow: var(--remark-default-box-shadow);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.remark_init_container_resize {
+    left: 4%;
+    width: 30rem;
 }
 
 .remark_init_button {
@@ -175,7 +181,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     height: 8rem;
     border-radius: 1.6rem;
     position: fixed;
-    z-index: 10000002;
+    z-index: 100000000;
     bottom: 3rem;
     left: 36%;
     display: flex;
@@ -186,6 +192,22 @@ ion-icon[name="arrow-down-outline"]:hover {
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.remark_error_container_error {
+    background: var(--remark-color-danger-darker);
+    color: var(--remark-color-white) !important;
+}
+
+.remark_error_container_success {
+    background: var(--remark-color-success-darker);
+    color: var(--remark-color-white) !important;
+}
+
+.remark_error_container_intimation {
+    background: var(--remark-color-warning-darker);
+    color: var(--remark-color-black) !important;
 }
 
 .remark_error_text {
@@ -193,6 +215,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     flex-direction: row;
     justify-content: center;
     align-content: center;
+    color: inherit;
 }
 
 remark_error_container_error {
@@ -542,6 +565,7 @@ textarea:focus {
     height: 3rem;
     border-radius: 1.1rem;
     font-size: 1.3rem;
+    color: var(--remark-color-white);
 }
 
 .remark_unresolve_button {

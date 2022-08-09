@@ -423,6 +423,7 @@ function handleCreateAnnotation(formElement, event) {
     for (var pair of form.entries()) {
         if (pair[0] == "annotation_name" || pair[0] == "tags") {
             if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+                showError("ERROR", "Only alphanumeric values and comma are allowed !")
                 console.log("Only alphanumeric values and comma are allowed !");
                 return;
             }
