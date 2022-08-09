@@ -41,7 +41,7 @@ function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_conte
         const editAnnotationModal = EDIT_ANNOTATION_MODAL(node_xpath);
         body.insertAdjacentHTML("afterbegin", editAnnotationModal);
     } else {
-        console.log("Xpath not matched. Please try again !");
+        showAlert("ERROR", "Xpath not matched. Please try again !");
         return;
     }
 }
@@ -49,7 +49,6 @@ function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_conte
 function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (delete_modal_check) {
-        console.log("Delete annotation modal already present.");
         return;
     }
 
@@ -63,7 +62,7 @@ function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_con
         const deleteAnnotationModal = DELETE_ANNOTATION_MODAL(node_xpath);
         body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
     } else {
-        console.log("Xpath not matched. Please try again !");
+        showAlert("ERROR", "Xpath not matched. Please try again !");
         return;
     }
 }
@@ -81,8 +80,6 @@ function renderExistingAnnotations() {
             ele.classList.add("highlight_element_strong");
             ele.dataset.xpath = annotation["node_xpath"];
         }
-
-
     });
 
     // 2. On show, trigger the sidebar (or modal)
@@ -94,7 +91,6 @@ function renderSideBar(xpath) {
     const body = document.getElementsByTagName('body')[0];
     const check = document.getElementById("remark_annotations_sidebar");
     if (check) {
-        console.log(check);
         removeHTMLElement(check);
     }
     body.insertAdjacentHTML("afterbegin", sideBar);

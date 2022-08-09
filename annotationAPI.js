@@ -37,6 +37,7 @@ async function createAnnotation(bodyData) {
         }
         const ele = getElementAfterCheck(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
         ele.classList.add("highlight_element_strong");
+        showAlert("SUCCESS", "Annotation created successfully !")
     }
     getAnnotationByWebsiteID();
     return data;
@@ -58,6 +59,9 @@ async function editAnnotation(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
+    if (data) {
+        showAlert("SUCCESS", "Annotation edited successfully !")
+    }
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
         removeHTMLElement(edit_modal_check)
@@ -88,6 +92,7 @@ async function deleteAnnotation(bodyData) {
         }
         const ele = getElementAfterCheck(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
         ele.classList.remove("highlight_element_strong");
+        showAlert("SUCCESS", "Annotation deleted successfully !")
     }
     getAnnotationByWebsiteID();
     return data;

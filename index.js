@@ -15,8 +15,7 @@ window.addEventListener("load", (e) => {
 
 function remark_init() {
     const body = document.getElementsByTagName('body')[0];
-    // const em = errorModal("ERROR", "Please enter a correct value !");
-    // body.insertAdjacentHTML("afterbegin", em)
+    const remark_started = localStorage.getItem("remark_started");
 
     // 1. Register the styles and scripts (for icons)
     registerStyles();
@@ -37,15 +36,7 @@ function remark_init() {
 
         // 1. Check if user is logged in and verify his/her authority 
         const loginStatus = isLoggedIn();
-        const remark_started = localStorage.getItem("remark_started");
 
-        if (remark_started) {
-            localStorage.removeItem("remark_started");
-        } else {
-            localStorage.setItem("remark_started", true);
-        }
-
-        console.log(remark_started);
         if (remark_started) {
             if (!loginStatus) {
                 renderLoginModal();
@@ -56,9 +47,13 @@ function remark_init() {
                 repositionStart();
             }
         } else {
+            // localStorage.removeItem("remark_started");
             document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
             document.getElementById('remark_start').textContent = "Start Annotation";
+            localStorage.setItem("remark_started", true);
         }
+
+
     });
 
 }
@@ -96,7 +91,7 @@ async function startAnnotationProcess() {
     const api_key = remarkScriptTag.dataset.api_key;
 
     if ((!api_key) || (api_key == "")) {
-        showError("ERROR", "Invalid API KEY", 1);
+        showAlert("ERROR", "Invalid API KEY", 1);
         return;
     } else {
         remarkGlobalData["api_key"] = api_key;
@@ -105,14 +100,14 @@ async function startAnnotationProcess() {
     // 2. Verify API_KEY
     const token_status = await verifyToken(api_key);
     if (token_status.status != 200) {
-        showError("ERROR", "Error in token verification", 1);
+        showAlert("ERROR", "Error in token verification");
         return;
     }
 
     // 3. Load and render existing annotations if any
     website_id = remarkScriptTag.dataset.website_id
     if ((!website_id) || (website_id == "")) {
-        showError("ERROR", "Invalid website ID", 1);
+        showAlert("ERROR", "Invalid website ID");
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);

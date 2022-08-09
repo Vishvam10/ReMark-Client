@@ -423,8 +423,7 @@ function handleCreateAnnotation(formElement, event) {
     for (var pair of form.entries()) {
         if (pair[0] == "annotation_name" || pair[0] == "tags") {
             if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-                showError("ERROR", "Only alphanumeric values and comma are allowed !")
-                console.log("Only alphanumeric values and comma are allowed !");
+                showAlert("ERROR", "Only alphanumeric values and comma are allowed !")
                 return;
             }
         }
@@ -453,7 +452,7 @@ function handleResolveAnnotation(ele, event) {
         data["new_resolved"] = false;
     }
 
-    editAnnotation(data)
+    editAnnotation(data);
 
 }
 
@@ -510,7 +509,7 @@ function handleDeleteAnnotation(formElement, event) {
             deleteAnnotation(data);
         }
     } else {
-        console.log("Annotation names don't match.");
+        showAlert("ERROR", "Annotation names don't match !")
         return;
     }
 }

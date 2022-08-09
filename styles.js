@@ -6,7 +6,7 @@ const STYLES = `
     --remark-color-primary-darker: #0b5dd7;
 
     --remark-color-success: #5ec576;
-    --remark-color-success-darker: #2b7a4e;
+    --remark-color-success-darker: #399e66;
 
     --remark-color-warning: #ffcb03;
     --remark-color-warning-darker: #eaac00;
@@ -177,7 +177,7 @@ ion-icon[name="arrow-down-outline"]:hover {
 .remark_error_container {
     width: 40rem;
     background: var(--remark-color-white);
-    padding: 1rem;
+    padding: 3.6rem;
     height: 8rem;
     border-radius: 1.6rem;
     position: fixed;
@@ -186,13 +186,14 @@ ion-icon[name="arrow-down-outline"]:hover {
     left: 36%;
     display: flex;
     box-shadow: var(--remark-default-box-shadow);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--remark-color-black);
     flex-direction: column;
     justify-content: center;
     align-content: center;
     transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    line-height: 2rem;
 }
 
 .remark_error_container_error {
@@ -216,6 +217,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     justify-content: center;
     align-content: center;
     color: inherit;
+    width: 92%;
 }
 
 remark_error_container_error {
