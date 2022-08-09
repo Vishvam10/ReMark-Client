@@ -99,7 +99,7 @@ function getElementByXpath(path) {
     try {
         ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
     } catch (error) {
-        console.log("XPath not valid");
+        console.log(error);
     }
     return ele;
 }
@@ -121,4 +121,40 @@ function checkXPathMatch(node, xpath) {
         return true;
     }
     return false;
+}
+
+function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
+    const ele_check1 = getElementByXpath(`${node_xpath}`);
+    if (ele_check1) {
+        return ele_check1;
+    } else {
+        const ele_check2 = document.getElementById(`${html_id}`)
+
+        if (ele_check2) {
+            return ele_check2;
+        } else {
+            const html_tags = document.getElementsByTagName(`${html_tag}`);
+            let ele_check3;
+
+            for (let i = 0; i < html_tags.length; i++) {
+                curElement = html_tags[i];
+                if (curElement.innerHTML == html_text_content) {
+                    ele_check3 = curElement;
+                    break;
+                }
+            }
+            if (ele_check3) {
+                return ele_check3;
+            } else {
+
+                const ht = html_tag.toLowerCase()
+                const html_tags = document.getElementsByTagName(`${ht}`);
+                const index = parseInt(node_xpath.slice(-2, -1)) - 1;
+                const ele_check4 = html_tags[index];
+                if (ele_check4) {
+                    return ele_check4;
+                }
+            }
+        }
+    }
 }
