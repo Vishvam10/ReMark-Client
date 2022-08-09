@@ -8,37 +8,19 @@
     
 */
 
-function renderNewAnnotationModal(node, html_tag, id, textContent) {
+function renderNewAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
     if (create_modal_check) {
         return;
     }
     const body = document.getElementsByTagName('body')[0];
 
-    let node_xpath = getNodeXpath(node);
+    let node_xpath = getNodeXpath(html_node);
     node_xpath = `//${node_xpath.toLowerCase()}`
 
-    console.log("RA : ", node, html_tag, id, textContent);
+    const newAnnotationModal = CREATE_ANNOTATION_MODAL(node_xpath, html_tag, html_id, html_text_content)
 
-
-    if (checkXPathMatch(node, node_xpath)) {
-        const createAnnotationModal = CREATE_ANNOTATION_MODAL(node_xpath, html_tag, null, null);
-        body.insertAdjacentHTML("afterbegin", createAnnotationModal);
-    } else {
-        console.log("Xpath not matched. Trying ID match.");
-        if (id == "" || id == null) {
-            console.log("ID not matched. Trying textContent match.");
-            if (textContent == "" || textContent == null) {
-                console.log("Text content not matched. Trying textContent + Xpath match.");
-            }
-        } else {
-            const createAnnotationModal = CREATE_ANNOTATION_MODAL(null, null, id, null);
-            body.insertAdjacentHTML("afterbegin", createAnnotationModal);
-        }
-        return;
-    }
-
-
+    body.insertAdjacentHTML("afterbegin", newAnnotationModal)
 
 }
 
@@ -94,12 +76,43 @@ function renderExistingAnnotations() {
 
     // 1. Indicate the elements on which the annotations are present
     annotations.forEach((annotation) => {
-        const node_xpath = annotation["node_xpath"];
-        const ele = getElementByXpath(node_xpath);
-        if (ele) {
-            ele.classList.add("highlight_element_strong");
-            ele.dataset.xpath = node_xpath;
+        // console.log(annotation);
+        console.log("ANNOTATION : ", annotation);
+        const ele_check1 = getElementByXpath(annotation["node_xpath"]);
+        console.log("CHECK 1 : ", ele_check1);
+
+        if (ele_check1) {
+            ele_check1.classList.add("highlight_element_strong");
+            ele_check1.dataset.xpath = annotations["node_xpath"];
+        } else {
+            const ele_check2 = document.getElementById(`${annotation["html_id"]}`)
+            console.log("CHECK 2 : ", ele_check2);
+
+            if (ele_check2) {
+                ele_check1.classList.add("highlight_element_strong");
+                ele_check1.dataset.xpath = annotations["node_xpath"];
+            } else {
+                const html_tags = document.getElementsByTagName(`${annotation["html_tag"]}`)
+                let ele_check3;
+
+                for (let i = 0; i < html_tags.length; i++) {
+                    curElement = html_tags[i];
+                    if (curElement.innerHTML == annotation["html_text_content"]) {
+                        ele_check3 = curElement;
+                        break;
+                    }
+                }
+                ele_check3.classList.add("highlight_element_strong");
+                ele_check3.dataset.xpath = annotations["node_xpath"];
+            }
+
         }
+
+
+        // if (ele) {
+        //     ele.classList.add("highlight_element_strong");
+        //     ele.dataset.xpath = annotations["node_xpath"];
+        // }
     });
 
 
