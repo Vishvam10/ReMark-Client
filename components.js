@@ -123,28 +123,14 @@ const CONTEXT_MENU_MARKUP = (annotation_present) => {
     return markup;
 }
 
-const ERROR_MODAL = (type) => {
-    let styles;
-    if (type == "SUCCESS") {
-        styles = "background-color: #22C55E;"
-    } else if (type == "ERROR") {
-        styles = "background-color: #EF4444;"
-    }
-    const markup =
-        `
-    <div class="error_modal" style=${styles}>
-        <p style="line-height: inherit;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat.</p>
-    </div>
-    `
-}
-
-const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_id, html_text_content) => {
+const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html_text_content) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
     }
-
-    console.log("IN COMPONENTS : ", node_xpath, html_tag, html_id, html_text_content);
+    if (html_class == "") {
+        html_class = null;
+    }
 
     if (html_id == "") {
         html_id = null;
@@ -174,13 +160,17 @@ const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_id, html_text_conten
                         <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
                         <input type="tags" name="tags" class="remark_form_input" id="tags">
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields">
                         <label for="node_xpath" class="remark_form_label">Node XPath</label>
                         <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value='${node_xpath}' readonly>
                     </div>
                     <div class="remark_form_fields">
                         <label for="html_tag" class="remark_form_label">Selected Node</label>
                         <input type="text" name="html_tag" class="remark_form_input" id="html_tag" value="${html_tag.toLowerCase()}" readonly>
+                    <div class="remark_form_fields">
+                        <label for="html_class" class="remark_form_label">HTML Node Class</label>
+                        <input type="html_class" name="html_class" class="remark_form_input" id="html_class" value="${html_class}" readonly>
+                    </div>
                     <div class="remark_form_fields hide">
                         <label for="html_id" class="remark_form_label">HTML Node ID</label>
                         <input type="html_id" name="html_id" class="remark_form_input" id="html_id" value="${html_id}" readonly>
@@ -250,7 +240,7 @@ const EDIT_ANNOTATION_MODAL = (node_xpath) => {
                         <input type="text" name="annotation_id" class="remark_form_input" value=${curAnnotation["annotation_id"]} readonly>
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit"  class="remark_standard_button" onclick="handleEditAnnotation(editAnnotationForm)">Edit</button>
+                        <button name="submit"  class="remark_standard_button" onclick="handleEditAnnotation(editAnnotationForm, event)">Edit</button>
                     </div>
                 </form>
             </div>
@@ -466,7 +456,9 @@ function handleResolveAnnotation(ele, event) {
 
 }
 
-function handleEditAnnotation(formElement) {
+function handleEditAnnotation(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
     let form = new FormData(formElement);
     const annotation_id = formElement.dataset.annotation_id;
     let data = {}
