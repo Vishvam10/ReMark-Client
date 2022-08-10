@@ -30,6 +30,32 @@ async function createComment(bodyData) {
     return data;
 }
 
+async function editComment(bodyData) {
+    const url = `${BASE_API_URL}/api/comment/${bodyData["comment_id"]}`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'API_KEY': `${api_key}`,
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': `Bearer ${auth_token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bodyData)
+    })
+    const data = await res.json();
+    if (!data) {
+        showAlert("ERROR", "Something went wrong !", 2)
+    } else {
+        console.log(data);
+        const contentEle = data["comment_id"] + "message";
+        contentEle.textContent = data["content"];
+        showAlert("SUCCESS", "Comment edited successfully !")
+    }
+    return data;
+}
+
 async function updateCommentVote(bodyData) {
     const url = `${BASE_API_URL}/api/comment/vote/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
