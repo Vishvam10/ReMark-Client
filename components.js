@@ -302,7 +302,6 @@ const SIDEBAR = (xpath) => {
     let curAnnotation;
 
     annotations.forEach((annotation) => {
-        console.log("IN COMPONENTS : ", annotation["node_xpath"], xpath);
         if (annotation["node_xpath"] == xpath) {
             curAnnotation = annotation;
         }
@@ -396,7 +395,7 @@ const COMMENTS_MARKUP = (comment) => {
             <div class="remark_annotation_vote">
                 <span class="remark_annotation_vote_option">
                     ${comment["upvotes"]}
-                    <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(remark_annotations_sidebar)data-comment_id="${comment["comment_id"]}"></ion-icon>
+                    <ion-icon name="arrow-up-outline" id="remark_upvote" onclick="handleCommentUpvote(remark_upvote, event)" data-comment_id="${comment["comment_id"]}"></ion-icon>
                 </span>
                 <span class="remark_annotation_vote_option">
                     ${comment["downvotes"]}
@@ -533,6 +532,22 @@ function handleCreateComment() {
 function handleDeleteComment(comment_id) {
     // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
     deleteComment(comment_id);
+}
+
+function handleCommentUpvote(ele, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const user_id = localStorage.getItem("user_id");
+    const comment_id = ele.dataset.comment_id;
+    let data = {}
+    data["user_id"] = user_id;
+    data["comment_id"] = comment_id;
+    if (ele.id == "remark_upvote") {
+        data["action_type"] = "upvote";
+    } else {
+        data["action_type"] = "downvote";
+    }
+    updateCommentVote(data);
 }
 
 function handleLoginSignupSwitch(component) {
