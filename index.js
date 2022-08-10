@@ -35,10 +35,11 @@ function remark_init() {
         e.preventDefault();
 
         // 1. Check if user is logged in and verify his/her authority 
-        const loginStatus = isLoggedIn();
 
         if (remark_started) {
+            const loginStatus = isLoggedIn();
             if (!loginStatus) {
+                document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
                 renderLoginModal();
             } else {
                 console.log("REMARK STARTED");

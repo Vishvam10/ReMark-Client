@@ -160,14 +160,14 @@ const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html
                         <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
                         <input type="tags" name="tags" class="remark_form_input" id="tags">
                     </div>
-                    <div class="remark_form_fields">
+                    <div class="remark_form_fields hide">
                         <label for="node_xpath" class="remark_form_label">Node XPath</label>
                         <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value='${node_xpath}' readonly>
                     </div>
-                    <div class="remark_form_fields">
+                    <div class="remark_form_fields hide">
                         <label for="html_tag" class="remark_form_label">Selected Node</label>
                         <input type="text" name="html_tag" class="remark_form_input" id="html_tag" value="${html_tag.toLowerCase()}" readonly>
-                    <div class="remark_form_fields">
+                    <div class="remark_form_fields hide">
                         <label for="html_class" class="remark_form_label">HTML Node Class</label>
                         <input type="html_class" name="html_class" class="remark_form_input" id="html_class" value="${html_class}" readonly>
                     </div>
