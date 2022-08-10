@@ -79,6 +79,8 @@ function renderExistingAnnotations() {
         if (ele) {
             ele.classList.add("highlight_element_strong");
             ele.dataset.xpath = annotation["node_xpath"];
+        } else {
+            console.log("RE-RENDER REQUIRED : ", ele);
         }
     });
 
