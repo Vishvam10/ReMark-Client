@@ -302,11 +302,11 @@ const SIDEBAR = (xpath) => {
     let curAnnotation;
 
     annotations.forEach((annotation) => {
+        console.log("IN COMPONENTS : ", annotation["node_xpath"], xpath);
         if (annotation["node_xpath"] == xpath) {
             curAnnotation = annotation;
         }
     });
-
 
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];

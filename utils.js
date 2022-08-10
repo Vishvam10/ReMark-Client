@@ -99,7 +99,7 @@ function getElementByXpath(path) {
     try {
         ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
     } catch (error) {
-        console.log(error);
+        return;
     }
     return ele;
 }
@@ -138,14 +138,11 @@ function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) 
 
             for (let i = 0; i < html_tags.length; i++) {
                 curElement = html_tags[i];
-                // console.log("IN FOR LOOP 1 : ", curElement.textContent.replace(/\s/g, ""));
-                // console.log("IN FOR LOOP 2 : ", html_text_content);
                 if (curElement.textContent.replace(/\s/g, "") == html_text_content.replace(/\s/g, "")) {
                     ele_check3 = curElement;
                     break;
                 }
             }
-            console.log("CHECK 3 : ", ele_check3);
             if (ele_check3) {
                 return ele_check3;
             } else {
