@@ -178,7 +178,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     width: 40rem;
     background: var(--remark-color-white);
     padding: 3.6rem;
-    min-height: 8rem;
+    min-height: 6rem;
     border-radius: 1.6rem;
     position: fixed;
     z-index: 100000000;
