@@ -138,22 +138,21 @@ function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) 
 
             for (let i = 0; i < html_tags.length; i++) {
                 curElement = html_tags[i];
-                if (curElement.innerHTML == html_text_content) {
+                // console.log("IN FOR LOOP 1 : ", curElement.textContent.replace(/\s/g, ""));
+                // console.log("IN FOR LOOP 2 : ", html_text_content);
+                if (curElement.textContent.replace(/\s/g, "") == html_text_content.replace(/\s/g, "")) {
                     ele_check3 = curElement;
                     break;
                 }
             }
+            console.log("CHECK 3 : ", ele_check3);
             if (ele_check3) {
                 return ele_check3;
             } else {
-
+                //- LOGIC MUST BE CHANGED
                 const ht = html_tag.toLowerCase()
                 const html_tags = document.getElementsByTagName(`${ht}`);
-                const index = parseInt(node_xpath.slice(-2, -1)) - 1;
-                const ele_check4 = html_tags[index];
-                if (ele_check4) {
-                    return ele_check4;
-                }
+                // showAlert("INTIMATION", `${html_text_content} TAG : ${ht}`, 1000)
             }
         }
     }
