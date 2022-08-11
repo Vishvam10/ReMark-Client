@@ -86,7 +86,7 @@ ion-icon[name="paper-plane-outline"]:hover {
 
 ion-icon[name="arrow-up-outline"] {
     font-size: 1.6rem;
-    margin: 0rem 0rem -0.3rem 0.4rem;
+    margin: 0rem 0rem 0rem 0.5rem;
 }
 
 ion-icon[name="arrow-up-outline"]:hover {
@@ -96,7 +96,7 @@ ion-icon[name="arrow-up-outline"]:hover {
 
 ion-icon[name="arrow-down-outline"] {
     font-size: 1.6rem;
-    margin: 0rem 0rem -0.3rem 0.4rem;
+    margin: 0rem 0rem 0rem 0.5rem;
 }
 
 ion-icon[name="arrow-down-outline"]:hover {
@@ -368,6 +368,13 @@ remark_error_container_success {
     justify-content: space-between;
     align-items: center;
     width: 20%;
+}
+
+.remark_annotation_vote_option {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .remark_annotation_reply {

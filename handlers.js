@@ -28,6 +28,7 @@ function handleResolveAnnotation(ele, event) {
     event.stopPropagation();
 
     const resolved = ele.dataset.annotation_resolved;
+    console.log(resolved);
     const annotation_id = ele.dataset.annotation_id;
 
     let data = {}
@@ -163,15 +164,10 @@ function handleCommentUpvote(ele, event) {
     event.preventDefault();
     event.stopPropagation();
     const user_id = localStorage.getItem("user_id");
-    const comment_id = ele.dataset.comment_id;
     let data = {}
     data["user_id"] = user_id;
-    data["comment_id"] = comment_id;
-    if (ele.id == "remark_upvote") {
-        data["action_type"] = "upvote";
-    } else {
-        data["action_type"] = "downvote";
-    }
+    data["comment_id"] = ele.dataset.comment_id;
+    data["action_type"] = ele.dataset.action_type
     updateCommentVote(data);
 }
 

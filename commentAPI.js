@@ -71,12 +71,16 @@ async function updateCommentVote(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
-    if (data.status == 201) {
-        const comment = data.data;
-        const markup = COMMENTS_MARKUP(comment);
-        document.getElementById("remark_comments_body").insertAdjacentHTML("beforeend", markup);
+    if (data.status == 200) {   
+        showAlert("SUCCESS", `Comment ${bodyData["action_type"]} successful !`)
+        if(bodyData["action_type"] == "upvote") {
+            document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
+        } else {
+            document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
+        }
     } else {
-        showAlert("ERROR", "Please enter a valid comment !")
+        
+        showAlert("ERROR", data["error_message"])
     }
     return data;
 }

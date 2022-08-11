@@ -60,7 +60,7 @@ async function editAnnotation(bodyData) {
     })
     const data = await res.json();
     if (data) {
-        showAlert("SUCCESS", "Annotation edited successfully !")
+        showAlert("SUCCESS", data["message"])
     }
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {

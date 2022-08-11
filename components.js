@@ -367,6 +367,8 @@ const COMMENTS_MARKUP = (comment) => {
     }
 
     let content_id = `${comment["comment_id"]}message`;
+    let upvotes_id = `${comment["comment_id"]}upvotes`;
+    let downvotes_id = `${comment["comment_id"]}downvotes`;
 
     const markup =
         `
@@ -392,12 +394,12 @@ const COMMENTS_MARKUP = (comment) => {
             </div>
             <div class="remark_annotation_vote">
                 <span class="remark_annotation_vote_option">
-                    ${comment["upvotes"]}
-                    <ion-icon name="arrow-up-outline" id="remark_upvote" onclick="handleCommentUpvote(remark_upvote, event)" data-comment_id="${comment["comment_id"]}"></ion-icon>
+                    <p id="${upvotes_id}">${comment["upvotes"]}</p>
+                    <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(this, event)" data-comment_id="${comment["comment_id"]}" data-action_type="upvote"></ion-icon>
                 </span>
                 <span class="remark_annotation_vote_option">
-                    ${comment["downvotes"]}
-                    <ion-icon name="arrow-down-outline" data-comment_id="${comment["comment_id"]}"></ion-icon>
+                    <p id="${downvotes_id}">${comment["downvotes"]}</p>
+                    <ion-icon name="arrow-down-outline" onclick="handleCommentUpvote(this, event)"data-comment_id="${comment["comment_id"]}" data-action_type="downvote"></ion-icon>
                 </span>
             </div>
         </div>
