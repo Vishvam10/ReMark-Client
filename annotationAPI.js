@@ -59,8 +59,19 @@ async function editAnnotation(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
+    console.log(data);
     if (data) {
-        showAlert("SUCCESS", data["message"])
+        showAlert("SUCCESS", data["message"]);
+        if(data["message"] == "Annotation resolved successfully !") {
+            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
+            resolve_btn.classList.add("remark_unresolve_button")
+            resolve_btn.innerText = "Unresolve";
+            
+        } else if(data["message"] == "Annotation unresolved successfully !") {
+            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
+            resolve_btn.classList.remove("remark_unresolve_button")
+            resolve_btn.innerText = "Resolve";
+        }
     }
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {

@@ -27,18 +27,12 @@ function handleResolveAnnotation(ele, event) {
     event.preventDefault();
     event.stopPropagation();
 
-    const resolved = ele.dataset.annotation_resolved;
-    console.log(resolved);
     const annotation_id = ele.dataset.annotation_id;
 
     let data = {}
     data["annotation_id"] = annotation_id;
     data["action_type"] = "edit_resolved";
-    if (resolved)
-        data["new_resolved"] = true;
-    else {
-        data["new_resolved"] = false;
-    }
+    data["new_resolved"] = "";
 
     editAnnotation(data);
 

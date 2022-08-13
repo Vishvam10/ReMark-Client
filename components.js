@@ -310,25 +310,18 @@ const SIDEBAR = (xpath) => {
     const resolved = curAnnotation["resolved"];
 
     let comment_markup = ""
-    let resolve_button_markup = ""
+    let resolve_button_text = ""
+
+    if(resolved) {
+        resolve_button_text = "Unresolve";
+    } else {
+        resolve_button_text = "Resolve";
+    }
 
     comments.forEach((comment) => {
         const m = COMMENTS_MARKUP(comment);
         comment_markup += m;
     });
-
-
-    if (resolved) {
-        resolve_button_markup =
-            `
-            <button class="remark_standard_button remark_resolve_button remark_unresolve_button" data-annotation_id="${annotation_id}" data-annotation_resolved="${resolved}" onclick="handleResolveAnnotation(this, event)">Unresolve</button>
-        `
-    } else {
-        resolve_button_markup =
-            `
-            <button class="remark_standard_button remark_resolve_button" data-annotation_id="${annotation_id}" data-annotation_resolved="${resolved}" onclick="handleResolveAnnotation(this, event)">Resolve</button>
-        `
-    }
 
     const markup =
         `
@@ -336,7 +329,9 @@ const SIDEBAR = (xpath) => {
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                ${resolve_button_markup}
+                <button class="remark_standard_button remark_resolve_button" data-annotation_id="${annotation_id}" onclick="handleResolveAnnotation(this, event)" id="remark_annotation_resolve_button">
+                    ${resolve_button_text}
+                </button>
                 <div class="remark_standard_modal_close_btn">
                     <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
                 </div>
@@ -365,7 +360,7 @@ const COMMENTS_MARKUP = (comment) => {
     } else {
         d = comment["created_at"]
     }
-
+    console.log(comment);
     let content_id = `${comment["comment_id"]}message`;
     let upvotes_id = `${comment["comment_id"]}upvotes`;
     let downvotes_id = `${comment["comment_id"]}downvotes`;
