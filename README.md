@@ -1,4 +1,4 @@
-# ReMark Fronted
+# ReMark Client
 
 This is the ReMark client which is written in pure Vanilla JS. The styling is taken care by HTML5 and CSS3. 
 
