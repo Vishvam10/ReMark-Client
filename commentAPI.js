@@ -73,13 +73,11 @@ async function updateCommentVote(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
+    console.log(data);
     if (data.status == 200) {   
         showAlert("SUCCESS", `${data["message"]}`)
-        if(bodyData["action_type"] == "upvote") {
-            document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
-        } else {
-            document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
-        }
+        document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
+        document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
     } else {
         showAlert("ERROR", data["error_message"])
     }
