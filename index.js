@@ -9,7 +9,7 @@ var remarkGlobalData = {
 }
 
 window.addEventListener("load", (e) => {
-    e.preventDefault()
+    e.preventDefault();
     remark_init();
 })
 

@@ -47,6 +47,8 @@ function loginUser(form) {
                 }
             })
             .catch(err => console.log(err))
+    } else {
+        showAlert("ERROR", "Form validation failed")
     }
 }
 
