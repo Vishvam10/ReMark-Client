@@ -217,7 +217,7 @@ ion-icon[name="arrow-down-outline"]:hover {
     justify-content: center;
     align-content: center;
     color: inherit;
-    width: 92%;
+    width: 100%;
 }
 
 remark_error_container_error {
