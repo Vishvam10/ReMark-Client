@@ -1,3 +1,12 @@
+var $9bdae1cc374cba8f$export$1b94e36de2b67148 = {
+    "website_id": "",
+    "api_key": "",
+    "annotations": [],
+    "theme": "light",
+    "currentXPath": ""
+};
+
+
 var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
 
     :root {
@@ -557,16 +566,27 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
     }
 
     .remark_standard_button:hover {
+        background-color: var(--remark-color-primary) !important;
         transform: scale(1.04);
     }
 
     .remark_standard_button:active {
+        transform: scale(1.0) !important;
+    }
+
+    .remark_standard_button:focus {
+        background-color: var(--remark-color-primary) !important
         transform: scale(1.0);
     }
 
     .remark_delete_button {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
+    }
+
+    .remark_delete_button:focus {
+        background-color: var(--remark-color-danger) !important;
+        color: var(--remark-color-white) !important;
     }
 
     .remark_resolve_button {
@@ -576,8 +596,17 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         font-size: 1.3rem;
         color: var(--remark-color-white);
     }
+    
+    .remark_resolve_button {
+        color: var(--remark-color-white) !important;
+    }
 
     .remark_unresolve_button {
+        background-color: var(--remark-color-danger);
+        color: var(--remark-color-white);
+    }
+
+    .remark_unresolve_button:focus {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
     }
@@ -692,7 +721,6 @@ const $af38c480052fd5ae$export$78b464efab6cd2cc = [
 ];
 
 
-
 function $18a61f8fa6189451$export$ed692cabb252e59b(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {
         if (data["username"] != "") {
@@ -715,7 +743,7 @@ function $18a61f8fa6189451$export$1656970ae4fe6f6e() {
         const className = e.target.className;
         if (className.includes("remark_") || className.includes("highlight_element_strong")) return;
         const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
+        if ((0, $af38c480052fd5ae$export$78b464efab6cd2cc).includes(tag)) {
             const targetHTMLElement = e.target;
             targetHTMLElement.classList.toggle("highlight_element_light");
         }
@@ -726,7 +754,7 @@ function $18a61f8fa6189451$export$1656970ae4fe6f6e() {
         const className = e.target.className;
         if (className.includes("remark_") || className.includes("highlight_element_strong")) return;
         const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
+        if ((0, $af38c480052fd5ae$export$78b464efab6cd2cc).includes(tag)) {
             const targetHTMLElement = e.target;
             targetHTMLElement.classList.toggle("highlight_element_light");
         }
@@ -829,6 +857,10 @@ function $18a61f8fa6189451$export$7743824edd59500d() {
 }
 
 
+
+
+
+
 const $fd3a760e313b8296$export$b92ea88f33b78593 = (type, message)=>{
     let markup = "";
     switch(type){
@@ -873,7 +905,7 @@ function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1) {
 
 async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
     const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/all/${website_id}`;
-    const api_key = remarkGlobalData["api_key"];
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
     const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -884,12 +916,12 @@ async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
         }
     });
     const data = await res.json();
-    remarkGlobalData["annotations"] = data;
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = data;
     return data;
 }
 async function $41fbc3b1898586d3$export$51eda81011da4982(bodyData) {
     const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation`;
-    const api_key = remarkGlobalData["api_key"];
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: "POST",
@@ -915,7 +947,7 @@ async function $41fbc3b1898586d3$export$51eda81011da4982(bodyData) {
 async function $41fbc3b1898586d3$export$91b982a47ffa3c23(bodyData) {
     const annotation_id = bodyData["annotation_id"];
     const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${annotation_id}`;
-    const api_key = remarkGlobalData["api_key"];
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: "PUT",
@@ -948,7 +980,7 @@ async function $41fbc3b1898586d3$export$91b982a47ffa3c23(bodyData) {
 async function $41fbc3b1898586d3$export$a193961559973879(bodyData) {
     const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${bodyData["annotation_id"]}`;
     console.log(bodyData);
-    const api_key = remarkGlobalData["api_key"];
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
         method: "DELETE",
@@ -973,21 +1005,430 @@ async function $41fbc3b1898586d3$export$a193961559973879(bodyData) {
 
 
 
-async function $05710fca1e88f8c9$export$c807668e63e7354b(key) {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/token/verify/${key}`;
+
+
+async function $1a716a3e9014a08f$export$2a15b079e3f46654(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {
-        method: "GET",
+        method: "POST",
         headers: {
+            "API_KEY": `${api_key}`,
             "Access-Control-Allow-Origin": "*",
-            "Accept": "application/json",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (data.status == 201) {
+        const comment = data.data;
+        const markup = COMMENTS_MARKUP(comment);
+        document.getElementById("remark_comments_body").insertAdjacentHTML("beforeend", markup);
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Please enter a valid comment !");
+    return data;
+}
+async function $1a716a3e9014a08f$export$fc22b458daff1d0c(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${bodyData["comment_id"]}`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (!data) (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong !", 2);
+    else {
+        console.log(data);
+        const content_id = data["comment_id"] + "message";
+        const contentEle = document.getElementById(`${content_id}`);
+        contentEle.textContent = data["content"];
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Comment edited successfully !");
+        contentEle.contentEditable = false;
+    }
+    return data;
+}
+async function $1a716a3e9014a08f$export$f2e8b808565088b0(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/vote/${bodyData["comment_id"]}`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.status == 200) {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", `${data["message"]}`);
+        document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
+        document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", data["error_message"]);
+    return data;
+}
+async function $1a716a3e9014a08f$export$2e6e3ad634e3776(comment_id) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${comment_id}`;
+    const api_key = remarkGlobalData["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
             "Content-Type": "application/json"
         }
     });
     const data = await res.json();
+    if (data.status == 200) {
+        const comment = document.getElementById(comment_id);
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(comment);
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong");
     return data;
 }
 
 
+
+function $1462d0332aa03f78$export$256a5a3564694cfc() {
+    const username = localStorage.getItem("user_name");
+    const user_id = localStorage.getItem("user_id");
+    if (username && user_id) return true;
+    return false;
+}
+function $1462d0332aa03f78$export$a0973bcfe11b05c9() {
+    localStorage.clear();
+}
+function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
+    const formData = new FormData(form);
+    const data = {};
+    for (var pair of formData.entries())data[pair[0]] = pair[1];
+    const res = validateForm(data);
+    if (res == "OK") {
+        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/login`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>res.json()).then((data)=>{
+            console.log(data);
+            if (data["status"] == 200) {
+                localStorage.setItem("user_access_token", data["access_token"]);
+                localStorage.setItem("user_id", data["user_id"]);
+                localStorage.setItem("user_name", data["user_name"]);
+                localStorage.setItem("user_authority", data["user_authority"]);
+                const loginFormModal = document.getElementById("remark_login_modal");
+                if (loginFormModal) removeHTMLElement(loginFormModal);
+            } else {
+                console.log(data);
+                return false;
+            }
+        }).catch((err)=>console.log(err));
+    } else showAlert("ERROR", "Form validation failed");
+}
+function $1462d0332aa03f78$export$44c987e964dad812(form) {
+    const formData = new FormData(form);
+    const data = {};
+    for (var pair of formData.entries())data[pair[0]] = pair[1];
+    data["authority"] = "user";
+    const res = validateForm(data);
+    if (res == "OK") {
+        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/user`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>res.json()).then((data)=>{
+            console.log(data);
+            if (data["status"] == 201) {
+                localStorage.setItem("user_access_token", data["access_token"]);
+                localStorage.setItem("user_id", data["user_id"]);
+                localStorage.setItem("user_name", data["user_name"]);
+                localStorage.setItem("user_authority", data["user_authority"]);
+                const signupFormModal = document.getElementById("remark_signup_modal");
+                if (signupFormModal) removeHTMLElement(signupFormModal);
+            } else {
+                console.log(data);
+                return false;
+            }
+        }).catch((err)=>console.log(err));
+    }
+}
+function $1462d0332aa03f78$export$fc970ed23da99565() {
+    const authority = localStorage.getItem("user_authority");
+    if (authority == "admin") return true;
+    return false;
+}
+
+
+
+
+
+
+function $401e5251b5672128$export$592d9b2be066ea35(html_node, html_tag, html_class, html_id, html_text_content) {
+    const create_modal_check = document.getElementById("remark_create_annotation_modal");
+    if (create_modal_check) return;
+    const body = document.getElementsByTagName("body")[0];
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const newAnnotationModal = (0, $4ccab26f1b142cf4$export$677e18af8a745d31)(node_xpath, html_tag, html_class, html_id, html_text_content);
+    body.insertAdjacentHTML("afterbegin", newAnnotationModal);
+}
+function $401e5251b5672128$export$a144fbac6e7cc210(html_node, html_tag, html_id, html_text_content) {
+    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (edit_modal_check) {
+        console.log("Edit annotation modal already present.");
+        return;
+    }
+    const body = document.getElementsByTagName("body")[0];
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
+    if (ele) {
+        const editAnnotationModal = (0, $4ccab26f1b142cf4$export$c85da9ec7569e35c)(node_xpath);
+        body.insertAdjacentHTML("afterbegin", editAnnotationModal);
+    } else {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
+        return;
+    }
+}
+function $401e5251b5672128$export$7f4bf70cd335a417(html_node, html_tag, html_id, html_text_content) {
+    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (delete_modal_check) return;
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const body = document.getElementsByTagName("body")[0];
+    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
+    if (ele) {
+        const deleteAnnotationModal = DELETE_ANNOTATION_MODAL(node_xpath);
+        body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
+    } else {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
+        return;
+    }
+}
+function $401e5251b5672128$export$1d36b8466b2a4d4c() {
+    const annotations = remarkGlobalData["annotations"];
+    // Indicate the elements on which the annotations are present
+    annotations.forEach((annotation)=>{
+        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"]);
+        if (ele) {
+            ele.classList.add("highlight_element_strong");
+            ele.dataset.xpath = annotation["node_xpath"];
+        } else console.log("RE-RENDER REQUIRED : ", ele);
+    });
+// 2. On show, trigger the sidebar (or modal)
+// THIS WILL BE DONE USING THE CONTEXT MENU
+}
+function $401e5251b5672128$export$40be53e378c97146(xpath) {
+    const sideBar = (0, $4ccab26f1b142cf4$export$2ee9e5a3556c1e43)(xpath);
+    const body = document.getElementsByTagName("body")[0];
+    const check = document.getElementById("remark_annotations_sidebar");
+    if (check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(check);
+    body.insertAdjacentHTML("afterbegin", sideBar);
+}
+function $401e5251b5672128$export$dd9c74687ae6eb45() {
+    const body = document.getElementsByTagName("body")[0];
+    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$f5cfe9cd58390ad5));
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    let submitBtn = document.getElementById("remark_login_btn");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_login_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const loginForm = document.getElementById("loginForm");
+        $cc4ff3a23db2c1c1$export$799b690d1790eee(e, loginForm);
+    });
+}
+function $401e5251b5672128$export$245c1a748319b9de() {
+    const body = document.getElementsByTagName("body")[0];
+    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$ecfd046c5f019e12));
+}
+
+
+
+function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    let form = new FormData(formElement);
+    let data = {};
+    const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
+    for (var pair of form.entries()){
+        if (pair[0] == "annotation_name" || pair[0] == "tags") {
+            if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+                showAlert("ERROR", "Only alphanumeric values and comma are allowed !");
+                return;
+            }
+        }
+        data[pair[0]] = pair[1].trim();
+    }
+    data["website_uri"] = window.location.href;
+    data["user_id"] = user_id;
+    data["user_name"] = user_name;
+    data["website_id"] = website_id;
+    (0, $41fbc3b1898586d3$export$51eda81011da4982)(data);
+}
+function $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(ele, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const annotation_id = ele.dataset.annotation_id;
+    let data = {};
+    data["annotation_id"] = annotation_id;
+    data["action_type"] = "edit_resolved";
+    data["new_resolved"] = "";
+    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
+}
+function $cc4ff3a23db2c1c1$export$51aff373edad69c5(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    let form = new FormData(formElement);
+    const annotation_id = formElement.dataset.annotation_id;
+    let data = {};
+    for (var pair of form.entries())//* TODO : Validation
+    // if (pair[0] == "new_name" || pair[0] == "new_tags") {
+    // if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+    // console.log("Only alphanumeric values and comma are allowed !", pair[0], pair[1]);
+    // return;
+    // }
+    // }
+    data[pair[0]] = pair[1].trim();
+    let actions = [];
+    if (data["new_annotation"] != "") actions.push("edit_name");
+    if (data["new_tags"] != "") actions.push("edit_tags");
+    actions = actions.join(",");
+    data["action_type"] = actions;
+    data["annotation_id"] = annotation_id;
+    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
+}
+function $cc4ff3a23db2c1c1$export$ff5312fa04eaf3aa(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(formElement);
+    let form = new FormData(formElement);
+    let data = {};
+    for (var pair of form.entries())data[pair[0]] = pair[1].trim();
+    if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
+        const annotation_id = formElement.dataset.annotation_id;
+        const xpath = formElement.dataset.xpath;
+        const html_id = formElement.dataset.html_id;
+        const html_tag = formElement.dataset.html_tag;
+        const html_text_content = formElement.dataset.html_text_content;
+        if (annotation_id && xpath) {
+            data["annotation_id"] = annotation_id;
+            data["node_xpath"] = xpath;
+            data["html_id"] = html_id;
+            data["html_tag"] = html_tag;
+            data["html_text_content"] = html_text_content;
+            (0, $41fbc3b1898586d3$export$a193961559973879)(data);
+        }
+    } else {
+        showAlert("ERROR", "Annotation names don't match !");
+        return;
+    }
+}
+function $cc4ff3a23db2c1c1$export$c0661eac5aac545d() {
+    let data = {};
+    const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
+    const textarea = document.getElementById("remark_comment_input");
+    const text = textarea.value;
+    data["content"] = text;
+    data["content_html"] = "";
+    data["annotation_id"] = textarea.dataset.annotation_id;
+    data["user_id"] = user_id;
+    data["user_name"] = user_name;
+    data["parent_node"] = null;
+    textarea.value = "";
+    (0, $1a716a3e9014a08f$export$2a15b079e3f46654)(data);
+}
+function $cc4ff3a23db2c1c1$export$97b2ebf3e3e921a5(ele, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const user_id = localStorage.getItem("user_id");
+    const comment_id = ele.dataset.comment_id;
+    const content_id = `${comment_id}message`;
+    let contentEle = document.getElementById(`${content_id}`);
+    contentEle.contentEditable = true;
+    let data = {};
+    data["user_id"] = user_id;
+    data["comment_id"] = comment_id;
+    showAlert("INTIMATION", "Please use Ctrl + Enter to submit the edited comment", 2);
+    setTimeout(function() {
+        contentEle.focus();
+        contentEle.style.padding = "1rem";
+    }, 0);
+    contentEle.addEventListener("keydown", (e)=>{
+        if (e.ctrlKey && e.key === "Enter") {
+            console.log("EDITING COMMENT");
+            contentEle.blur();
+            let new_content = contentEle.textContent.trim();
+            data["new_content"] = new_content;
+            data["new_content_html"] = "";
+            (0, $1a716a3e9014a08f$export$fc22b458daff1d0c)(data);
+        }
+    });
+}
+function $cc4ff3a23db2c1c1$export$65c6857c3f4da09a(comment_id) {
+    // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
+    (0, $1a716a3e9014a08f$export$2e6e3ad634e3776)(comment_id);
+}
+function $cc4ff3a23db2c1c1$export$4dc8094a3ce8e4d4(ele, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const user_id = localStorage.getItem("user_id");
+    let data = {};
+    data["user_id"] = user_id;
+    data["comment_id"] = ele.dataset.comment_id;
+    data["action_type"] = ele.dataset.action_type;
+    (0, $1a716a3e9014a08f$export$f2e8b808565088b0)(data);
+}
+function $cc4ff3a23db2c1c1$export$c69a7e3627e11d2a(component) {
+    if (component) {
+        if (component.id == "remark_login_modal") {
+            (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
+            (0, $401e5251b5672128$export$245c1a748319b9de)();
+        } else {
+            (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
+            (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
+        }
+    }
+}
+function $cc4ff3a23db2c1c1$export$799b690d1790eee(e, formElement) {
+    e.preventDefault();
+    (0, $1462d0332aa03f78$export$692b4a7cc7a486ce)(formElement);
+}
+function $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(e, formElement) {
+    e.preventDefault();
+    (0, $1462d0332aa03f78$export$44c987e964dad812)(formElement);
+}
+function $cc4ff3a23db2c1c1$export$5c038338ec3229b7(ele) {
+    (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+}
 
 
 const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
@@ -996,7 +1437,7 @@ const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
             <h3 class="remark_standard_modal_title">Login</h3>
             <div class="remark_standard_modal_actions">
                 <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_login_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -1015,7 +1456,7 @@ const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
                     <input type="authority" name="authority" class="remark_form_input" id="authority">
                 </div>
                 <div class="remark_form_fields">
-                    <button name="submit" class="remark_standard_button" onclick="handleLoginUser(event, loginForm)">Login</button>
+                    <button type="button" class="remark_standard_button" id="remark_login_button">Login</button>
                 </div>
                 <div class="remark_form_fields">
                 <p>Don't have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_login_modal)">Sign up</span></p>
@@ -1332,162 +1773,13 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
 
 
 
-function $401e5251b5672128$export$592d9b2be066ea35(html_node, html_tag, html_class, html_id, html_text_content) {
-    const create_modal_check = document.getElementById("remark_create_annotation_modal");
-    if (create_modal_check) return;
-    const body = document.getElementsByTagName("body")[0];
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const newAnnotationModal = (0, $4ccab26f1b142cf4$export$677e18af8a745d31)(node_xpath, html_tag, html_class, html_id, html_text_content);
-    body.insertAdjacentHTML("afterbegin", newAnnotationModal);
-}
-function $401e5251b5672128$export$a144fbac6e7cc210(html_node, html_tag, html_id, html_text_content) {
-    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
-    if (edit_modal_check) {
-        console.log("Edit annotation modal already present.");
-        return;
-    }
-    const body = document.getElementsByTagName("body")[0];
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
-    if (ele) {
-        const editAnnotationModal = (0, $4ccab26f1b142cf4$export$c85da9ec7569e35c)(node_xpath);
-        body.insertAdjacentHTML("afterbegin", editAnnotationModal);
-    } else {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
-        return;
-    }
-}
-function $401e5251b5672128$export$7f4bf70cd335a417(html_node, html_tag, html_id, html_text_content) {
-    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
-    if (delete_modal_check) return;
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const body = document.getElementsByTagName("body")[0];
-    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
-    if (ele) {
-        const deleteAnnotationModal = DELETE_ANNOTATION_MODAL(node_xpath);
-        body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
-    } else {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
-        return;
-    }
-}
-function $401e5251b5672128$export$1d36b8466b2a4d4c() {
-    const annotations = remarkGlobalData["annotations"];
-    // Indicate the elements on which the annotations are present
-    annotations.forEach((annotation)=>{
-        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"]);
-        if (ele) {
-            ele.classList.add("highlight_element_strong");
-            ele.dataset.xpath = annotation["node_xpath"];
-        } else console.log("RE-RENDER REQUIRED : ", ele);
-    });
-// 2. On show, trigger the sidebar (or modal)
-// THIS WILL BE DONE USING THE CONTEXT MENU
-}
-function $401e5251b5672128$export$40be53e378c97146(xpath) {
-    const sideBar = (0, $4ccab26f1b142cf4$export$2ee9e5a3556c1e43)(xpath);
-    const body = document.getElementsByTagName("body")[0];
-    const check = document.getElementById("remark_annotations_sidebar");
-    if (check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(check);
-    body.insertAdjacentHTML("afterbegin", sideBar);
-}
-function $401e5251b5672128$export$dd9c74687ae6eb45() {
-    const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$f5cfe9cd58390ad5));
-}
-function $401e5251b5672128$export$245c1a748319b9de() {
-    const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$ecfd046c5f019e12));
-}
 
-
-
-function $1462d0332aa03f78$export$256a5a3564694cfc() {
-    const username = localStorage.getItem("user_name");
-    const user_id = localStorage.getItem("user_id");
-    if (username && user_id) return true;
-    return false;
-}
-function $1462d0332aa03f78$export$a0973bcfe11b05c9() {
-    localStorage.clear();
-}
-function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
-    const formData = new FormData(form);
-    const data = {};
-    for (var pair of formData.entries())data[pair[0]] = pair[1];
-    const res = validateForm(data);
-    if (res == "OK") {
-        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/login`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }).then((res)=>res.json()).then((data)=>{
-            console.log(data);
-            if (data["status"] == 200) {
-                localStorage.setItem("user_access_token", data["access_token"]);
-                localStorage.setItem("user_id", data["user_id"]);
-                localStorage.setItem("user_name", data["user_name"]);
-                localStorage.setItem("user_authority", data["user_authority"]);
-                const loginFormModal = document.getElementById("remark_login_modal");
-                if (loginFormModal) removeHTMLElement(loginFormModal);
-            } else {
-                console.log(data);
-                return false;
-            }
-        }).catch((err)=>console.log(err));
-    } else showAlert("ERROR", "Form validation failed");
-}
-function $1462d0332aa03f78$export$44c987e964dad812(form) {
-    const formData = new FormData(form);
-    const data = {};
-    for (var pair of formData.entries())data[pair[0]] = pair[1];
-    data["authority"] = "user";
-    const res = validateForm(data);
-    if (res == "OK") {
-        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/user`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }).then((res)=>res.json()).then((data)=>{
-            console.log(data);
-            if (data["status"] == 201) {
-                localStorage.setItem("user_access_token", data["access_token"]);
-                localStorage.setItem("user_id", data["user_id"]);
-                localStorage.setItem("user_name", data["user_name"]);
-                localStorage.setItem("user_authority", data["user_authority"]);
-                const signupFormModal = document.getElementById("remark_signup_modal");
-                if (signupFormModal) removeHTMLElement(signupFormModal);
-            } else {
-                console.log(data);
-                return false;
-            }
-        }).catch((err)=>console.log(err));
-    }
-}
-function $1462d0332aa03f78$export$fc970ed23da99565() {
-    const authority = localStorage.getItem("user_authority");
-    if (authority == "admin") return true;
-    return false;
-}
 
 
 function $3eead4b93c22c35d$export$9826392fdcbe3593(e, data) {
     const body = document.getElementsByTagName("body")[0];
     console.log(data["annotation_present"]);
-    const contextMenuMarkup = CONTEXT_MENU_MARKUP(data["annotation_present"]);
+    const contextMenuMarkup = (0, $4ccab26f1b142cf4$export$60c09197c1fd57e6)(data["annotation_present"]);
     body.insertAdjacentHTML("afterbegin", contextMenuMarkup);
     const contextMenu = document.getElementById("remark_context_menu");
     const posX = e.clientX;
@@ -1499,7 +1791,7 @@ function $3eead4b93c22c35d$export$9826392fdcbe3593(e, data) {
         const option = e.target.dataset.remark_contextmenu_option;
         $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data);
         if (contextMenu) setTimeout(()=>{
-            removeHTMLElement(contextMenu);
+            (0, $18a61f8fa6189451$export$c229772b99a4e439)(contextMenu);
         }, 100);
     });
 }
@@ -1511,23 +1803,23 @@ function $3eead4b93c22c35d$export$d008d9b759c1cf1f(contextMenu, x, y) {
     i.opacity = "1";
 }
 function $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data) {
-    remarkGlobalData["currentXPath"] = data["xpath"];
-    remarkGlobalData["currentNode"] = data["node"];
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = data["xpath"];
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentNode"] = data["node"];
     switch(option){
         case "open":
             renderSideBar(data["xpath"]);
             break;
         case "create":
             if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $401e5251b5672128$export$592d9b2be066ea35)(data["node"], data["tag"], data["className"].replace("highlight_element_light", ""), data["id"], data["textContent"]);
-            else showAlert("INTIMATION", "Create annotation option is for admins only !", 2);
+            else (0, $fd3a760e313b8296$export$de026b00723010c1)("INTIMATION", "Create annotation option is for admins only !", 2);
             break;
         case "edit":
             if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $401e5251b5672128$export$a144fbac6e7cc210)(data["node"], data["tag"], data["id"], data["textContent"]);
-            else showAlert("INTIMATION", "Edit annotation option is for admins only !", 2);
+            else (0, $fd3a760e313b8296$export$de026b00723010c1)("INTIMATION", "Edit annotation option is for admins only !", 2);
             break;
         case "delete":
             if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $401e5251b5672128$export$7f4bf70cd335a417)(data["node"], data["tag"], data["id"], data["textContent"]);
-            else showAlert("INTIMATION", "Delete annotation option is for admins only !", 2);
+            else (0, $fd3a760e313b8296$export$de026b00723010c1)("INTIMATION", "Delete annotation option is for admins only !", 2);
             break;
         default:
             break;
@@ -1536,17 +1828,32 @@ function $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data) {
 
 
 
+
+
+
+
+async function $05710fca1e88f8c9$export$c807668e63e7354b(key) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/token/verify/${key}`;
+    const res = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+
+
+
+
+
 window.addEventListener("load", (e)=>{
     e.preventDefault();
     $c49300cd12bc6870$var$remark_init();
 });
-var $c49300cd12bc6870$var$remarkGlobalData = {
-    "website_id": "",
-    "api_key": "",
-    "annotations": [],
-    "theme": "light",
-    "currentXPath": ""
-};
 function $c49300cd12bc6870$var$remark_init() {
     const body = document.getElementsByTagName("body")[0];
     const remark_started = localStorage.getItem("remark_started");
@@ -1565,10 +1872,10 @@ function $c49300cd12bc6870$var$remark_init() {
         e.preventDefault();
         // 1. Check if user is logged in and verify his/her authority 
         if (remark_started) {
-            const loginStatus = isLoggedIn();
+            const loginStatus = (0, $1462d0332aa03f78$export$256a5a3564694cfc)();
             if (!loginStatus) {
                 document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
-                renderLoginModal();
+                (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
             } else {
                 console.log("REMARK STARTED");
                 $c49300cd12bc6870$var$startAnnotationProcess();
@@ -1593,9 +1900,9 @@ function $c49300cd12bc6870$var$registerStyles() {
     document.getElementsByTagName("head")[0].appendChild(styleElement);
 }
 function $c49300cd12bc6870$var$registerScripts() {
-    const scriptElement = document.createElement("script");
-    scriptElement.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
-    document.head.appendChild(scriptElement);
+    const icons = document.createElement("script");
+    icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
+    document.head.appendChild(icons);
 }
 function $c49300cd12bc6870$var$repositionStart() {
     const ele = document.querySelector(".remark_init_container");
@@ -1608,7 +1915,7 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
     if (!api_key || api_key == "") {
         (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Invalid API KEY", 1);
         return;
-    } else $c49300cd12bc6870$var$remarkGlobalData["api_key"] = api_key;
+    } else (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"] = api_key;
     // 2. Verify API_KEY
     const token_status = await (0, $05710fca1e88f8c9$export$c807668e63e7354b)(api_key);
     if (token_status.status != 200) {
@@ -1620,11 +1927,11 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
     if (!website_id || website_id == "") (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Invalid website ID");
     const annotations = await (0, $41fbc3b1898586d3$export$d32fca31e5b6ceec)(website_id, api_key);
     if (annotations.length > 0) {
-        $c49300cd12bc6870$var$remarkGlobalData["annotations"] = annotations;
+        (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = annotations;
         renderExistingAnnotations();
     }
     // 4. (ADMIN ONLY) Start the highlight process
-    if (isAdmin()) (0, $18a61f8fa6189451$export$1656970ae4fe6f6e)();
+    if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $18a61f8fa6189451$export$1656970ae4fe6f6e)();
     // 5. (ADMIN ONLY) Handle contextmenu event for highlighted element
     document.addEventListener("contextmenu", (e)=>{
         e.preventDefault();
@@ -1673,6 +1980,19 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
         if (e.key == "Escape") (0, $18a61f8fa6189451$export$7743824edd59500d)();
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //# sourceMappingURL=main.js.map

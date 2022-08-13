@@ -557,16 +557,27 @@ export default STYLES = `
     }
 
     .remark_standard_button:hover {
+        background-color: var(--remark-color-primary) !important;
         transform: scale(1.04);
     }
 
     .remark_standard_button:active {
+        transform: scale(1.0) !important;
+    }
+
+    .remark_standard_button:focus {
+        background-color: var(--remark-color-primary) !important
         transform: scale(1.0);
     }
 
     .remark_delete_button {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
+    }
+
+    .remark_delete_button:focus {
+        background-color: var(--remark-color-danger) !important;
+        color: var(--remark-color-white) !important;
     }
 
     .remark_resolve_button {
@@ -576,8 +587,17 @@ export default STYLES = `
         font-size: 1.3rem;
         color: var(--remark-color-white);
     }
+    
+    .remark_resolve_button {
+        color: var(--remark-color-white) !important;
+    }
 
     .remark_unresolve_button {
+        background-color: var(--remark-color-danger);
+        color: var(--remark-color-white);
+    }
+
+    .remark_unresolve_button:focus {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
     }

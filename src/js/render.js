@@ -1,5 +1,8 @@
 import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
+
 import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL } from "./components"
+
+import * as handlers from "./handlers"
 
 import { showAlert } from "./alert"
 
@@ -106,6 +109,25 @@ export function renderSideBar(xpath) {
 export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
+    let submitBtn = document.getElementById("remark_login_btn");
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_login_modal");
+            removeHTMLElement(ele)
+        })
+    }
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const loginForm = document.getElementById("loginForm");
+            handlers.handleLoginUser(e, loginForm)
+        })
+    }
+
 }
 
 export function renderSignupModal() {

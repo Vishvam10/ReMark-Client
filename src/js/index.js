@@ -2,13 +2,15 @@ import STYLES from "./styles";
 import { highlightElements, removeHTMLElement, removeAllExistingModals, getNodeXpath } from "./utils";
 import { overrideContextMenu } from "./contextmenu"
 
+import { remarkGlobalData } from "./global";
 import { VALID_HTML_ELEMENTS } from "./constants";
+import { renderLoginModal } from "./render"
 import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
-import { isLoggedIn  } from "./auth";
+import { isLoggedIn, isAdmin  } from "./auth";
 
 import { showAlert } from "./alert";
-
+import * as handlers from "./handlers"
 
 
 window.addEventListener("load", (e) => {
@@ -16,13 +18,6 @@ window.addEventListener("load", (e) => {
     remark_init();
 })
 
-var remarkGlobalData = {
-    "website_id": "",
-    "api_key": "",
-    "annotations": [],
-    "theme": "light",
-    "currentXPath": "",
-}
 
 function remark_init() {
     const body = document.getElementsByTagName('body')[0];
@@ -85,9 +80,9 @@ function registerStyles() {
 }
 
 function registerScripts() {
-    const scriptElement = document.createElement("script");
-    scriptElement.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
-    document.head.appendChild(scriptElement);
+    const icons = document.createElement("script");
+    icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
+    document.head.appendChild(icons);
 }
 
 function repositionStart() {

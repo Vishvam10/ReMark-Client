@@ -2,7 +2,7 @@
   "name": "remark.js",
   "version": "1.0.0",
   "description": "Website Annotation Tool",
-  "source": "src/js/index.js",
+  "source": "src/js/main.js",
   "main": "dist/main.js",
   "scripts": {
     "serve" : "parcel serve",

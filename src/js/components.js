@@ -1,3 +1,5 @@
+import { handleCreateAnnotation, handleCloseModal } from "./handlers"
+
 export const LOGIN_MARKUP =
     `
     <div class="remark_standard_modal" id="remark_login_modal">
@@ -5,7 +7,7 @@ export const LOGIN_MARKUP =
             <h3 class="remark_standard_modal_title">Login</h3>
             <div class="remark_standard_modal_actions">
                 <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_login_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -24,7 +26,7 @@ export const LOGIN_MARKUP =
                     <input type="authority" name="authority" class="remark_form_input" id="authority">
                 </div>
                 <div class="remark_form_fields">
-                    <button name="submit" class="remark_standard_button" onclick="handleLoginUser(event, loginForm)">Login</button>
+                    <button type="button" class="remark_standard_button" id="remark_login_button">Login</button>
                 </div>
                 <div class="remark_form_fields">
                 <p>Don't have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_login_modal)">Sign up</span></p>

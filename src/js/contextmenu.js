@@ -1,4 +1,10 @@
+import { remarkGlobalData } from "./global"
+import { CONTEXT_MENU_MARKUP  } from "./components"
+import { removeHTMLElement } from "./utils"
+
 import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal } from "./render"
+
+import { showAlert } from "./alert"
 import { isAdmin } from "./auth"
 
 export function overrideContextMenu(e, data) {

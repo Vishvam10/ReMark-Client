@@ -1,3 +1,5 @@
+import { VALID_HTML_ELEMENTS } from "./constants";
+
 export function validateForm(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {
         if (data["username"] != "") {

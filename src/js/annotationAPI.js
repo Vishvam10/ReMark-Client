@@ -1,6 +1,8 @@
+import { remarkGlobalData } from "./global";
 import { BASE_API_URL } from "./constants";
 import { getElementAfterCheck, removeHTMLElement } from "./utils";
 import { showAlert } from "./alert"; 
+
 
 export async function getAnnotationByWebsiteID() {
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;

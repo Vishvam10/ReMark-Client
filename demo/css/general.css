@@ -191,17 +191,6 @@ body {
   transition: all 0.3s;
 }
 
-.btn--full:link,
-.btn--full:visited {
-  background-color: #e67e22;
-  color: #fff;
-}
-
-.btn--full:hover,
-.btn--full:active {
-  background-color: #cf711f;
-}
-
 .btn--outline:link,
 .btn--outline:visited {
   background-color: #fff;
@@ -265,13 +254,6 @@ body {
   width: 3rem;
   height: 3rem;
   color: #e67e22;
-}
-
-*:focus {
-  outline: none;
-  /* outline: 4px dotted #e67e22; */
-  /* outline-offset: 8px; */
-  box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
 }
 
 /* HELPER/SETTINGS CLASSES */
