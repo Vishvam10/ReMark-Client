@@ -49,9 +49,11 @@ async function editComment(bodyData) {
         showAlert("ERROR", "Something went wrong !", 2)
     } else {
         console.log(data);
-        const contentEle = data["comment_id"] + "message";
+        const content_id = data["comment_id"] + "message";
+        const contentEle = document.getElementById(`${content_id}`);
         contentEle.textContent = data["content"];
-        showAlert("SUCCESS", "Comment edited successfully !")
+        showAlert("SUCCESS", "Comment edited successfully !");
+        contentEle.contentEditable = false;
     }
     return data;
 }
