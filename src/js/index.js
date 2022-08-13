@@ -114,6 +114,8 @@ async function startAnnotationProcess() {
     website_id = remarkScriptTag.dataset.website_id
     if ((!website_id) || (website_id == "")) {
         showAlert("ERROR", "Invalid website ID");
+    } else {
+        remarkGlobalData["website_id"] = website_id; 
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);

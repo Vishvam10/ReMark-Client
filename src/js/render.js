@@ -28,7 +28,28 @@ export function renderNewAnnotationModal(html_node, html_tag, html_class, html_i
 
     const newAnnotationModal = CREATE_ANNOTATION_MODAL(node_xpath, html_tag, html_class, html_id, html_text_content)
 
-    body.insertAdjacentHTML("afterbegin", newAnnotationModal)
+    body.insertAdjacentHTML("afterbegin", newAnnotationModal);
+    
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    let submitBtn = document.getElementById("remark_create_annotation_button");
+    
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_create_annotation_modal");
+            removeHTMLElement(ele);
+        })
+    }
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("CLICKED");
+            const createAnnotationForm = document.getElementById("createAnnotationForm");
+            handlers.handleCreateAnnotation(createAnnotationForm)
+        })
+    }
 
 }
 
@@ -110,7 +131,7 @@ export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
     let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
-    let submitBtn = document.getElementById("remark_login_btn");
+    let submitBtn = document.getElementById("remark_login_button");
     if(modalCloseBtn) {
         modalCloseBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -127,10 +148,27 @@ export function renderLoginModal() {
             handlers.handleLoginUser(e, loginForm)
         })
     }
-
 }
 
 export function renderSignupModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", SIGNUP_MARKUP);
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
+    let submitBtn = document.getElementById("remark_login_button");
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_login_modal");
+            removeHTMLElement(ele)
+        })
+    }
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const signupForm = document.getElementById("signupForm");
+            handlers.handleSignupUser(e, signupForm)
+        })
+    }
 }

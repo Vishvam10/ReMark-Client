@@ -507,7 +507,7 @@ export default STYLES = `
     }
 
     .remark_form_fields {
-        margin: 1.6rem 0rem 0rem 0rem;
+        margin: 2.6rem 0rem 0rem 0rem;
     }
 
     .remark_form_input {
@@ -541,6 +541,7 @@ export default STYLES = `
     .remark_standard_button {
         background-color: var(--remark-color-primary);
         font-size: 1.6rem;
+        color: var(--remark-color-white);
         font-family: inherit;
         font-weight: 500;
         border: none;

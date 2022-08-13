@@ -1,3 +1,5 @@
+import { removeHTMLElement } from "./utils";
+
 export const alertModal = (type, message) => {
     let markup = ""
     switch (type) {

@@ -3,13 +3,12 @@ import { createComment, editComment, deleteComment, updateCommentVote } from "./
 import { loginUser, signupUser } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
-import { removeHTMLElement } from "./utils";
+import { removeHTMLElement, validateForm } from "./utils";
+import { remarkGlobalData } from "./global";
 
 //+ ANNOTATION HANDLERS
 
-export function handleCreateAnnotation(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
+export function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
     const user_id = localStorage.getItem("user_id");
@@ -26,7 +25,7 @@ export function handleCreateAnnotation(formElement, event) {
     data["website_uri"] = window.location.href;
     data["user_id"] = user_id;
     data["user_name"] = user_name;
-    data["website_id"] = website_id;
+    data["website_id"] = remarkGlobalData["website_id"];
     createAnnotation(data);
 }
 

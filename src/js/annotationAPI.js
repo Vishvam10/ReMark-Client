@@ -22,6 +22,7 @@ export async function getAnnotationByWebsiteID() {
 }
 
 export async function createAnnotation(bodyData) {
+    console.log(bodyData);
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");

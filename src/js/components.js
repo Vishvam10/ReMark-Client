@@ -43,7 +43,7 @@ export const SIGNUP_MARKUP =
             <h3 class="remark_standard_modal_title">Signup</h3>
             <div class="remark_standard_modal_actions">
                 <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_signup_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ export const SIGNUP_MARKUP =
                     <input name="bio" class="remark_form_input" id="bio">
                 </div>
                 <div class="remark_form_fields">
-                    <button name="submit" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
+                    <button type="button" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
                 </div>
                 <div class="remark_form_fields">
                 <p>Already have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_signup_modal)">Login</span></p>
@@ -145,7 +145,7 @@ export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_i
                 <h3 class="remark_standard_modal_title">Create Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_create_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@ export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_i
                         <input type="html_text_content" name="html_text_content" class="remark_form_input" id="html_text_content" value="${html_text_content}" readonly>
                     </div>
                     <div class="remark_form_fields">
-                        <button class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm, event)">Create</button>
+                        <button class="remark_standard_button" type="button" id="remark_create_annotation_button">Create</button>
                     </div>
                 </form>
             </div>

@@ -516,7 +516,7 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
     }
 
     .remark_form_fields {
-        margin: 1.6rem 0rem 0rem 0rem;
+        margin: 2.6rem 0rem 0rem 0rem;
     }
 
     .remark_form_input {
@@ -550,6 +550,7 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
     .remark_standard_button {
         background-color: var(--remark-color-primary);
         font-size: 1.6rem;
+        color: var(--remark-color-white);
         font-family: inherit;
         font-weight: 500;
         border: none;
@@ -861,6 +862,7 @@ function $18a61f8fa6189451$export$7743824edd59500d() {
 
 
 
+
 const $fd3a760e313b8296$export$b92ea88f33b78593 = (type, message)=>{
     let markup = "";
     switch(type){
@@ -892,7 +894,7 @@ const $fd3a760e313b8296$export$b92ea88f33b78593 = (type, message)=>{
 };
 function $fd3a760e313b8296$export$516836c6a9dfc573() {
     const ele = document.querySelector(".remark_error_container");
-    if (ele) removeHTMLElement(ele);
+    if (ele) (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
 }
 function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1) {
     $fd3a760e313b8296$export$516836c6a9dfc573();
@@ -920,6 +922,7 @@ async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
     return data;
 }
 async function $41fbc3b1898586d3$export$51eda81011da4982(bodyData) {
+    console.log(bodyData);
     const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation`;
     const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -1101,6 +1104,8 @@ async function $1a716a3e9014a08f$export$2e6e3ad634e3776(comment_id) {
 
 
 
+
+
 function $1462d0332aa03f78$export$256a5a3564694cfc() {
     const username = localStorage.getItem("user_name");
     const user_id = localStorage.getItem("user_id");
@@ -1114,7 +1119,7 @@ function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
     const formData = new FormData(form);
     const data = {};
     for (var pair of formData.entries())data[pair[0]] = pair[1];
-    const res = validateForm(data);
+    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
     if (res == "OK") {
         const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/login`;
         fetch(url, {
@@ -1133,20 +1138,20 @@ function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
                 localStorage.setItem("user_name", data["user_name"]);
                 localStorage.setItem("user_authority", data["user_authority"]);
                 const loginFormModal = document.getElementById("remark_login_modal");
-                if (loginFormModal) removeHTMLElement(loginFormModal);
+                if (loginFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(loginFormModal);
             } else {
                 console.log(data);
                 return false;
             }
         }).catch((err)=>console.log(err));
-    } else showAlert("ERROR", "Form validation failed");
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Form validation failed");
 }
 function $1462d0332aa03f78$export$44c987e964dad812(form) {
     const formData = new FormData(form);
     const data = {};
     for (var pair of formData.entries())data[pair[0]] = pair[1];
     data["authority"] = "user";
-    const res = validateForm(data);
+    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
     if (res == "OK") {
         const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/user`;
         fetch(url, {
@@ -1165,7 +1170,7 @@ function $1462d0332aa03f78$export$44c987e964dad812(form) {
                 localStorage.setItem("user_name", data["user_name"]);
                 localStorage.setItem("user_authority", data["user_authority"]);
                 const signupFormModal = document.getElementById("remark_signup_modal");
-                if (signupFormModal) removeHTMLElement(signupFormModal);
+                if (signupFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(signupFormModal);
             } else {
                 console.log(data);
                 return false;
@@ -1192,6 +1197,21 @@ function $401e5251b5672128$export$592d9b2be066ea35(html_node, html_tag, html_cla
     node_xpath = `//${node_xpath.toLowerCase()}`;
     const newAnnotationModal = (0, $4ccab26f1b142cf4$export$677e18af8a745d31)(node_xpath, html_tag, html_class, html_id, html_text_content);
     body.insertAdjacentHTML("afterbegin", newAnnotationModal);
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    let submitBtn = document.getElementById("remark_create_annotation_button");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_create_annotation_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("CLICKED");
+        const createAnnotationForm = document.getElementById("createAnnotationForm");
+        $cc4ff3a23db2c1c1$export$8b7da6b63de39513(createAnnotationForm);
+    });
 }
 function $401e5251b5672128$export$a144fbac6e7cc210(html_node, html_tag, html_id, html_text_content) {
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
@@ -1250,7 +1270,7 @@ function $401e5251b5672128$export$dd9c74687ae6eb45() {
     const body = document.getElementsByTagName("body")[0];
     body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$f5cfe9cd58390ad5));
     let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    let submitBtn = document.getElementById("remark_login_btn");
+    let submitBtn = document.getElementById("remark_login_button");
     if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
         e.preventDefault();
         e.stopPropagation();
@@ -1267,13 +1287,26 @@ function $401e5251b5672128$export$dd9c74687ae6eb45() {
 function $401e5251b5672128$export$245c1a748319b9de() {
     const body = document.getElementsByTagName("body")[0];
     body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$ecfd046c5f019e12));
+    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    let submitBtn = document.getElementById("remark_login_button");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_login_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const signupForm = document.getElementById("signupForm");
+        $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(e, signupForm);
+    });
 }
 
 
 
-function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
+
+function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement) {
     let form = new FormData(formElement);
     let data = {};
     const user_id = localStorage.getItem("user_id");
@@ -1290,7 +1323,7 @@ function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement, event) {
     data["website_uri"] = window.location.href;
     data["user_id"] = user_id;
     data["user_name"] = user_name;
-    data["website_id"] = website_id;
+    data["website_id"] = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"];
     (0, $41fbc3b1898586d3$export$51eda81011da4982)(data);
 }
 function $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(ele, event) {
@@ -1471,7 +1504,7 @@ const $4ccab26f1b142cf4$export$ecfd046c5f019e12 = `
             <h3 class="remark_standard_modal_title">Signup</h3>
             <div class="remark_standard_modal_actions">
                 <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_signup_modal)" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
                 </div>
             </div>
         </div>
@@ -1494,7 +1527,7 @@ const $4ccab26f1b142cf4$export$ecfd046c5f019e12 = `
                     <input name="bio" class="remark_form_input" id="bio">
                 </div>
                 <div class="remark_form_fields">
-                    <button name="submit" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
+                    <button type="button" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
                 </div>
                 <div class="remark_form_fields">
                 <p>Already have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_signup_modal)">Login</span></p>
@@ -1553,7 +1586,7 @@ const $4ccab26f1b142cf4$export$677e18af8a745d31 = (node_xpath, html_tag, html_cl
                 <h3 class="remark_standard_modal_title">Create Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_create_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -1588,7 +1621,7 @@ const $4ccab26f1b142cf4$export$677e18af8a745d31 = (node_xpath, html_tag, html_cl
                         <input type="html_text_content" name="html_text_content" class="remark_form_input" id="html_text_content" value="${html_text_content}" readonly>
                     </div>
                     <div class="remark_form_fields">
-                        <button class="remark_standard_button" onclick="handleCreateAnnotation(createAnnotationForm, event)">Create</button>
+                        <button class="remark_standard_button" type="button" id="remark_create_annotation_button">Create</button>
                     </div>
                 </form>
             </div>
@@ -1925,6 +1958,7 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
     // 3. Load and render existing annotations if any
     website_id = remarkScriptTag.dataset.website_id;
     if (!website_id || website_id == "") (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Invalid website ID");
+    else (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"] = website_id;
     const annotations = await (0, $41fbc3b1898586d3$export$d32fca31e5b6ceec)(website_id, api_key);
     if (annotations.length > 0) {
         (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = annotations;
