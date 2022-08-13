@@ -37,7 +37,7 @@ const rules = [
     ],
 ];
 
-function parseMarkdown(markdownText) {
+export function parseMarkdown(markdownText) {
     rules.forEach(([rule, template]) => {
         markdownText = markdownText.replace(rule, template)
     })

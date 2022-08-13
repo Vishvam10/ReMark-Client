@@ -1,4 +1,4 @@
-const LOGIN_MARKUP =
+export const LOGIN_MARKUP =
     `
     <div class="remark_standard_modal" id="remark_login_modal">
         <div class="remark_standard_modal_header">
@@ -34,7 +34,7 @@ const LOGIN_MARKUP =
     </div>
 `
 
-const SIGNUP_MARKUP =
+export const SIGNUP_MARKUP =
     `    
     <div class="remark_standard_modal" id="remark_signup_modal">
         <div class="remark_standard_modal_header">
@@ -75,7 +75,7 @@ const SIGNUP_MARKUP =
 
 `
 
-const CONTEXT_MENU_MARKUP = (annotation_present) => {
+export const CONTEXT_MENU_MARKUP = (annotation_present) => {
 
     let markup = ""
     if (annotation_present) {
@@ -120,7 +120,7 @@ const CONTEXT_MENU_MARKUP = (annotation_present) => {
     return markup;
 }
 
-const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html_text_content) => {
+export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html_text_content) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -187,7 +187,7 @@ const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html
     return markup;
 }
 
-const EDIT_ANNOTATION_MODAL = (node_xpath) => {
+export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -246,7 +246,7 @@ const EDIT_ANNOTATION_MODAL = (node_xpath) => {
     return markup;
 }
 
-const DELETE_ANNOTATION_MODAL = (node_xpath) => {
+export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -291,7 +291,7 @@ const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     return markup;
 }
 
-const SIDEBAR = (xpath) => {
+export const SIDEBAR = (xpath) => {
 
     const annotations = remarkGlobalData["annotations"];
     remarkGlobalData["currentXPath"] = xpath;
@@ -355,14 +355,13 @@ const SIDEBAR = (xpath) => {
 
 }
 
-const COMMENTS_MARKUP = (comment) => {
+export const COMMENTS_MARKUP = (comment) => {
     let d;
     if (comment["updated_at"]) {
         d = comment["updated_at"];
     } else {
         d = comment["created_at"]
     }
-    console.log(comment);
     let content_id = `${comment["comment_id"]}message`;
     let upvotes_id = `${comment["comment_id"]}upvotes`;
     let downvotes_id = `${comment["comment_id"]}downvotes`;

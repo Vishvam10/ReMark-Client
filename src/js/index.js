@@ -1,4 +1,20 @@
-//- INITIALIZE
+import STYLES from "./styles";
+import { highlightElements, removeHTMLElement, removeAllExistingModals, getNodeXpath } from "./utils";
+import { overrideContextMenu } from "./contextmenu"
+
+import { VALID_HTML_ELEMENTS } from "./constants";
+import { getAnnotationByWebsiteID } from "./annotationAPI";
+import { verifyToken } from "./tokenAPI";
+import { isLoggedIn  } from "./auth";
+
+import { showAlert } from "./alert";
+
+
+
+window.addEventListener("load", (e) => {
+    e.preventDefault();
+    remark_init();
+})
 
 var remarkGlobalData = {
     "website_id": "",
@@ -7,11 +23,6 @@ var remarkGlobalData = {
     "theme": "light",
     "currentXPath": "",
 }
-
-window.addEventListener("load", (e) => {
-    e.preventDefault();
-    remark_init();
-})
 
 function remark_init() {
     const body = document.getElementsByTagName('body')[0];
@@ -48,7 +59,6 @@ function remark_init() {
                 repositionStart();
             }
         } else {
-            // localStorage.removeItem("remark_started");
             document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
             document.getElementById('remark_start').textContent = "Start Annotation";
             localStorage.setItem("remark_started", true);
@@ -123,13 +133,11 @@ async function startAnnotationProcess() {
         highlightElements();
     }
 
-
     // 5. (ADMIN ONLY) Handle contextmenu event for highlighted element
 
     document.addEventListener("contextmenu", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("CONTEXT MENU : ", e);
 
         const node = e.target;
         const className = node.className;
@@ -149,7 +157,6 @@ async function startAnnotationProcess() {
             }
         }
         if (className.includes("highlight_element_light")) {
-            console.log("IN LIGHT");
             if (VALID_HTML_ELEMENTS.includes(tag)) {
 
                 let xpath = getNodeXpath(node);
@@ -169,7 +176,6 @@ async function startAnnotationProcess() {
             }
 
         } else if (className.includes("highlight_element_strong")) {
-            console.log("IN STRONG");
             if (VALID_HTML_ELEMENTS.includes(tag)) {
 
                 let xpath = getNodeXpath(node);

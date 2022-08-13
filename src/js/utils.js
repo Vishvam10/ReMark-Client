@@ -1,4 +1,4 @@
-function validateForm(data) {
+export function validateForm(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {
         if (data["username"] != "") {
             var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -12,12 +12,12 @@ function validateForm(data) {
     return "Invalid Authority"
 }
 
-function removeHTMLElement(ele) {
+export function removeHTMLElement(ele) {
     ele.parentElement.removeChild(ele);
     return;
 }
 
-function highlightElements() {
+export function highlightElements() {
     document.addEventListener("mouseover", (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -47,12 +47,7 @@ function highlightElements() {
 
 }
 
-function handleCloseModal(ele) {
-    removeHTMLElement(ele);
-    console.log("REMOVED : ", ele);
-}
-
-function generateRandomID(len) {
+export function generateRandomID(len) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -63,7 +58,7 @@ function generateRandomID(len) {
     return result;
 }
 
-function isAlphaNumeric(s) {
+export function isAlphaNumeric(s) {
     var code, i, len;
 
     for (i = 0, len = s.length; i < len; i++) {
@@ -77,7 +72,7 @@ function isAlphaNumeric(s) {
     return true;
 };
 
-function getNodeXpath(ele) {
+export function getNodeXpath(ele) {
     if (ele.id !== '')
         return 'id("' + ele.id + '")';
     if (ele === document.body)
@@ -94,7 +89,7 @@ function getNodeXpath(ele) {
     }
 }
 
-function getElementByXpath(path) {
+export function getElementByXpath(path) {
     let ele = null;
     try {
         ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -104,7 +99,7 @@ function getElementByXpath(path) {
     return ele;
 }
 
-function getPageXY(element) {
+export function getPageXY(element) {
     var x = 0,
         y = 0;
     while (element) {
@@ -115,7 +110,7 @@ function getPageXY(element) {
     return [x, y];
 }
 
-function checkXPathMatch(node, xpath) {
+export function checkXPathMatch(node, xpath) {
     const res = getElementByXpath(xpath);
     if (res == node) {
         return true;
@@ -123,7 +118,7 @@ function checkXPathMatch(node, xpath) {
     return false;
 }
 
-function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
+export function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
     const ele_check1 = getElementByXpath(`${node_xpath}`);
     if (ele_check1) {
         return ele_check1;
@@ -155,7 +150,7 @@ function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) 
     }
 }
 
-function removeAllExistingModals() {
+export function removeAllExistingModals() {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
 
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");

@@ -1,3 +1,8 @@
+import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
+import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL } from "./components"
+
+import { showAlert } from "./alert"
+
 /*
     
     1. Check with XPath
@@ -8,7 +13,7 @@
     
 */
 
-function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html_text_content) {
+export function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html_text_content) {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
     if (create_modal_check) {
         return;
@@ -24,7 +29,7 @@ function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html
 
 }
 
-function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_content) {
+export function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
         console.log("Edit annotation modal already present.");
@@ -46,7 +51,7 @@ function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_conte
     }
 }
 
-function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
+export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (delete_modal_check) {
         return;
@@ -67,7 +72,7 @@ function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_con
     }
 }
 
-function renderExistingAnnotations() {
+export function renderExistingAnnotations() {
 
     const annotations = remarkGlobalData["annotations"];
 
@@ -88,7 +93,7 @@ function renderExistingAnnotations() {
     // THIS WILL BE DONE USING THE CONTEXT MENU
 }
 
-function renderSideBar(xpath) {
+export function renderSideBar(xpath) {
     const sideBar = SIDEBAR(xpath);
     const body = document.getElementsByTagName('body')[0];
     const check = document.getElementById("remark_annotations_sidebar");
@@ -98,12 +103,12 @@ function renderSideBar(xpath) {
     body.insertAdjacentHTML("afterbegin", sideBar);
 }
 
-function renderLoginModal() {
+export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
 }
 
-function renderSignupModal() {
+export function renderSignupModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", SIGNUP_MARKUP);
 }

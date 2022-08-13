@@ -1,4 +1,8 @@
-async function getAnnotationByWebsiteID() {
+import { BASE_API_URL } from "./constants";
+import { getElementAfterCheck, removeHTMLElement } from "./utils";
+import { showAlert } from "./alert"; 
+
+export async function getAnnotationByWebsiteID() {
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;
     const api_key = remarkGlobalData["api_key"];
     const res = await fetch(url, {
@@ -15,7 +19,7 @@ async function getAnnotationByWebsiteID() {
     return data;
 }
 
-async function createAnnotation(bodyData) {
+export async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -43,7 +47,7 @@ async function createAnnotation(bodyData) {
     return data;
 }
 
-async function editAnnotation(bodyData) {
+export async function editAnnotation(bodyData) {
     const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
@@ -59,7 +63,6 @@ async function editAnnotation(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
-    console.log(data);
     if (data) {
         showAlert("SUCCESS", data["message"]);
         if(data["message"] == "Annotation resolved successfully !") {
@@ -81,7 +84,7 @@ async function editAnnotation(bodyData) {
     return data;
 }
 
-async function deleteAnnotation(bodyData) {
+export async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
     console.log(bodyData);
     const api_key = remarkGlobalData["api_key"];

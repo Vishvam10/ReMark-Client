@@ -1,6 +1,13 @@
+import { createAnnotation, editAnnotation, deleteAnnotation } from "./annotationAPI";
+import { createComment, editComment, deleteComment, updateCommentVote } from "./commentAPI";
+import { loginUser, signupUser } from "./auth";
+
+import { renderLoginModal, renderSignupModal } from "./render";
+import { removeHTMLElement } from "./utils";
+
 //+ ANNOTATION HANDLERS
 
-function handleCreateAnnotation(formElement, event) {
+export function handleCreateAnnotation(formElement, event) {
     event.preventDefault();
     event.stopPropagation();
     let form = new FormData(formElement);
@@ -23,7 +30,7 @@ function handleCreateAnnotation(formElement, event) {
     createAnnotation(data);
 }
 
-function handleResolveAnnotation(ele, event) {
+export function handleResolveAnnotation(ele, event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -38,7 +45,7 @@ function handleResolveAnnotation(ele, event) {
 
 }
 
-function handleEditAnnotation(formElement, event) {
+export function handleEditAnnotation(formElement, event) {
     event.preventDefault();
     event.stopPropagation();
     let form = new FormData(formElement);
@@ -67,7 +74,7 @@ function handleEditAnnotation(formElement, event) {
     editAnnotation(data);
 }
 
-function handleDeleteAnnotation(formElement, event) {
+export function handleDeleteAnnotation(formElement, event) {
     event.preventDefault();
     event.stopPropagation();
     console.log(formElement);
@@ -98,7 +105,7 @@ function handleDeleteAnnotation(formElement, event) {
 
 //+ COMMENT HANDLERS
 
-function handleCreateComment() {
+export function handleCreateComment() {
     let data = {}
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
@@ -114,7 +121,7 @@ function handleCreateComment() {
     createComment(data);
 }
 
-function handleEditComment(ele, event) {
+export function handleEditComment(ele, event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -149,12 +156,12 @@ function handleEditComment(ele, event) {
 
 }
 
-function handleDeleteComment(comment_id) {
+export function handleDeleteComment(comment_id) {
     // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
     deleteComment(comment_id);
 }
 
-function handleCommentUpvote(ele, event) {
+export function handleCommentUpvote(ele, event) {
     event.preventDefault();
     event.stopPropagation();
     const user_id = localStorage.getItem("user_id");
@@ -165,26 +172,32 @@ function handleCommentUpvote(ele, event) {
     updateCommentVote(data);
 }
 
-function handleLoginSignupSwitch(component) {
+export function handleLoginSignupSwitch(component) {
     if (component) {
         if (component.id == "remark_login_modal") {
             removeHTMLElement(component);
-            renderSignupModal()
+            renderSignupModal();
         } else {
             removeHTMLElement(component);
-            renderLoginModal()
+            renderLoginModal();
         }
     }
 }
 
 //+ AUTH HANDLERS
 
-function handleLoginUser(e, formElement) {
+export function handleLoginUser(e, formElement) {
     e.preventDefault();
     loginUser(formElement);
 }
 
-function handleSignupUser(e, formElement) {
+export function handleSignupUser(e, formElement) {
     e.preventDefault();
     signupUser(formElement);
+}
+
+//+ OTHER HANDLERS
+
+export function handleCloseModal(ele) {
+    removeHTMLElement(ele);
 }

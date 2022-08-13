@@ -1,4 +1,7 @@
-function overrideContextMenu(e, data) {
+import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal } from "./render"
+import { isAdmin } from "./auth"
+
+export function overrideContextMenu(e, data) {
     const body = document.getElementsByTagName("body")[0];
     console.log(data["annotation_present"]);
     const contextMenuMarkup = CONTEXT_MENU_MARKUP(data["annotation_present"])
@@ -24,7 +27,7 @@ function overrideContextMenu(e, data) {
     })
 }
 
-function positionContextMenu(contextMenu, x, y) {
+export function positionContextMenu(contextMenu, x, y) {
     const i = contextMenu.style;
     i.top = `${y + 20}px`;
     i.left = `${x - 40}px`;
@@ -32,7 +35,7 @@ function positionContextMenu(contextMenu, x, y) {
     i.opacity = "1";
 }
 
-function handleContextMenuOptions(option, data) {
+export function handleContextMenuOptions(option, data) {
 
     remarkGlobalData["currentXPath"] = data["xpath"];
     remarkGlobalData["currentNode"] = data["node"];

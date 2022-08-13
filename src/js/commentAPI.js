@@ -1,11 +1,9 @@
-// annotation_id = data["annotation_id"]
-// content = data["content"]
-// content_html = data["content_html"]
-// parent_node = data["parent_node"]
-// created_by = data["created_by"]
+import { BASE_API_URL } from "./constants";
+import { removeHTMLElement } from "./utils";
+import { showAlert } from "./alert"; 
 
 
-async function createComment(bodyData) {
+export async function createComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -30,7 +28,7 @@ async function createComment(bodyData) {
     return data;
 }
 
-async function editComment(bodyData) {
+export async function editComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -58,7 +56,7 @@ async function editComment(bodyData) {
     return data;
 }
 
-async function updateCommentVote(bodyData) {
+export async function updateCommentVote(bodyData) {
     const url = `${BASE_API_URL}/api/comment/vote/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -84,7 +82,7 @@ async function updateCommentVote(bodyData) {
     return data;
 }
 
-async function deleteComment(comment_id) {
+export async function deleteComment(comment_id) {
     const url = `${BASE_API_URL}/api/comment/${comment_id}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -100,8 +98,9 @@ async function deleteComment(comment_id) {
     const data = await res.json();
     if (data.status == 200) {
         const comment = document.getElementById(comment_id);
-        console.log(comment, comment_id);
         removeHTMLElement(comment);
+    } else {
+        showAlert("ERROR", "Something went wrong")
     }
     return data;
 }

@@ -1,4 +1,6 @@
-function isLoggedIn() {
+import { BASE_API_URL } from "./constants"
+
+export function isLoggedIn() {
     const username = localStorage.getItem("user_name");
     const user_id = localStorage.getItem("user_id");
     if (username && user_id) {
@@ -7,11 +9,11 @@ function isLoggedIn() {
     return false
 }
 
-function logout() {
+export function logout() {
     localStorage.clear();
 }
 
-function loginUser(form) {
+export function loginUser(form) {
     const formData = new FormData(form);
     const data = {}
     for (var pair of formData.entries()) {
@@ -52,7 +54,7 @@ function loginUser(form) {
     }
 }
 
-function signupUser(form) {
+export function signupUser(form) {
     const formData = new FormData(form);
     const data = {}
     for (var pair of formData.entries()) {
@@ -92,7 +94,7 @@ function signupUser(form) {
     }
 }
 
-function isAdmin() {
+export function isAdmin() {
     const authority = localStorage.getItem("user_authority");
     if (authority == "admin") {
         return true;

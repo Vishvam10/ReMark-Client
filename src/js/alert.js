@@ -1,4 +1,4 @@
-const alertModal = (type, message) => {
+export const alertModal = (type, message) => {
     let markup = ""
     switch (type) {
         case "ERROR":
@@ -28,14 +28,14 @@ const alertModal = (type, message) => {
     return markup;
 }
 
-function hideAlert() {
+export function hideAlert() {
     const ele = document.querySelector('.remark_error_container');
     if (ele) {
         removeHTMLElement(ele)
     }
 }
 
-function showAlert(type, message, time = 1) {
+export function showAlert(type, message, time = 1) {
     hideAlert();
     const markup = alertModal(type, message);
     console.log(type, message);

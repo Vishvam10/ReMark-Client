@@ -1,0 +1,29 @@
+{
+  "name": "remark.js",
+  "version": "1.0.0",
+  "description": "Website Annotation Tool",
+  "source": "src/js/index.js",
+  "main": "dist/main.js",
+  "scripts": {
+    "serve" : "parcel serve",
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vishvam10/ReMark-Frontend.git"
+  },
+  "type": "module",
+  "author": "Vishvam S",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vishvam10/ReMark-Frontend/issues"
+  },
+  "homepage": "https://github.com/Vishvam10/ReMark-Frontend#readme",
+  "engines": {
+    "node": "^14.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
+}
