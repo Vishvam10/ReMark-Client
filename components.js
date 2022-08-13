@@ -311,9 +311,11 @@ const SIDEBAR = (xpath) => {
 
     let comment_markup = ""
     let resolve_button_text = ""
+    let c = ""
 
     if(resolved) {
         resolve_button_text = "Unresolve";
+        c = "remark_unresolve_button";
     } else {
         resolve_button_text = "Resolve";
     }
@@ -329,7 +331,7 @@ const SIDEBAR = (xpath) => {
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                <button class="remark_standard_button remark_resolve_button" data-annotation_id="${annotation_id}" onclick="handleResolveAnnotation(this, event)" id="remark_annotation_resolve_button">
+                <button class="remark_standard_button remark_resolve_button ${c}" data-annotation_id="${annotation_id}" onclick="handleResolveAnnotation(this, event)" id="remark_annotation_resolve_button">
                     ${resolve_button_text}
                 </button>
                 <div class="remark_standard_modal_close_btn">
