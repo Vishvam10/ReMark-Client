@@ -1,4 +1,4 @@
-# ReMark Fronted
+# ReMark Client
 
 This is the ReMark client which is written in pure Vanilla JS. The styling is taken care by HTML5 and CSS3. 
 
@@ -16,9 +16,10 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 - [x] **Update CSS :** Currently, the CSS code has duplications. Need to use `:root` to declare global stylings. This includes `colors`, `fonts`, `shadows`, etc. Have to make sure not to override the website's styling
 
-- [ ] **Convert to ES6 Syntax :** Currently, we have to include multiple `script` tags. Need to convert all files to ES6 modules 
+- [x] **Convert to ES6 Syntax :** Currently, we have to include multiple `script` tags. Need to convert all files to ES6 modules 
 
-- [ ] **Bundle with `Parcel`**
+- [x] **Bundle with `Parcel`** :
+  - [ ] Code Refactoring
 
 - [ ] **Testing**
 
