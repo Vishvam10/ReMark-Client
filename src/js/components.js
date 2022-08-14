@@ -1,5 +1,6 @@
 import { handleCreateAnnotation, handleCloseModal } from "./handlers"
 import { remarkGlobalData } from "./global"
+import { renderComment } from "./render"
 
 export const LOGIN_MARKUP =
     `
@@ -294,47 +295,28 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     return markup;
 }
 
-export const SIDEBAR = (xpath) => {
-
-    const annotations = remarkGlobalData["annotations"];
-    remarkGlobalData["currentXPath"] = xpath;
-
-    let curAnnotation;
-
-    annotations.forEach((annotation) => {
-        if (annotation["node_xpath"] == xpath) {
-            curAnnotation = annotation;
-        }
-    });
-
+export const SIDEBAR = (curAnnotation) => {
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
-    const comments = curAnnotation["comments"];
     const resolved = curAnnotation["resolved"];
-
-    let comment_markup = ""
+    
     let resolve_button_text = ""
     let c = ""
-
+    
     if(resolved) {
         resolve_button_text = "Unresolve";
         c = "remark_unresolve_button";
     } else {
         resolve_button_text = "Resolve";
     }
-
-    comments.forEach((comment) => {
-        const m = COMMENTS_MARKUP(comment);
-        comment_markup += m;
-    });
-
+    
     const markup =
         `
         <div class="remark_standard_sidebar" id="remark_annotations_sidebar">
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                <button class="remark_standard_button remark_resolve_button ${c}" data-annotation_id="${annotation_id}" onclick="handleResolveAnnotation(this, event)" id="remark_annotation_resolve_button">
+                <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
                     ${resolve_button_text}
                 </button>
                 <div class="remark_standard_modal_close_btn">
@@ -343,12 +325,11 @@ export const SIDEBAR = (xpath) => {
             </div>
         </div>
         <div class="remark_standard_modal_body remark_standard_sidebar_body" id="remark_comments_body">
-            ${comment_markup}
         </div>
         <div class="remark_annotation_user_input">
             <textarea placeholder="Text input" id="remark_comment_input" data-annotation_id=${annotation_id}></textarea>
-            <span id="content_input_submit">
-                <ion-icon name="paper-plane-outline" class="remark_" onclick="handleCreateComment(remark_comment_input)"></ion-icon>
+            <span id="remark_create_comment" class="remark_">
+                <ion-icon name="paper-plane-outline" class="remark_"></ion-icon>
             </span>
         </div>
     </div>
@@ -384,8 +365,8 @@ export const COMMENTS_MARKUP = (comment) => {
                     </div>
                 </div>
                 <div class="remark_comment_actions">
-                    <ion-icon name="create-outline" data-comment_id="${comment["comment_id"]}" onclick="handleEditComment(this, event)"></ion-icon>
-                    <ion-icon name="trash-outline" id="${comment["comment_id"]}" onclick="handleDeleteComment(this.id)"></ion-icon>
+                    <ion-icon name="create-outline" id="${comment["comment_id"]}edit"></ion-icon>
+                    <ion-icon name="trash-outline" id="${comment["comment_id"]}delete"></ion-icon>
                 </div>
             </div>
             <div class="remark_annotation_user_message">

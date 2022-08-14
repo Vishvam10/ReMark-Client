@@ -1,9 +1,12 @@
+import { remarkGlobalData } from "./global";
 import { BASE_API_URL } from "./constants";
 import { removeHTMLElement } from "./utils";
 import { showAlert } from "./alert"; 
+import { renderComment } from "./render";
 
 
 export async function createComment(bodyData) {
+    console.log(bodyData);
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -20,8 +23,7 @@ export async function createComment(bodyData) {
     const data = await res.json();
     if (data.status == 201) {
         const comment = data.data;
-        const markup = COMMENTS_MARKUP(comment);
-        document.getElementById("remark_comments_body").insertAdjacentHTML("beforeend", markup);
+        renderComment(comment);
     } else {
         showAlert("ERROR", "Please enter a valid comment !")
     }

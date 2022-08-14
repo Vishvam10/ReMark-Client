@@ -1,7 +1,7 @@
 import { remarkGlobalData } from "./global"
 import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
 
-import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL } from "./components"
+import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, COMMENTS_MARKUP } from "./components"
 
 import * as handlers from "./handlers"
 
@@ -119,13 +119,93 @@ export function renderExistingAnnotations() {
 }
 
 export function renderSideBar(xpath) {
-    const sideBar = SIDEBAR(xpath);
+    const annotations = remarkGlobalData["annotations"];
+    remarkGlobalData["currentXPath"] = xpath;
+
+    let curAnnotation;
+
+    annotations.forEach((annotation) => {
+        if (annotation["node_xpath"] == xpath) {
+            curAnnotation = annotation;
+        }
+    });
+
+    const sideBar = SIDEBAR(curAnnotation);
     const body = document.getElementsByTagName('body')[0];
-    const check = document.getElementById("remark_annotations_sidebar");
+    const check = document.getElementById("remark_annotations_sidebar");    
     if (check) {
         removeHTMLElement(check);
     }
+
     body.insertAdjacentHTML("afterbegin", sideBar);
+    
+    const createBtn = document.getElementById("remark_create_comment");
+    const resolveBtn = document.getElementById("remark_annotation_resolve_button");
+    if(createBtn) {
+        createBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleCreateComment();
+        })
+    }
+
+    if(resolveBtn) {
+        resolveBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleResolveAnnotation(curAnnotation["annotation_id"]);
+        })
+    }
+
+    const comments = curAnnotation["comments"];
+    comments.forEach((comment) => {
+        renderComment(comment)
+    });
+}
+
+export function renderComment(comment) {
+    
+    const markup = COMMENTS_MARKUP(comment);
+    const sidebarBody = document.getElementById("remark_comments_body")
+    if(sidebarBody) {
+        sidebarBody.insertAdjacentHTML("beforeend", markup);
+    }
+    const comment_id = comment["comment_id"];
+
+    const deleteBtn = document.getElementById(`${comment_id}delete`);
+    const editBtn = document.getElementById(`${comment_id}edit`);
+    const upvoteBtn = document.getElementById(`${comment_id}upvote`);
+    const downvoteBtn = document.getElementById(`${comment_id}downvote`);
+    console.log("IN REDNER : ", deleteBtn);
+    if(deleteBtn) {
+        deleteBtn.addEventListener("click", (e) => {
+            console.log("CLICKED");
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleDeleteComment(comment_id);
+        })
+    } 
+    if(editBtn) {
+        editBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleEditComment(comment_id);
+        })
+    }
+    // if(upvoteBtn) {
+    //     upvoteBtn.addEventListener("click", (e) => {
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //         handlers.handleCommentUpvote(comment_id, "upvote");
+    //     })
+    // }
+    // if(downvoteBtn) {
+    //     downvoteBtn.addEventListener("click", (e) => {
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //         handlers.handleCommentUpvote(comment_id, "downvote");
+    //     })
+    // }
 }
 
 export function renderLoginModal() {

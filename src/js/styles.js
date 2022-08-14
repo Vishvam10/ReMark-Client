@@ -421,20 +421,20 @@ export default STYLES = `
     }
 
     .remark_annotation_user_username {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         font-weight: 700;
-        margin: 0rem 0rem 0.4rem 0rem;
+        margin: 1rem 0rem 0.4rem 0rem;
     }
 
     .remark_annotation_user_last_modified {
-        font-weight: normal;
-        font-size: 1rem;
-        margin: -0.7rem 0rem 0rem 0rem;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin: 0.2rem 0rem 0rem 0.1rem;
     }
 
     .remark_annotation_user_message {
         width: 97%;
-        margin: 1rem 0rem 1rem 0rem;
+        margin: 2rem 0rem 1rem 0rem;
         color: var(--remark-color-grey);
         padding: 0rem 0rem 0rem 1rem;
         font-family: inherit;
@@ -591,6 +591,10 @@ export default STYLES = `
     
     .remark_resolve_button {
         color: var(--remark-color-white) !important;
+    }
+
+    .remark_unresolve_button:hover {
+        background-color: var(--remark-color-danger) !important;
     }
 
     .remark_unresolve_button {

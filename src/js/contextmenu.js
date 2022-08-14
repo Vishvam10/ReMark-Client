@@ -46,7 +46,6 @@ export function handleContextMenuOptions(option, data) {
     remarkGlobalData["currentNode"] = data["node"];
     switch (option) {
         case "open":
-            console.log("OPENING SIDEBAR", data["xpath"]);
             renderSideBar(data["xpath"]);
             break;
         case "create":

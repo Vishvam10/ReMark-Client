@@ -3,8 +3,9 @@ import { createComment, editComment, deleteComment, updateCommentVote } from "./
 import { loginUser, signupUser } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
-import { removeHTMLElement, validateForm } from "./utils";
+import { removeHTMLElement } from "./utils";
 import { remarkGlobalData } from "./global";
+import { showAlert } from "./alert";
 
 //+ ANNOTATION HANDLERS
 
@@ -29,19 +30,12 @@ export function handleCreateAnnotation(formElement) {
     createAnnotation(data);
 }
 
-export function handleResolveAnnotation(ele, event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const annotation_id = ele.dataset.annotation_id;
-
+export function handleResolveAnnotation(annotation_id) {
     let data = {}
     data["annotation_id"] = annotation_id;
     data["action_type"] = "edit_resolved";
     data["new_resolved"] = "";
-
     editAnnotation(data);
-
 }
 
 export function handleEditAnnotation(formElement, event) {
@@ -120,12 +114,9 @@ export function handleCreateComment() {
     createComment(data);
 }
 
-export function handleEditComment(ele, event) {
-    event.preventDefault();
-    event.stopPropagation();
+export function handleEditComment(comment_id) {
 
     const user_id = localStorage.getItem("user_id");
-    const comment_id = ele.dataset.comment_id;
     const content_id = `${comment_id}message`;
 
     let contentEle = document.getElementById(`${content_id}`);
@@ -145,6 +136,7 @@ export function handleEditComment(ele, event) {
     contentEle.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.key === "Enter") {
             console.log("EDITING COMMENT");
+            contentEle.style.padding = "0rem";
             contentEle.blur();
             let new_content = contentEle.textContent.trim();
             data["new_content"] = new_content;
@@ -160,14 +152,12 @@ export function handleDeleteComment(comment_id) {
     deleteComment(comment_id);
 }
 
-export function handleCommentUpvote(ele, event) {
-    event.preventDefault();
-    event.stopPropagation();
+export function handleCommentUpvote(comment_id, action_type) {
     const user_id = localStorage.getItem("user_id");
     let data = {}
     data["user_id"] = user_id;
-    data["comment_id"] = ele.dataset.comment_id;
-    data["action_type"] = ele.dataset.action_type
+    data["comment_id"] = comment_id
+    data["action_type"] = action_type
     updateCommentVote(data);
 }
 
