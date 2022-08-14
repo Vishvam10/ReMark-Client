@@ -239,7 +239,7 @@ export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
                         <input type="text" name="annotation_id" class="remark_form_input" value=${curAnnotation["annotation_id"]} readonly>
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit"  class="remark_standard_button" onclick="handleEditAnnotation(editAnnotationForm, event)">Edit</button>
+                        <button type="button"  class="remark_standard_button" id="remark_edit_annotation_button">Edit</button>
                     </div>
                 </form>
             </div>

@@ -153,6 +153,11 @@ export function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_co
     }
 }
 
+export function repositionStart() {
+    const ele = document.querySelector(".remark_init_container");
+    ele.classList.add("remark_init_container_resize");
+}
+
 export function removeAllExistingModals() {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
 

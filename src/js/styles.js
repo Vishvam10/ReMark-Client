@@ -147,7 +147,7 @@ export default STYLES = `
 
     .remark_init_container_resize {
         left: 4%;
-        width: 30rem;
+        width: 40rem;
     }
 
     .remark_init_button {
@@ -179,6 +179,13 @@ export default STYLES = `
     .remark_login_button:hover {
         background:  var(--remark-color-primary) !important;
         color: var(--remark-color-white) !important;
+    }
+    
+    .remark_disabled_button {
+        background:  var(--remark-color-primary-lighter) !important;
+        color: var(--remark-color-white) !important;
+        pointer-events: none;
+        cursor: not-allowed;
     }
 
     /*

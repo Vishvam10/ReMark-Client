@@ -3,9 +3,10 @@ import { createComment, editComment, deleteComment, updateCommentVote } from "./
 import { loginUser, signupUser } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
-import { removeHTMLElement } from "./utils";
+import { removeHTMLElement, repositionStart } from "./utils";
 import { remarkGlobalData } from "./global";
 import { showAlert } from "./alert";
+import startAnnotationProcess from "./startAnnotation"
 
 //+ ANNOTATION HANDLERS
 
@@ -38,9 +39,7 @@ export function handleResolveAnnotation(annotation_id) {
     editAnnotation(data);
 }
 
-export function handleEditAnnotation(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
+export function handleEditAnnotation(formElement) {
     let form = new FormData(formElement);
     const annotation_id = formElement.dataset.annotation_id;
     let data = {}
@@ -175,4 +174,21 @@ export function handleLoginUser(formElement) {
 
 export function handleSignupUser(formElement) {
     signupUser(formElement);
+}
+
+export function handlePostLoginSetup() {
+    const loginBtn = document.getElementById("remark_login_button");
+    loginBtn.innerText = "Logout";
+    document.getElementById("remark_start").classList.remove("remark_disabled_button");
+    
+    console.log("remark.js | v.0.1");
+    document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
+    startAnnotationProcess();
+    document.getElementById('remark_start').textContent = "Stop Annotation";
+    repositionStart();
+    // else {
+    //     document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
+    //     document.getElementById('remark_start').textContent = "Start Annotation";
+    //     localStorage.setItem("remark_started", true);
+
 }

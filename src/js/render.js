@@ -76,13 +76,23 @@ export function renderEditAnnotationModal(html_node, html_tag, html_id, html_tex
     }
 
     const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    
+    const submitBtn = document.getElementById("remark_edit_annotation_button");
+
     if(modalCloseBtn) {
         modalCloseBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             const ele = document.getElementById("remark_edit_annotation_modal");
             removeHTMLElement(ele);
+        })
+    }
+
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const editAnnotationForm = document.getElementById("editAnnotationForm");
+            handlers.handleEditAnnotation(editAnnotationForm)
         })
     }
 }
@@ -273,7 +283,7 @@ export function renderLoginModal() {
             e.preventDefault();
             e.stopPropagation();
             const loginForm = document.getElementById("loginForm");
-            handlers.handleLoginUser(loginForm)
+            handlers.handleLoginUser(loginForm);
         })
     }
     if(switchBtn) {

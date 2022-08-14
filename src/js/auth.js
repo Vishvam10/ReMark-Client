@@ -2,6 +2,7 @@ import { BASE_API_URL } from "./constants"
 import { removeHTMLElement, validateForm } from "./utils";
 import { showAlert } from "./alert";
 import { renderLoginModal } from "./render";
+import { handlePostLoginSetup } from "./handlers"
 
 export function isLoggedIn() {
     const user_id = localStorage.getItem("user_id");
@@ -38,7 +39,6 @@ export function loginUser(form) {
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data["status"] == 200) {
                     localStorage.setItem("user_access_token", data["access_token"]);
                     localStorage.setItem("user_id", data["user_id"]);
@@ -48,8 +48,7 @@ export function loginUser(form) {
                     if (loginFormModal) {
                         removeHTMLElement(loginFormModal)
                     }
-                    const loginBtn = document.getElementById("remark_login_button");
-                    loginBtn.innerText = "Logout";
+                    handlePostLoginSetup();
                     showAlert("SUCCESS", "Logged in successfully !")
                 } else {
                     showAlert("ERROR", data["error_message"])
