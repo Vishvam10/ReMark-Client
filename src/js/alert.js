@@ -37,7 +37,7 @@ export function hideAlert() {
     }
 }
 
-export function showAlert(type, message, time = 1) {
+export function showAlert(type, message, time = 1.5) {
     hideAlert();
     const markup = alertModal(type, message);
     console.log(type, message);

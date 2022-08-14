@@ -170,6 +170,17 @@ export default STYLES = `
         justify-content: center;
     }
 
+    .remark_login_button {
+        width: max-content !important;
+        border: 2px solid var(--remark-color-primary) !important;background: var(--remark-color-white) !important;
+        color: var(--remark-color-primary) !important;
+    }
+
+    .remark_login_button:hover {
+        background:  var(--remark-color-primary) !important;
+        color: var(--remark-color-white) !important;
+    }
+
     /*
         ********************* MODAL *********************
     */
@@ -186,8 +197,8 @@ export default STYLES = `
         left: 36%;
         display: flex;
         box-shadow: var(--remark-default-box-shadow);
-        font-size: 1.4rem;
-        font-weight: 700;
+        font-size: 1.6rem;
+        font-weight: 500;
         color: var(--remark-color-black);
         flex-direction: column;
         justify-content: center;
@@ -521,7 +532,7 @@ export default STYLES = `
         background-color: var(--remark-color-white);
         border: none;
         outline: 0px !important;
-        margin: 0.4rem 0rem 1rem 0rem;
+        margin: 1rem 0rem 1rem 0rem;
         transition: border 0.2s ease-in;
         border: 0.5px solid var(--remark-color-grey);
         font-size: 1.2rem;
@@ -536,6 +547,12 @@ export default STYLES = `
         font-family: var(--remark-default-sanserif-font);
         font-size: 1.2rem;
         color: var(--remark-color-grey);
+    }
+
+    .remark_delete_annotation_form_field {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        margin: 3rem 1rem 3rem 0rem;   
     }
 
     .remark_standard_button {
@@ -571,9 +588,14 @@ export default STYLES = `
         transform: scale(1.0);
     }
 
+    
     .remark_delete_button {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
+    }
+
+    .remark_delete_button:hover {
+        background-color: var(--remark-color-danger) !important;
     }
 
     .remark_delete_button:focus {

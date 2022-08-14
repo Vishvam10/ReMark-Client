@@ -1,7 +1,7 @@
 import { remarkGlobalData } from "./global"
 import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
 
-import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, COMMENTS_MARKUP } from "./components"
+import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, DELETE_ANNOTATION_MODAL, COMMENTS_MARKUP } from "./components"
 
 import * as handlers from "./handlers"
 
@@ -31,8 +31,8 @@ export function renderNewAnnotationModal(html_node, html_tag, html_class, html_i
 
     body.insertAdjacentHTML("afterbegin", newAnnotationModal);
     
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    let submitBtn = document.getElementById("remark_create_annotation_button");
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    const submitBtn = document.getElementById("remark_create_annotation_button");
     
     if(modalCloseBtn) {
         modalCloseBtn.addEventListener("click", (e) => {
@@ -42,11 +42,11 @@ export function renderNewAnnotationModal(html_node, html_tag, html_class, html_i
             removeHTMLElement(ele);
         })
     }
+
     if(submitBtn) {
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log("CLICKED");
             const createAnnotationForm = document.getElementById("createAnnotationForm");
             handlers.handleCreateAnnotation(createAnnotationForm)
         })
@@ -74,6 +74,17 @@ export function renderEditAnnotationModal(html_node, html_tag, html_id, html_tex
         showAlert("ERROR", "Xpath not matched. Please try again !");
         return;
     }
+
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_edit_annotation_modal");
+            removeHTMLElement(ele);
+        })
+    }
 }
 
 export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
@@ -95,6 +106,29 @@ export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_t
         showAlert("ERROR", "Xpath not matched. Please try again !");
         return;
     }
+
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_delete_annotation_modal");
+            removeHTMLElement(ele);
+        })
+    }
+
+    const submitBtn = document.getElementById("remark_delete_annotation_button");
+
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const deleteAnnotationForm = document.getElementById("deleteAnnotationForm");
+            handlers.handleDeleteAnnotation(deleteAnnotationForm);
+        })
+    }
+
 }
 
 export function renderExistingAnnotations() {
@@ -121,15 +155,14 @@ export function renderExistingAnnotations() {
 export function renderSideBar(xpath) {
     const annotations = remarkGlobalData["annotations"];
     remarkGlobalData["currentXPath"] = xpath;
-
     let curAnnotation;
-
+    
     annotations.forEach((annotation) => {
         if (annotation["node_xpath"] == xpath) {
             curAnnotation = annotation;
         }
     });
-
+    
     const sideBar = SIDEBAR(curAnnotation);
     const body = document.getElementsByTagName('body')[0];
     const check = document.getElementById("remark_annotations_sidebar");    
@@ -139,8 +172,19 @@ export function renderSideBar(xpath) {
 
     body.insertAdjacentHTML("afterbegin", sideBar);
     
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
     const createBtn = document.getElementById("remark_create_comment");
     const resolveBtn = document.getElementById("remark_annotation_resolve_button");
+    
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_annotations_sidebar");
+            removeHTMLElement(ele);
+        })
+    }
+    
     if(createBtn) {
         createBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -176,7 +220,7 @@ export function renderComment(comment) {
     const editBtn = document.getElementById(`${comment_id}edit`);
     const upvoteBtn = document.getElementById(`${comment_id}upvote`);
     const downvoteBtn = document.getElementById(`${comment_id}downvote`);
-    console.log("IN REDNER : ", deleteBtn);
+
     if(deleteBtn) {
         deleteBtn.addEventListener("click", (e) => {
             console.log("CLICKED");
@@ -192,27 +236,30 @@ export function renderComment(comment) {
             handlers.handleEditComment(comment_id);
         })
     }
-    // if(upvoteBtn) {
-    //     upvoteBtn.addEventListener("click", (e) => {
-    //         e.preventDefault();
-    //         e.stopPropagation();
-    //         handlers.handleCommentUpvote(comment_id, "upvote");
-    //     })
-    // }
-    // if(downvoteBtn) {
-    //     downvoteBtn.addEventListener("click", (e) => {
-    //         e.preventDefault();
-    //         e.stopPropagation();
-    //         handlers.handleCommentUpvote(comment_id, "downvote");
-    //     })
-    // }
+    if(upvoteBtn) {
+        upvoteBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleCommentUpvote(comment_id, "upvote");
+        })
+    }
+    if(downvoteBtn) {
+        downvoteBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handlers.handleCommentUpvote(comment_id, "downvote");
+        })
+    }
 }
 
 export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
-    let submitBtn = document.getElementById("remark_login_button");
+
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
+    const submitBtn = document.getElementById("remark_login_button");
+    const switchBtn = document.getElementById("loginSignupSwitch");
+
     if(modalCloseBtn) {
         modalCloseBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -226,7 +273,15 @@ export function renderLoginModal() {
             e.preventDefault();
             e.stopPropagation();
             const loginForm = document.getElementById("loginForm");
-            handlers.handleLoginUser(e, loginForm)
+            handlers.handleLoginUser(loginForm)
+        })
+    }
+    if(switchBtn) {
+        switchBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_login_modal")
+            handlers.handleLoginSignupSwitch(ele);
         })
     }
 }
@@ -234,13 +289,16 @@ export function renderLoginModal() {
 export function renderSignupModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", SIGNUP_MARKUP);
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
-    let submitBtn = document.getElementById("remark_login_button");
+    
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
+    const submitBtn = document.getElementById("remark_signup_button");
+    const switchBtn = document.getElementById("loginSignupSwitch");
+
     if(modalCloseBtn) {
         modalCloseBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const ele = document.getElementById("remark_login_modal");
+            const ele = document.getElementById("remark_signup_modal");
             removeHTMLElement(ele)
         })
     }
@@ -249,7 +307,15 @@ export function renderSignupModal() {
             e.preventDefault();
             e.stopPropagation();
             const signupForm = document.getElementById("signupForm");
-            handlers.handleSignupUser(e, signupForm)
+            handlers.handleSignupUser(signupForm)
+        })
+    }
+    if(switchBtn) {
+        switchBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_signup_modal");
+            handlers.handleLoginSignupSwitch(ele);
         })
     }
 }

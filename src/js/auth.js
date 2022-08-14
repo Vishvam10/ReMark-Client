@@ -1,6 +1,7 @@
 import { BASE_API_URL } from "./constants"
 import { removeHTMLElement, validateForm } from "./utils";
 import { showAlert } from "./alert";
+import { renderLoginModal } from "./render";
 
 export function isLoggedIn() {
     const username = localStorage.getItem("user_name");
@@ -47,7 +48,7 @@ export function loginUser(form) {
                     }
                     showAlert("SUCCESS", "Logged in successfully !")
                 } else {
-                    console.log(data);
+                    showAlert("ERROR", data["error_message"])
                     return false
                 }
             })
@@ -65,6 +66,7 @@ export function signupUser(form) {
     }
     data["authority"] = "user"
     const res = validateForm(data);
+    console.log("IN AUTH : ", res);
     if (res == "OK") {
         const url = `${BASE_API_URL}/api/user`;
         fetch(url, {
@@ -80,17 +82,15 @@ export function signupUser(form) {
             .then(data => {
                 console.log(data);
                 if (data["status"] == 201) {
-                    localStorage.setItem("user_access_token", data["access_token"]);
-                    localStorage.setItem("user_id", data["user_id"]);
-                    localStorage.setItem("user_name", data["user_name"]);
-                    localStorage.setItem("user_authority", data["user_authority"]);
                     const signupFormModal = document.getElementById("remark_signup_modal");
+                    showAlert("SUCCESS", data["message"]);
                     if (signupFormModal) {
-                        removeHTMLElement(signupFormModal)
+                        removeHTMLElement(signupFormModal);
                     }
+                    renderLoginModal()
                 } else {
-                    console.log(data);
-                    return false
+                    showAlert("ERROR", data["error_message"]);
+                    return false;
                 }
             })
             .catch(err => console.log(err))

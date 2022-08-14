@@ -32,10 +32,16 @@ function remark_init() {
         `
         <div class="remark_init_container">
             <span class="remark_init_text">REMARK</span>
+            <button type="button" class="remark_standard_button remark_init_button remark_login_button" id="remark_login_button">Login</button>
             <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
+    document.getElementById("remark_login_button").addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        renderLoginModal();
+    })
 
     document.getElementById('remark_start').addEventListener("click", (e) => {
         e.preventDefault();
@@ -119,7 +125,6 @@ async function startAnnotationProcess() {
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);
-    console.log(annotations);
 
     if (annotations.length > 0) {
         remarkGlobalData["annotations"] = annotations;
@@ -190,14 +195,13 @@ async function startAnnotationProcess() {
                 overrideContextMenu(e, contextMenuData);
             }
         }
-    })
-
+    });
 
     document.addEventListener("keydown", (e) => {
         if (e.key == "Escape") {
             removeAllExistingModals();
         }
-    })
+    });
 
 
 }

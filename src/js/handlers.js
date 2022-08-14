@@ -67,10 +67,7 @@ export function handleEditAnnotation(formElement, event) {
     editAnnotation(data);
 }
 
-export function handleDeleteAnnotation(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log(formElement);
+export function handleDeleteAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
     for (var pair of form.entries()) {
@@ -135,7 +132,6 @@ export function handleEditComment(comment_id) {
 
     contentEle.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.key === "Enter") {
-            console.log("EDITING COMMENT");
             contentEle.style.padding = "0rem";
             contentEle.blur();
             let new_content = contentEle.textContent.trim();
@@ -162,31 +158,21 @@ export function handleCommentUpvote(comment_id, action_type) {
 }
 
 export function handleLoginSignupSwitch(component) {
-    if (component) {
-        if (component.id == "remark_login_modal") {
-            removeHTMLElement(component);
-            renderSignupModal();
-        } else {
-            removeHTMLElement(component);
-            renderLoginModal();
-        }
+    if (component.id == "remark_login_modal") {
+        removeHTMLElement(component);
+        renderSignupModal();
+    } else {
+        removeHTMLElement(component);
+        renderLoginModal();
     }
 }
 
 //+ AUTH HANDLERS
 
-export function handleLoginUser(e, formElement) {
-    e.preventDefault();
+export function handleLoginUser(formElement) {
     loginUser(formElement);
 }
 
-export function handleSignupUser(e, formElement) {
-    e.preventDefault();
+export function handleSignupUser(formElement) {
     signupUser(formElement);
-}
-
-//+ OTHER HANDLERS
-
-export function handleCloseModal(ele) {
-    removeHTMLElement(ele);
 }

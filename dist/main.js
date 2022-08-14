@@ -170,6 +170,17 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         justify-content: center;
     }
 
+    .remark_login_button {
+        width: max-content !important;
+        border: 2px solid var(--remark-color-primary) !important;background: var(--remark-color-white) !important;
+        color: var(--remark-color-primary) !important;
+    }
+
+    .remark_login_button:hover {
+        background:  var(--remark-color-primary) !important;
+        color: var(--remark-color-white) !important;
+    }
+
     /*
         ********************* MODAL *********************
     */
@@ -186,8 +197,8 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         left: 36%;
         display: flex;
         box-shadow: var(--remark-default-box-shadow);
-        font-size: 1.4rem;
-        font-weight: 700;
+        font-size: 1.6rem;
+        font-weight: 500;
         color: var(--remark-color-black);
         flex-direction: column;
         justify-content: center;
@@ -521,7 +532,7 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         background-color: var(--remark-color-white);
         border: none;
         outline: 0px !important;
-        margin: 0.4rem 0rem 1rem 0rem;
+        margin: 1rem 0rem 1rem 0rem;
         transition: border 0.2s ease-in;
         border: 0.5px solid var(--remark-color-grey);
         font-size: 1.2rem;
@@ -536,6 +547,12 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         font-family: var(--remark-default-sanserif-font);
         font-size: 1.2rem;
         color: var(--remark-color-grey);
+    }
+
+    .remark_delete_annotation_form_field {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        margin: 3rem 1rem 3rem 0rem;   
     }
 
     .remark_standard_button {
@@ -571,9 +588,14 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         transform: scale(1.0);
     }
 
+    
     .remark_delete_button {
         background-color: var(--remark-color-danger);
         color: var(--remark-color-white);
+    }
+
+    .remark_delete_button:hover {
+        background-color: var(--remark-color-danger) !important;
     }
 
     .remark_delete_button:focus {
@@ -751,7 +773,7 @@ function $fd3a760e313b8296$export$516836c6a9dfc573() {
     const ele = document.querySelector(".remark_error_container");
     if (ele) (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
 }
-function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1) {
+function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1.5) {
     $fd3a760e313b8296$export$516836c6a9dfc573();
     const markup = $fd3a760e313b8296$export$b92ea88f33b78593(type, message);
     console.log(type, message);
@@ -906,626 +928,6 @@ var $9bdae1cc374cba8f$export$1b94e36de2b67148 = {
 
 
 
-
-
-
-async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/all/${website_id}`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const res = await fetch(url, {
-        method: "GET",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-    });
-    const data = await res.json();
-    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = data;
-    return data;
-}
-async function $41fbc3b1898586d3$export$51eda81011da4982(bodyData) {
-    console.log(bodyData);
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "POST",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    });
-    const data = await res.json();
-    if (data.status == 201) {
-        const create_modal_check = document.getElementById("remark_create_annotation_modal");
-        if (create_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(create_modal_check);
-        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
-        ele.classList.add("highlight_element_strong");
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Annotation created successfully !");
-    }
-    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
-    return data;
-}
-async function $41fbc3b1898586d3$export$91b982a47ffa3c23(bodyData) {
-    const annotation_id = bodyData["annotation_id"];
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${annotation_id}`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "PUT",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    });
-    const data = await res.json();
-    if (data) {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", data["message"]);
-        if (data["message"] == "Annotation resolved successfully !") {
-            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
-            resolve_btn.classList.add("remark_unresolve_button");
-            resolve_btn.innerText = "Unresolve";
-        } else if (data["message"] == "Annotation unresolved successfully !") {
-            const resolve_btn1 = document.getElementById("remark_annotation_resolve_button");
-            resolve_btn1.classList.remove("remark_unresolve_button");
-            resolve_btn1.innerText = "Resolve";
-        }
-    }
-    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
-    if (edit_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(edit_modal_check);
-    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
-    return data;
-}
-async function $41fbc3b1898586d3$export$a193961559973879(bodyData) {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${bodyData["annotation_id"]}`;
-    console.log(bodyData);
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        }
-    });
-    const data = await res.json();
-    if (data.status == 200) {
-        const delete_modal_check = document.getElementById("remark_delete_annotation_modal");
-        if (delete_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(delete_modal_check);
-        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
-        ele.classList.remove("highlight_element_strong");
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Annotation deleted successfully !");
-    }
-    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
-    return data;
-}
-
-
-
-
-
-
-
-
-
-
-
-function $401e5251b5672128$export$592d9b2be066ea35(html_node, html_tag, html_class, html_id, html_text_content) {
-    const create_modal_check = document.getElementById("remark_create_annotation_modal");
-    if (create_modal_check) return;
-    const body = document.getElementsByTagName("body")[0];
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const newAnnotationModal = (0, $4ccab26f1b142cf4$export$677e18af8a745d31)(node_xpath, html_tag, html_class, html_id, html_text_content);
-    body.insertAdjacentHTML("afterbegin", newAnnotationModal);
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    let submitBtn = document.getElementById("remark_create_annotation_button");
-    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const ele = document.getElementById("remark_create_annotation_modal");
-        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
-    });
-    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("CLICKED");
-        const createAnnotationForm = document.getElementById("createAnnotationForm");
-        $cc4ff3a23db2c1c1$export$8b7da6b63de39513(createAnnotationForm);
-    });
-}
-function $401e5251b5672128$export$a144fbac6e7cc210(html_node, html_tag, html_id, html_text_content) {
-    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
-    if (edit_modal_check) {
-        console.log("Edit annotation modal already present.");
-        return;
-    }
-    const body = document.getElementsByTagName("body")[0];
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
-    if (ele) {
-        const editAnnotationModal = (0, $4ccab26f1b142cf4$export$c85da9ec7569e35c)(node_xpath);
-        body.insertAdjacentHTML("afterbegin", editAnnotationModal);
-    } else {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
-        return;
-    }
-}
-function $401e5251b5672128$export$7f4bf70cd335a417(html_node, html_tag, html_id, html_text_content) {
-    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
-    if (delete_modal_check) return;
-    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`;
-    const body = document.getElementsByTagName("body")[0];
-    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
-    if (ele) {
-        const deleteAnnotationModal = DELETE_ANNOTATION_MODAL(node_xpath);
-        body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
-    } else {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
-        return;
-    }
-}
-function $401e5251b5672128$export$1d36b8466b2a4d4c() {
-    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
-    // Indicate the elements on which the annotations are present
-    annotations.forEach((annotation)=>{
-        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"]);
-        if (ele) {
-            ele.classList.add("highlight_element_strong");
-            ele.dataset.xpath = annotation["node_xpath"];
-        } else console.log("RE-RENDER REQUIRED : ", ele);
-    });
-// 2. On show, trigger the sidebar (or modal)
-// THIS WILL BE DONE USING THE CONTEXT MENU
-}
-function $401e5251b5672128$export$40be53e378c97146(xpath) {
-    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
-    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = xpath;
-    let curAnnotation;
-    annotations.forEach((annotation)=>{
-        if (annotation["node_xpath"] == xpath) curAnnotation = annotation;
-    });
-    const sideBar = (0, $4ccab26f1b142cf4$export$2ee9e5a3556c1e43)(curAnnotation);
-    const body = document.getElementsByTagName("body")[0];
-    const check = document.getElementById("remark_annotations_sidebar");
-    if (check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(check);
-    body.insertAdjacentHTML("afterbegin", sideBar);
-    const createBtn = document.getElementById("remark_create_comment");
-    const resolveBtn = document.getElementById("remark_annotation_resolve_button");
-    if (createBtn) createBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        $cc4ff3a23db2c1c1$export$c0661eac5aac545d();
-    });
-    if (resolveBtn) resolveBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(curAnnotation["annotation_id"]);
-    });
-    const comments = curAnnotation["comments"];
-    comments.forEach((comment)=>{
-        $401e5251b5672128$export$87fc7a01f41973c6(comment);
-    });
-}
-function $401e5251b5672128$export$87fc7a01f41973c6(comment) {
-    const markup = (0, $4ccab26f1b142cf4$export$3b0cc8d4739e1636)(comment);
-    const sidebarBody = document.getElementById("remark_comments_body");
-    if (sidebarBody) sidebarBody.insertAdjacentHTML("beforeend", markup);
-    const comment_id = comment["comment_id"];
-    const deleteBtn = document.getElementById(`${comment_id}delete`);
-    const editBtn = document.getElementById(`${comment_id}edit`);
-    const upvoteBtn = document.getElementById(`${comment_id}upvote`);
-    const downvoteBtn = document.getElementById(`${comment_id}downvote`);
-    console.log("IN REDNER : ", deleteBtn);
-    if (deleteBtn) deleteBtn.addEventListener("click", (e)=>{
-        console.log("CLICKED");
-        e.preventDefault();
-        e.stopPropagation();
-        $cc4ff3a23db2c1c1$export$65c6857c3f4da09a(comment_id);
-    });
-    if (editBtn) editBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        $cc4ff3a23db2c1c1$export$97b2ebf3e3e921a5(comment_id);
-    });
-// if(upvoteBtn) {
-//     upvoteBtn.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         e.stopPropagation();
-//         handlers.handleCommentUpvote(comment_id, "upvote");
-//     })
-// }
-// if(downvoteBtn) {
-//     downvoteBtn.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         e.stopPropagation();
-//         handlers.handleCommentUpvote(comment_id, "downvote");
-//     })
-// }
-}
-function $401e5251b5672128$export$dd9c74687ae6eb45() {
-    const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$f5cfe9cd58390ad5));
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    let submitBtn = document.getElementById("remark_login_button");
-    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const ele = document.getElementById("remark_login_modal");
-        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
-    });
-    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const loginForm = document.getElementById("loginForm");
-        $cc4ff3a23db2c1c1$export$799b690d1790eee(e, loginForm);
-    });
-}
-function $401e5251b5672128$export$245c1a748319b9de() {
-    const body = document.getElementsByTagName("body")[0];
-    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$ecfd046c5f019e12));
-    let modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
-    let submitBtn = document.getElementById("remark_login_button");
-    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const ele = document.getElementById("remark_login_modal");
-        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
-    });
-    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const signupForm = document.getElementById("signupForm");
-        $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(e, signupForm);
-    });
-}
-
-
-async function $1a716a3e9014a08f$export$2a15b079e3f46654(bodyData) {
-    console.log(bodyData);
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "POST",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    });
-    const data = await res.json();
-    if (data.status == 201) {
-        const comment = data.data;
-        (0, $401e5251b5672128$export$87fc7a01f41973c6)(comment);
-    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Please enter a valid comment !");
-    return data;
-}
-async function $1a716a3e9014a08f$export$fc22b458daff1d0c(bodyData) {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${bodyData["comment_id"]}`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "PUT",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    });
-    const data = await res.json();
-    if (!data) (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong !", 2);
-    else {
-        console.log(data);
-        const content_id = data["comment_id"] + "message";
-        const contentEle = document.getElementById(`${content_id}`);
-        contentEle.textContent = data["content"];
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Comment edited successfully !");
-        contentEle.contentEditable = false;
-    }
-    return data;
-}
-async function $1a716a3e9014a08f$export$f2e8b808565088b0(bodyData) {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/vote/${bodyData["comment_id"]}`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "PUT",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    });
-    const data = await res.json();
-    console.log(data);
-    if (data.status == 200) {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", `${data["message"]}`);
-        document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
-        document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
-    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", data["error_message"]);
-    return data;
-}
-async function $1a716a3e9014a08f$export$2e6e3ad634e3776(comment_id) {
-    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${comment_id}`;
-    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "API_KEY": `${api_key}`,
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${auth_token}`,
-            "Content-Type": "application/json"
-        }
-    });
-    const data = await res.json();
-    if (data.status == 200) {
-        const comment = document.getElementById(comment_id);
-        (0, $18a61f8fa6189451$export$c229772b99a4e439)(comment);
-    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong");
-    return data;
-}
-
-
-
-
-
-function $1462d0332aa03f78$export$256a5a3564694cfc() {
-    const username = localStorage.getItem("user_name");
-    const user_id = localStorage.getItem("user_id");
-    if (username && user_id) return true;
-    return false;
-}
-function $1462d0332aa03f78$export$a0973bcfe11b05c9() {
-    localStorage.clear();
-}
-function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
-    const formData = new FormData(form);
-    const data = {};
-    for (var pair of formData.entries())data[pair[0]] = pair[1];
-    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
-    if (res == "OK") {
-        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/login`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }).then((res)=>res.json()).then((data)=>{
-            console.log(data);
-            if (data["status"] == 200) {
-                localStorage.setItem("user_access_token", data["access_token"]);
-                localStorage.setItem("user_id", data["user_id"]);
-                localStorage.setItem("user_name", data["user_name"]);
-                localStorage.setItem("user_authority", data["user_authority"]);
-                const loginFormModal = document.getElementById("remark_login_modal");
-                if (loginFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(loginFormModal);
-                (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Logged in successfully !");
-            } else {
-                console.log(data);
-                return false;
-            }
-        }).catch((err)=>console.log(err));
-    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Form validation failed");
-}
-function $1462d0332aa03f78$export$44c987e964dad812(form) {
-    const formData = new FormData(form);
-    const data = {};
-    for (var pair of formData.entries())data[pair[0]] = pair[1];
-    data["authority"] = "user";
-    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
-    if (res == "OK") {
-        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/user`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }).then((res)=>res.json()).then((data)=>{
-            console.log(data);
-            if (data["status"] == 201) {
-                localStorage.setItem("user_access_token", data["access_token"]);
-                localStorage.setItem("user_id", data["user_id"]);
-                localStorage.setItem("user_name", data["user_name"]);
-                localStorage.setItem("user_authority", data["user_authority"]);
-                const signupFormModal = document.getElementById("remark_signup_modal");
-                if (signupFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(signupFormModal);
-            } else {
-                console.log(data);
-                return false;
-            }
-        }).catch((err)=>console.log(err));
-    }
-}
-function $1462d0332aa03f78$export$fc970ed23da99565() {
-    const authority = localStorage.getItem("user_authority");
-    if (authority == "admin") return true;
-    return false;
-}
-
-
-
-
-
-
-function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement) {
-    let form = new FormData(formElement);
-    let data = {};
-    const user_id = localStorage.getItem("user_id");
-    const user_name = localStorage.getItem("user_name");
-    for (var pair of form.entries()){
-        if (pair[0] == "annotation_name" || pair[0] == "tags") {
-            if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-                (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Only alphanumeric values and comma are allowed !");
-                return;
-            }
-        }
-        data[pair[0]] = pair[1].trim();
-    }
-    data["website_uri"] = window.location.href;
-    data["user_id"] = user_id;
-    data["user_name"] = user_name;
-    data["website_id"] = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"];
-    (0, $41fbc3b1898586d3$export$51eda81011da4982)(data);
-}
-function $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(annotation_id) {
-    let data = {};
-    data["annotation_id"] = annotation_id;
-    data["action_type"] = "edit_resolved";
-    data["new_resolved"] = "";
-    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
-}
-function $cc4ff3a23db2c1c1$export$51aff373edad69c5(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
-    let form = new FormData(formElement);
-    const annotation_id = formElement.dataset.annotation_id;
-    let data = {};
-    for (var pair of form.entries())//* TODO : Validation
-    // if (pair[0] == "new_name" || pair[0] == "new_tags") {
-    // if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-    // console.log("Only alphanumeric values and comma are allowed !", pair[0], pair[1]);
-    // return;
-    // }
-    // }
-    data[pair[0]] = pair[1].trim();
-    let actions = [];
-    if (data["new_annotation"] != "") actions.push("edit_name");
-    if (data["new_tags"] != "") actions.push("edit_tags");
-    actions = actions.join(",");
-    data["action_type"] = actions;
-    data["annotation_id"] = annotation_id;
-    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
-}
-function $cc4ff3a23db2c1c1$export$ff5312fa04eaf3aa(formElement, event) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log(formElement);
-    let form = new FormData(formElement);
-    let data = {};
-    for (var pair of form.entries())data[pair[0]] = pair[1].trim();
-    if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
-        const annotation_id = formElement.dataset.annotation_id;
-        const xpath = formElement.dataset.xpath;
-        const html_id = formElement.dataset.html_id;
-        const html_tag = formElement.dataset.html_tag;
-        const html_text_content = formElement.dataset.html_text_content;
-        if (annotation_id && xpath) {
-            data["annotation_id"] = annotation_id;
-            data["node_xpath"] = xpath;
-            data["html_id"] = html_id;
-            data["html_tag"] = html_tag;
-            data["html_text_content"] = html_text_content;
-            (0, $41fbc3b1898586d3$export$a193961559973879)(data);
-        }
-    } else {
-        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Annotation names don't match !");
-        return;
-    }
-}
-function $cc4ff3a23db2c1c1$export$c0661eac5aac545d() {
-    let data = {};
-    const user_id = localStorage.getItem("user_id");
-    const user_name = localStorage.getItem("user_name");
-    const textarea = document.getElementById("remark_comment_input");
-    const text = textarea.value;
-    data["content"] = text;
-    data["content_html"] = "";
-    data["annotation_id"] = textarea.dataset.annotation_id;
-    data["user_id"] = user_id;
-    data["user_name"] = user_name;
-    data["parent_node"] = null;
-    textarea.value = "";
-    (0, $1a716a3e9014a08f$export$2a15b079e3f46654)(data);
-}
-function $cc4ff3a23db2c1c1$export$97b2ebf3e3e921a5(comment_id) {
-    const user_id = localStorage.getItem("user_id");
-    const content_id = `${comment_id}message`;
-    let contentEle = document.getElementById(`${content_id}`);
-    contentEle.contentEditable = true;
-    let data = {};
-    data["user_id"] = user_id;
-    data["comment_id"] = comment_id;
-    (0, $fd3a760e313b8296$export$de026b00723010c1)("INTIMATION", "Please use Ctrl + Enter to submit the edited comment", 2);
-    setTimeout(function() {
-        contentEle.focus();
-        contentEle.style.padding = "1rem";
-    }, 0);
-    contentEle.addEventListener("keydown", (e)=>{
-        if (e.ctrlKey && e.key === "Enter") {
-            console.log("EDITING COMMENT");
-            contentEle.style.padding = "0rem";
-            contentEle.blur();
-            let new_content = contentEle.textContent.trim();
-            data["new_content"] = new_content;
-            data["new_content_html"] = "";
-            (0, $1a716a3e9014a08f$export$fc22b458daff1d0c)(data);
-        }
-    });
-}
-function $cc4ff3a23db2c1c1$export$65c6857c3f4da09a(comment_id) {
-    // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
-    (0, $1a716a3e9014a08f$export$2e6e3ad634e3776)(comment_id);
-}
-function $cc4ff3a23db2c1c1$export$4dc8094a3ce8e4d4(comment_id, action_type) {
-    const user_id = localStorage.getItem("user_id");
-    let data = {};
-    data["user_id"] = user_id;
-    data["comment_id"] = comment_id;
-    data["action_type"] = action_type;
-    (0, $1a716a3e9014a08f$export$f2e8b808565088b0)(data);
-}
-function $cc4ff3a23db2c1c1$export$c69a7e3627e11d2a(component) {
-    if (component) {
-        if (component.id == "remark_login_modal") {
-            (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
-            (0, $401e5251b5672128$export$245c1a748319b9de)();
-        } else {
-            (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
-            (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
-        }
-    }
-}
-function $cc4ff3a23db2c1c1$export$799b690d1790eee(e, formElement) {
-    e.preventDefault();
-    (0, $1462d0332aa03f78$export$692b4a7cc7a486ce)(formElement);
-}
-function $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(e, formElement) {
-    e.preventDefault();
-    (0, $1462d0332aa03f78$export$44c987e964dad812)(formElement);
-}
-function $cc4ff3a23db2c1c1$export$5c038338ec3229b7(ele) {
-    (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
-}
-
-
-
-
 const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
     <div class="remark_standard_modal" id="remark_login_modal">
         <div class="remark_standard_modal_header">
@@ -1554,7 +956,7 @@ const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
                     <button type="button" class="remark_standard_button" id="remark_login_button">Login</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Don't have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_login_modal)">Sign up</span></p>
+                <p>Don't have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch">Sign up</span></p>
                 </div>
             </form>
         </div>
@@ -1589,10 +991,10 @@ const $4ccab26f1b142cf4$export$ecfd046c5f019e12 = `
                     <input name="bio" class="remark_form_input" id="bio">
                 </div>
                 <div class="remark_form_fields">
-                    <button type="button" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
+                    <button type="button" class="remark_standard_button" id="remark_signup_button">Sign Up</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Already have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_signup_modal)">Login</span></p>
+                <p>Already have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch" >Login</span></p>
                 </div>
             </form>
         </div>
@@ -1705,7 +1107,7 @@ const $4ccab26f1b142cf4$export$c85da9ec7569e35c = (node_xpath)=>{
                 <h3 class="remark_standard_modal_title">Edit Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_edit_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -1754,20 +1156,22 @@ const $4ccab26f1b142cf4$export$f1f180b010da0012 = (node_xpath)=>{
                 <h3 class="remark_standard_modal_title">Delete Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_delete_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
             <div class="remark_standard_modal_body">
                 <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath='${node_xpath}' data-html_tag=${curAnnotation["html_tag"]} data-html_text_content="${curAnnotation["html_text_content"]}">
                     <div class="remark_form_fields">
-                        <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
+                        <p class="remark_delete_annotation_form_field"> 
+                        Are you sure you want to delete this annotation ? 
+                        <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
                         Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
-                        
+                        </p>
                         <input type="text" name="deleteConfirmation" class="remark_form_input" id="deleteConfirmation">
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit"  class="remark_standard_button remark_delete_button" onclick="handleDeleteAnnotation(deleteAnnotationForm, event)">Delete</button>
+                        <button type="button"  class="remark_standard_button remark_delete_button" id="remark_delete_annotation_button">Delete</button>
                     </div>
                 </form>
             </div>
@@ -1793,9 +1197,7 @@ const $4ccab26f1b142cf4$export$2ee9e5a3556c1e43 = (curAnnotation)=>{
                 <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
                     ${resolve_button_text}
                 </button>
-                <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
-                </div>
+                <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
             </div>
         </div>
         <div class="remark_standard_modal_body remark_standard_sidebar_body" id="remark_comments_body">
@@ -1814,9 +1216,10 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
     let d;
     if (comment["updated_at"]) d = comment["updated_at"];
     else d = comment["created_at"];
-    let content_id = `${comment["comment_id"]}message`;
-    let upvotes_id = `${comment["comment_id"]}upvotes`;
-    let downvotes_id = `${comment["comment_id"]}downvotes`;
+    const comment_id = comment["comment_id"];
+    let content_id = `${comment_id}message`;
+    let upvotes_id = `${comment_id}upvotes`;
+    let downvotes_id = `${comment_id}downvotes`;
     const markup = `
         <div class="remark_annotation" id="${comment["comment_id"]}">
             <div class="remark_annotation_header">
@@ -1831,8 +1234,8 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
                     </div>
                 </div>
                 <div class="remark_comment_actions">
-                    <ion-icon name="create-outline" id="${comment["comment_id"]}edit"></ion-icon>
-                    <ion-icon name="trash-outline" id="${comment["comment_id"]}delete"></ion-icon>
+                    <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
+                    <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
                 </div>
             </div>
             <div class="remark_annotation_user_message">
@@ -1841,11 +1244,13 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
             <div class="remark_annotation_vote">
                 <span class="remark_annotation_vote_option">
                     <p id="${upvotes_id}">${comment["upvotes"]}</p>
-                    <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(this, event)" data-comment_id="${comment["comment_id"]}" data-action_type="upvote"></ion-icon>
+                    
+                    <ion-icon name="arrow-up-outline" id="${comment_id}upvote"></ion-icon>
                 </span>
                 <span class="remark_annotation_vote_option">
                     <p id="${downvotes_id}">${comment["downvotes"]}</p>
-                    <ion-icon name="arrow-down-outline" onclick="handleCommentUpvote(this, event)"data-comment_id="${comment["comment_id"]}" data-action_type="downvote"></ion-icon>
+                    
+                    <ion-icon name="arrow-down-outline" id="${comment_id}downvote"></ion-icon>
                 </span>
             </div>
         </div>
@@ -1854,6 +1259,649 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
 };
 
 
+
+
+
+
+
+
+
+
+async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/all/${website_id}`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const res = await fetch(url, {
+        method: "GET",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await res.json();
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = data;
+    return data;
+}
+async function $41fbc3b1898586d3$export$51eda81011da4982(bodyData) {
+    console.log(bodyData);
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "POST",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (data.status == 201) {
+        const create_modal_check = document.getElementById("remark_create_annotation_modal");
+        if (create_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(create_modal_check);
+        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
+        ele.classList.add("highlight_element_strong");
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Annotation created successfully !");
+    }
+    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
+    return data;
+}
+async function $41fbc3b1898586d3$export$91b982a47ffa3c23(bodyData) {
+    const annotation_id = bodyData["annotation_id"];
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${annotation_id}`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (data) {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", data["message"]);
+        if (data["message"] == "Annotation resolved successfully !") {
+            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
+            resolve_btn.classList.add("remark_unresolve_button");
+            resolve_btn.innerText = "Unresolve";
+        } else if (data["message"] == "Annotation unresolved successfully !") {
+            const resolve_btn1 = document.getElementById("remark_annotation_resolve_button");
+            resolve_btn1.classList.remove("remark_unresolve_button");
+            resolve_btn1.innerText = "Resolve";
+        }
+    }
+    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (edit_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(edit_modal_check);
+    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
+    return data;
+}
+async function $41fbc3b1898586d3$export$a193961559973879(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/annotation/${bodyData["annotation_id"]}`;
+    console.log(bodyData);
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await res.json();
+    if (data.status == 200) {
+        const delete_modal_check = document.getElementById("remark_delete_annotation_modal");
+        if (delete_modal_check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(delete_modal_check);
+        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(bodyData["node_xpath"], bodyData["html_id"], bodyData["html_tag"], bodyData["html_text_content"]);
+        ele.classList.remove("highlight_element_strong");
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Annotation deleted successfully !");
+    }
+    $41fbc3b1898586d3$export$d32fca31e5b6ceec();
+    return data;
+}
+
+
+
+
+
+
+
+async function $1a716a3e9014a08f$export$2a15b079e3f46654(bodyData) {
+    console.log(bodyData);
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "POST",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (data.status == 201) {
+        const comment = data.data;
+        (0, $401e5251b5672128$export$87fc7a01f41973c6)(comment);
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Please enter a valid comment !");
+    return data;
+}
+async function $1a716a3e9014a08f$export$fc22b458daff1d0c(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${bodyData["comment_id"]}`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    if (!data) (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong !", 2);
+    else {
+        console.log(data);
+        const content_id = data["comment_id"] + "message";
+        const contentEle = document.getElementById(`${content_id}`);
+        contentEle.textContent = data["content"];
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Comment edited successfully !");
+        contentEle.contentEditable = false;
+    }
+    return data;
+}
+async function $1a716a3e9014a08f$export$f2e8b808565088b0(bodyData) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/vote/${bodyData["comment_id"]}`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.status == 200) {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", `${data["message"]}`);
+        document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
+        document.getElementById(`${bodyData["comment_id"]}downvotes`).textContent = data["comment_downvotes"];
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", data["error_message"]);
+    return data;
+}
+async function $1a716a3e9014a08f$export$2e6e3ad634e3776(comment_id) {
+    const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/comment/${comment_id}`;
+    const api_key = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["api_key"];
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+            "API_KEY": `${api_key}`,
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${auth_token}`,
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await res.json();
+    if (data.status == 200) {
+        const comment = document.getElementById(comment_id);
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(comment);
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Something went wrong");
+    return data;
+}
+
+
+
+
+
+
+function $1462d0332aa03f78$export$256a5a3564694cfc() {
+    const username = localStorage.getItem("user_name");
+    const user_id = localStorage.getItem("user_id");
+    if (username && user_id) return true;
+    return false;
+}
+function $1462d0332aa03f78$export$a0973bcfe11b05c9() {
+    localStorage.clear();
+}
+function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
+    const formData = new FormData(form);
+    const data = {};
+    for (var pair of formData.entries())data[pair[0]] = pair[1];
+    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
+    if (res == "OK") {
+        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/login`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>res.json()).then((data)=>{
+            console.log(data);
+            if (data["status"] == 200) {
+                localStorage.setItem("user_access_token", data["access_token"]);
+                localStorage.setItem("user_id", data["user_id"]);
+                localStorage.setItem("user_name", data["user_name"]);
+                localStorage.setItem("user_authority", data["user_authority"]);
+                const loginFormModal = document.getElementById("remark_login_modal");
+                if (loginFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(loginFormModal);
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Logged in successfully !");
+            } else {
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", data["error_message"]);
+                return false;
+            }
+        }).catch((err)=>console.log(err));
+    } else (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Form validation failed");
+}
+function $1462d0332aa03f78$export$44c987e964dad812(form) {
+    const formData = new FormData(form);
+    const data = {};
+    for (var pair of formData.entries())data[pair[0]] = pair[1];
+    data["authority"] = "user";
+    const res = (0, $18a61f8fa6189451$export$ed692cabb252e59b)(data);
+    console.log("IN AUTH : ", res);
+    if (res == "OK") {
+        const url = `${(0, $af38c480052fd5ae$export$37b96ba04a8c05d1)}/api/user`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>res.json()).then((data)=>{
+            console.log(data);
+            if (data["status"] == 201) {
+                const signupFormModal = document.getElementById("remark_signup_modal");
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", data["message"]);
+                if (signupFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(signupFormModal);
+                (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
+            } else {
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", data["error_message"]);
+                return false;
+            }
+        }).catch((err)=>console.log(err));
+    }
+}
+function $1462d0332aa03f78$export$fc970ed23da99565() {
+    const authority = localStorage.getItem("user_authority");
+    if (authority == "admin") return true;
+    return false;
+}
+
+
+
+
+
+
+function $cc4ff3a23db2c1c1$export$8b7da6b63de39513(formElement) {
+    let form = new FormData(formElement);
+    let data = {};
+    const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
+    for (var pair of form.entries()){
+        if (pair[0] == "annotation_name" || pair[0] == "tags") {
+            if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Only alphanumeric values and comma are allowed !");
+                return;
+            }
+        }
+        data[pair[0]] = pair[1].trim();
+    }
+    data["website_uri"] = window.location.href;
+    data["user_id"] = user_id;
+    data["user_name"] = user_name;
+    data["website_id"] = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"];
+    (0, $41fbc3b1898586d3$export$51eda81011da4982)(data);
+}
+function $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(annotation_id) {
+    let data = {};
+    data["annotation_id"] = annotation_id;
+    data["action_type"] = "edit_resolved";
+    data["new_resolved"] = "";
+    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
+}
+function $cc4ff3a23db2c1c1$export$51aff373edad69c5(formElement, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    let form = new FormData(formElement);
+    const annotation_id = formElement.dataset.annotation_id;
+    let data = {};
+    for (var pair of form.entries())//* TODO : Validation
+    // if (pair[0] == "new_name" || pair[0] == "new_tags") {
+    // if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
+    // console.log("Only alphanumeric values and comma are allowed !", pair[0], pair[1]);
+    // return;
+    // }
+    // }
+    data[pair[0]] = pair[1].trim();
+    let actions = [];
+    if (data["new_annotation"] != "") actions.push("edit_name");
+    if (data["new_tags"] != "") actions.push("edit_tags");
+    actions = actions.join(",");
+    data["action_type"] = actions;
+    data["annotation_id"] = annotation_id;
+    (0, $41fbc3b1898586d3$export$91b982a47ffa3c23)(data);
+}
+function $cc4ff3a23db2c1c1$export$ff5312fa04eaf3aa(formElement) {
+    let form = new FormData(formElement);
+    let data = {};
+    for (var pair of form.entries())data[pair[0]] = pair[1].trim();
+    if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
+        const annotation_id = formElement.dataset.annotation_id;
+        const xpath = formElement.dataset.xpath;
+        const html_id = formElement.dataset.html_id;
+        const html_tag = formElement.dataset.html_tag;
+        const html_text_content = formElement.dataset.html_text_content;
+        if (annotation_id && xpath) {
+            data["annotation_id"] = annotation_id;
+            data["node_xpath"] = xpath;
+            data["html_id"] = html_id;
+            data["html_tag"] = html_tag;
+            data["html_text_content"] = html_text_content;
+            (0, $41fbc3b1898586d3$export$a193961559973879)(data);
+        }
+    } else {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Annotation names don't match !");
+        return;
+    }
+}
+function $cc4ff3a23db2c1c1$export$c0661eac5aac545d() {
+    let data = {};
+    const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
+    const textarea = document.getElementById("remark_comment_input");
+    const text = textarea.value;
+    data["content"] = text;
+    data["content_html"] = "";
+    data["annotation_id"] = textarea.dataset.annotation_id;
+    data["user_id"] = user_id;
+    data["user_name"] = user_name;
+    data["parent_node"] = null;
+    textarea.value = "";
+    (0, $1a716a3e9014a08f$export$2a15b079e3f46654)(data);
+}
+function $cc4ff3a23db2c1c1$export$97b2ebf3e3e921a5(comment_id) {
+    const user_id = localStorage.getItem("user_id");
+    const content_id = `${comment_id}message`;
+    let contentEle = document.getElementById(`${content_id}`);
+    contentEle.contentEditable = true;
+    let data = {};
+    data["user_id"] = user_id;
+    data["comment_id"] = comment_id;
+    (0, $fd3a760e313b8296$export$de026b00723010c1)("INTIMATION", "Please use Ctrl + Enter to submit the edited comment", 2);
+    setTimeout(function() {
+        contentEle.focus();
+        contentEle.style.padding = "1rem";
+    }, 0);
+    contentEle.addEventListener("keydown", (e)=>{
+        if (e.ctrlKey && e.key === "Enter") {
+            contentEle.style.padding = "0rem";
+            contentEle.blur();
+            let new_content = contentEle.textContent.trim();
+            data["new_content"] = new_content;
+            data["new_content_html"] = "";
+            (0, $1a716a3e9014a08f$export$fc22b458daff1d0c)(data);
+        }
+    });
+}
+function $cc4ff3a23db2c1c1$export$65c6857c3f4da09a(comment_id) {
+    // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
+    (0, $1a716a3e9014a08f$export$2e6e3ad634e3776)(comment_id);
+}
+function $cc4ff3a23db2c1c1$export$4dc8094a3ce8e4d4(comment_id, action_type) {
+    const user_id = localStorage.getItem("user_id");
+    let data = {};
+    data["user_id"] = user_id;
+    data["comment_id"] = comment_id;
+    data["action_type"] = action_type;
+    (0, $1a716a3e9014a08f$export$f2e8b808565088b0)(data);
+}
+function $cc4ff3a23db2c1c1$export$c69a7e3627e11d2a(component) {
+    if (component.id == "remark_login_modal") {
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
+        (0, $401e5251b5672128$export$245c1a748319b9de)();
+    } else {
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(component);
+        (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
+    }
+}
+function $cc4ff3a23db2c1c1$export$799b690d1790eee(formElement) {
+    (0, $1462d0332aa03f78$export$692b4a7cc7a486ce)(formElement);
+}
+function $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(formElement) {
+    (0, $1462d0332aa03f78$export$44c987e964dad812)(formElement);
+}
+
+
+
+function $401e5251b5672128$export$592d9b2be066ea35(html_node, html_tag, html_class, html_id, html_text_content) {
+    const create_modal_check = document.getElementById("remark_create_annotation_modal");
+    if (create_modal_check) return;
+    const body = document.getElementsByTagName("body")[0];
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const newAnnotationModal = (0, $4ccab26f1b142cf4$export$677e18af8a745d31)(node_xpath, html_tag, html_class, html_id, html_text_content);
+    body.insertAdjacentHTML("afterbegin", newAnnotationModal);
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    const submitBtn = document.getElementById("remark_create_annotation_button");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_create_annotation_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const createAnnotationForm = document.getElementById("createAnnotationForm");
+        $cc4ff3a23db2c1c1$export$8b7da6b63de39513(createAnnotationForm);
+    });
+}
+function $401e5251b5672128$export$a144fbac6e7cc210(html_node, html_tag, html_id, html_text_content) {
+    const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (edit_modal_check) {
+        console.log("Edit annotation modal already present.");
+        return;
+    }
+    const body = document.getElementsByTagName("body")[0];
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
+    if (ele) {
+        const editAnnotationModal = (0, $4ccab26f1b142cf4$export$c85da9ec7569e35c)(node_xpath);
+        body.insertAdjacentHTML("afterbegin", editAnnotationModal);
+    } else {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
+        return;
+    }
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_edit_annotation_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+}
+function $401e5251b5672128$export$7f4bf70cd335a417(html_node, html_tag, html_id, html_text_content) {
+    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
+    if (delete_modal_check) return;
+    let node_xpath = (0, $18a61f8fa6189451$export$987805c7826bea7f)(html_node);
+    node_xpath = `//${node_xpath.toLowerCase()}`;
+    const body = document.getElementsByTagName("body")[0];
+    const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(node_xpath, html_id, html_tag, html_text_content);
+    if (ele) {
+        const deleteAnnotationModal = (0, $4ccab26f1b142cf4$export$f1f180b010da0012)(node_xpath);
+        body.insertAdjacentHTML("afterbegin", deleteAnnotationModal);
+    } else {
+        (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Xpath not matched. Please try again !");
+        return;
+    }
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_delete_annotation_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    const submitBtn = document.getElementById("remark_delete_annotation_button");
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const deleteAnnotationForm = document.getElementById("deleteAnnotationForm");
+        $cc4ff3a23db2c1c1$export$ff5312fa04eaf3aa(deleteAnnotationForm);
+    });
+}
+function $401e5251b5672128$export$1d36b8466b2a4d4c() {
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
+    // Indicate the elements on which the annotations are present
+    annotations.forEach((annotation)=>{
+        const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"]);
+        if (ele) {
+            ele.classList.add("highlight_element_strong");
+            ele.dataset.xpath = annotation["node_xpath"];
+        } else console.log("RE-RENDER REQUIRED : ", ele);
+    });
+// 2. On show, trigger the sidebar (or modal)
+// THIS WILL BE DONE USING THE CONTEXT MENU
+}
+function $401e5251b5672128$export$40be53e378c97146(xpath) {
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = xpath;
+    let curAnnotation;
+    annotations.forEach((annotation)=>{
+        if (annotation["node_xpath"] == xpath) curAnnotation = annotation;
+    });
+    const sideBar = (0, $4ccab26f1b142cf4$export$2ee9e5a3556c1e43)(curAnnotation);
+    const body = document.getElementsByTagName("body")[0];
+    const check = document.getElementById("remark_annotations_sidebar");
+    if (check) (0, $18a61f8fa6189451$export$c229772b99a4e439)(check);
+    body.insertAdjacentHTML("afterbegin", sideBar);
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    const createBtn = document.getElementById("remark_create_comment");
+    const resolveBtn = document.getElementById("remark_annotation_resolve_button");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_annotations_sidebar");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (createBtn) createBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$c0661eac5aac545d();
+    });
+    if (resolveBtn) resolveBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$83c0f6ac3e1ea58d(curAnnotation["annotation_id"]);
+    });
+    const comments = curAnnotation["comments"];
+    comments.forEach((comment)=>{
+        $401e5251b5672128$export$87fc7a01f41973c6(comment);
+    });
+}
+function $401e5251b5672128$export$87fc7a01f41973c6(comment) {
+    const markup = (0, $4ccab26f1b142cf4$export$3b0cc8d4739e1636)(comment);
+    const sidebarBody = document.getElementById("remark_comments_body");
+    if (sidebarBody) sidebarBody.insertAdjacentHTML("beforeend", markup);
+    const comment_id = comment["comment_id"];
+    const deleteBtn = document.getElementById(`${comment_id}delete`);
+    const editBtn = document.getElementById(`${comment_id}edit`);
+    const upvoteBtn = document.getElementById(`${comment_id}upvote`);
+    const downvoteBtn = document.getElementById(`${comment_id}downvote`);
+    if (deleteBtn) deleteBtn.addEventListener("click", (e)=>{
+        console.log("CLICKED");
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$65c6857c3f4da09a(comment_id);
+    });
+    if (editBtn) editBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$97b2ebf3e3e921a5(comment_id);
+    });
+    if (upvoteBtn) upvoteBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$4dc8094a3ce8e4d4(comment_id, "upvote");
+    });
+    if (downvoteBtn) downvoteBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        $cc4ff3a23db2c1c1$export$4dc8094a3ce8e4d4(comment_id, "downvote");
+    });
+}
+function $401e5251b5672128$export$dd9c74687ae6eb45() {
+    const body = document.getElementsByTagName("body")[0];
+    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$f5cfe9cd58390ad5));
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    const submitBtn = document.getElementById("remark_login_button");
+    const switchBtn = document.getElementById("loginSignupSwitch");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_login_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const loginForm = document.getElementById("loginForm");
+        $cc4ff3a23db2c1c1$export$799b690d1790eee(loginForm);
+    });
+    if (switchBtn) switchBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_login_modal");
+        $cc4ff3a23db2c1c1$export$c69a7e3627e11d2a(ele);
+    });
+}
+function $401e5251b5672128$export$245c1a748319b9de() {
+    const body = document.getElementsByTagName("body")[0];
+    body.insertAdjacentHTML("afterbegin", (0, $4ccab26f1b142cf4$export$ecfd046c5f019e12));
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    const submitBtn = document.getElementById("remark_signup_button");
+    const switchBtn = document.getElementById("loginSignupSwitch");
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_signup_modal");
+        (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+    });
+    if (submitBtn) submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const signupForm = document.getElementById("signupForm");
+        $cc4ff3a23db2c1c1$export$56c97bdfc586d8b5(signupForm);
+    });
+    if (switchBtn) switchBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ele = document.getElementById("remark_signup_modal");
+        $cc4ff3a23db2c1c1$export$c69a7e3627e11d2a(ele);
+    });
+}
 
 
 
@@ -1945,10 +1993,16 @@ function $c49300cd12bc6870$var$remark_init() {
     const remark_markup = `
         <div class="remark_init_container">
             <span class="remark_init_text">REMARK</span>
+            <button type="button" class="remark_standard_button remark_init_button remark_login_button" id="remark_login_button">Login</button>
             <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
         </div>
     `;
     body.insertAdjacentHTML("afterbegin", remark_markup);
+    document.getElementById("remark_login_button").addEventListener("click", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        (0, $401e5251b5672128$export$dd9c74687ae6eb45)();
+    });
     document.getElementById("remark_start").addEventListener("click", (e)=>{
         e.preventDefault();
         // 1. Check if user is logged in and verify his/her authority 
@@ -2008,7 +2062,6 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
     if (!website_id || website_id == "") (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Invalid website ID");
     else (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"] = website_id;
     const annotations = await (0, $41fbc3b1898586d3$export$d32fca31e5b6ceec)(website_id, api_key);
-    console.log(annotations);
     if (annotations.length > 0) {
         (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = annotations;
         (0, $401e5251b5672128$export$1d36b8466b2a4d4c)();

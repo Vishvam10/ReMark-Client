@@ -1,6 +1,4 @@
-import { handleCreateAnnotation, handleCloseModal } from "./handlers"
 import { remarkGlobalData } from "./global"
-import { renderComment } from "./render"
 
 export const LOGIN_MARKUP =
     `
@@ -31,7 +29,7 @@ export const LOGIN_MARKUP =
                     <button type="button" class="remark_standard_button" id="remark_login_button">Login</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Don't have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_login_modal)">Sign up</span></p>
+                <p>Don't have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch">Sign up</span></p>
                 </div>
             </form>
         </div>
@@ -68,10 +66,10 @@ export const SIGNUP_MARKUP =
                     <input name="bio" class="remark_form_input" id="bio">
                 </div>
                 <div class="remark_form_fields">
-                    <button type="button" class="remark_standard_button" onclick="handleSignupUser(event, signupForm)">Sign Up</button>
+                    <button type="button" class="remark_standard_button" id="remark_signup_button">Sign Up</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Already have an account ? <span class="loginSignupSwitch" onclick="handleLoginSignupSwitch(remark_signup_modal)">Login</span></p>
+                <p>Already have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch" >Login</span></p>
                 </div>
             </form>
         </div>
@@ -214,7 +212,7 @@ export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
                 <h3 class="remark_standard_modal_title">Edit Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_edit_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -273,20 +271,22 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
                 <h3 class="remark_standard_modal_title">Delete Annotation</h3>
                 <div class="remark_standard_modal_actions">
                     <div class="remark_standard_modal_close_btn">
-                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_delete_annotation_modal)"></ion-icon>
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
                     </div>
                 </div>
             </div>
             <div class="remark_standard_modal_body">
                 <form id="deleteAnnotationForm" class="remark_form" data-annotation_id="${curAnnotation["annotation_id"]}" data-annotation_name="${curAnnotation["annotation_name"]}" data-xpath='${node_xpath}' data-html_tag=${curAnnotation["html_tag"]} data-html_text_content="${curAnnotation["html_text_content"]}">
                     <div class="remark_form_fields">
-                        <p style="font-size: 1.4rem;"> Are you sure you want to delete this annotation ? <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
+                        <p class="remark_delete_annotation_form_field"> 
+                        Are you sure you want to delete this annotation ? 
+                        <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
                         Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
-                        
+                        </p>
                         <input type="text" name="deleteConfirmation" class="remark_form_input" id="deleteConfirmation">
                     </div>
                     <div class="remark_form_fields">
-                        <button name="submit"  class="remark_standard_button remark_delete_button" onclick="handleDeleteAnnotation(deleteAnnotationForm, event)">Delete</button>
+                        <button type="button"  class="remark_standard_button remark_delete_button" id="remark_delete_annotation_button">Delete</button>
                     </div>
                 </form>
             </div>
@@ -319,9 +319,7 @@ export const SIDEBAR = (curAnnotation) => {
                 <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
                     ${resolve_button_text}
                 </button>
-                <div class="remark_standard_modal_close_btn">
-                    <ion-icon name="close-outline" id="remark_standard_modal_close_btn" onclick="handleCloseModal(remark_annotations_sidebar)"></ion-icon>
-                </div>
+                <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
             </div>
         </div>
         <div class="remark_standard_modal_body remark_standard_sidebar_body" id="remark_comments_body">
@@ -346,9 +344,10 @@ export const COMMENTS_MARKUP = (comment) => {
     } else {
         d = comment["created_at"]
     }
-    let content_id = `${comment["comment_id"]}message`;
-    let upvotes_id = `${comment["comment_id"]}upvotes`;
-    let downvotes_id = `${comment["comment_id"]}downvotes`;
+    const comment_id = comment["comment_id"]
+    let content_id = `${comment_id}message`;
+    let upvotes_id = `${comment_id}upvotes`;
+    let downvotes_id = `${comment_id}downvotes`;
 
     const markup =
         `
@@ -365,8 +364,8 @@ export const COMMENTS_MARKUP = (comment) => {
                     </div>
                 </div>
                 <div class="remark_comment_actions">
-                    <ion-icon name="create-outline" id="${comment["comment_id"]}edit"></ion-icon>
-                    <ion-icon name="trash-outline" id="${comment["comment_id"]}delete"></ion-icon>
+                    <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
+                    <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
                 </div>
             </div>
             <div class="remark_annotation_user_message">
@@ -375,11 +374,13 @@ export const COMMENTS_MARKUP = (comment) => {
             <div class="remark_annotation_vote">
                 <span class="remark_annotation_vote_option">
                     <p id="${upvotes_id}">${comment["upvotes"]}</p>
-                    <ion-icon name="arrow-up-outline" onclick="handleCommentUpvote(this, event)" data-comment_id="${comment["comment_id"]}" data-action_type="upvote"></ion-icon>
+                    
+                    <ion-icon name="arrow-up-outline" id="${comment_id}upvote"></ion-icon>
                 </span>
                 <span class="remark_annotation_vote_option">
                     <p id="${downvotes_id}">${comment["downvotes"]}</p>
-                    <ion-icon name="arrow-down-outline" onclick="handleCommentUpvote(this, event)"data-comment_id="${comment["comment_id"]}" data-action_type="downvote"></ion-icon>
+                    
+                    <ion-icon name="arrow-down-outline" id="${comment_id}downvote"></ion-icon>
                 </span>
             </div>
         </div>
