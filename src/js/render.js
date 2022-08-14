@@ -1,3 +1,4 @@
+import { remarkGlobalData } from "./global"
 import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
 
 import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL } from "./components"

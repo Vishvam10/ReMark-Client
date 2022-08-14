@@ -2,14 +2,13 @@ import { remarkGlobalData } from "./global"
 import { CONTEXT_MENU_MARKUP  } from "./components"
 import { removeHTMLElement } from "./utils"
 
-import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal } from "./render"
+import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal, renderSideBar } from "./render"
 
 import { showAlert } from "./alert"
 import { isAdmin } from "./auth"
 
 export function overrideContextMenu(e, data) {
     const body = document.getElementsByTagName("body")[0];
-    console.log(data["annotation_present"]);
     const contextMenuMarkup = CONTEXT_MENU_MARKUP(data["annotation_present"])
 
     body.insertAdjacentHTML("afterbegin", contextMenuMarkup);
@@ -24,6 +23,7 @@ export function overrideContextMenu(e, data) {
         e.preventDefault();
         e.stopPropagation();
         const option = e.target.dataset.remark_contextmenu_option;
+        console.log("IN OVERRIDE : ", e.target);
         handleContextMenuOptions(option, data);
         if (contextMenu) {
             setTimeout(() => {
@@ -45,10 +45,11 @@ export function handleContextMenuOptions(option, data) {
 
     remarkGlobalData["currentXPath"] = data["xpath"];
     remarkGlobalData["currentNode"] = data["node"];
-
+    console.log(remarkGlobalData, option);
     switch (option) {
         case "open":
-            renderSideBar(data["xpath"]);
+            // renderSideBar(data["xpath"]);
+            console.log("OPENING SIDEBAR");
             break;
         case "create":
             if(isAdmin()) {

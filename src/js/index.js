@@ -4,7 +4,7 @@ import { overrideContextMenu } from "./contextmenu"
 
 import { remarkGlobalData } from "./global";
 import { VALID_HTML_ELEMENTS } from "./constants";
-import { renderLoginModal } from "./render"
+import { renderLoginModal, renderExistingAnnotations } from "./render"
 import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
 import { isLoggedIn, isAdmin  } from "./auth";
@@ -119,6 +119,7 @@ async function startAnnotationProcess() {
     }
 
     const annotations = await getAnnotationByWebsiteID(website_id, api_key);
+    console.log(annotations);
 
     if (annotations.length > 0) {
         remarkGlobalData["annotations"] = annotations;

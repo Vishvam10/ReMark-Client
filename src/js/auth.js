@@ -45,6 +45,7 @@ export function loginUser(form) {
                     if (loginFormModal) {
                         removeHTMLElement(loginFormModal)
                     }
+                    showAlert("SUCCESS", "Logged in successfully !")
                 } else {
                     console.log(data);
                     return false

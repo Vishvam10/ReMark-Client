@@ -86,16 +86,16 @@ export const CONTEXT_MENU_MARKUP = (annotation_present) => {
             <div class="remark_contextmenu_wrapper" id="remark_context_menu">
                 <div class="remark_contextmenu_content">
                     <ul class="remark_contextmenu_menu_list">
-                        <li class="remark_item">
-                            <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="open">
+                            <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="open"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open Annotation</span>
                         </li>
-                        <li class="remark_item">
-                            <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="edit">
+                            <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="edit"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="edit">Edit Annotation</span>
                         </li>
-                        <li class="remark_item">
-                            <ion-icon name="trash-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="delete">
+                            <ion-icon name="trash-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="delete"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="delete">Delete Annotation</span>
                         </li>
                     </ul>

@@ -1,12 +1,3 @@
-var $9bdae1cc374cba8f$export$1b94e36de2b67148 = {
-    "website_id": "",
-    "api_key": "",
-    "annotations": [],
-    "theme": "light",
-    "currentXPath": ""
-};
-
-
 var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
 
     :root {
@@ -858,6 +849,14 @@ function $18a61f8fa6189451$export$7743824edd59500d() {
 }
 
 
+var $9bdae1cc374cba8f$export$1b94e36de2b67148 = {
+    "website_id": "",
+    "api_key": "",
+    "annotations": [],
+    "theme": "light",
+    "currentXPath": ""
+};
+
 
 
 
@@ -1139,6 +1138,7 @@ function $1462d0332aa03f78$export$692b4a7cc7a486ce(form) {
                 localStorage.setItem("user_authority", data["user_authority"]);
                 const loginFormModal = document.getElementById("remark_login_modal");
                 if (loginFormModal) (0, $18a61f8fa6189451$export$c229772b99a4e439)(loginFormModal);
+                (0, $fd3a760e313b8296$export$de026b00723010c1)("SUCCESS", "Logged in successfully !");
             } else {
                 console.log(data);
                 return false;
@@ -1183,6 +1183,7 @@ function $1462d0332aa03f78$export$fc970ed23da99565() {
     if (authority == "admin") return true;
     return false;
 }
+
 
 
 
@@ -1247,7 +1248,7 @@ function $401e5251b5672128$export$7f4bf70cd335a417(html_node, html_tag, html_id,
     }
 }
 function $401e5251b5672128$export$1d36b8466b2a4d4c() {
-    const annotations = remarkGlobalData["annotations"];
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
     // Indicate the elements on which the annotations are present
     annotations.forEach((annotation)=>{
         const ele = (0, $18a61f8fa6189451$export$ec2ba4eed75ccfb3)(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"]);
@@ -1543,16 +1544,16 @@ const $4ccab26f1b142cf4$export$60c09197c1fd57e6 = (annotation_present)=>{
             <div class="remark_contextmenu_wrapper" id="remark_context_menu">
                 <div class="remark_contextmenu_content">
                     <ul class="remark_contextmenu_menu_list">
-                        <li class="remark_item">
-                            <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="open">
+                            <ion-icon name="open-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="open"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="open">Open Annotation</span>
                         </li>
-                        <li class="remark_item">
-                            <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="edit">
+                            <ion-icon name="options-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="edit"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="edit">Edit Annotation</span>
                         </li>
-                        <li class="remark_item">
-                            <ion-icon name="trash-outline" class="uil uil remark_contextmenu_icon"></ion-icon>
+                        <li class="remark_item" data-remark_contextmenu_option="delete">
+                            <ion-icon name="trash-outline" class="uil uil remark_contextmenu_icon" data-remark_contextmenu_option="delete"></ion-icon>
                             <span class="remark_context_menu_item_name" data-remark_contextmenu_option="delete">Delete Annotation</span>
                         </li>
                     </ul>
@@ -1811,7 +1812,6 @@ const $4ccab26f1b142cf4$export$3b0cc8d4739e1636 = (comment)=>{
 
 function $3eead4b93c22c35d$export$9826392fdcbe3593(e, data) {
     const body = document.getElementsByTagName("body")[0];
-    console.log(data["annotation_present"]);
     const contextMenuMarkup = (0, $4ccab26f1b142cf4$export$60c09197c1fd57e6)(data["annotation_present"]);
     body.insertAdjacentHTML("afterbegin", contextMenuMarkup);
     const contextMenu = document.getElementById("remark_context_menu");
@@ -1822,6 +1822,7 @@ function $3eead4b93c22c35d$export$9826392fdcbe3593(e, data) {
         e.preventDefault();
         e.stopPropagation();
         const option = e.target.dataset.remark_contextmenu_option;
+        console.log("IN OVERRIDE : ", e.target);
         $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data);
         if (contextMenu) setTimeout(()=>{
             (0, $18a61f8fa6189451$export$c229772b99a4e439)(contextMenu);
@@ -1838,9 +1839,11 @@ function $3eead4b93c22c35d$export$d008d9b759c1cf1f(contextMenu, x, y) {
 function $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data) {
     (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = data["xpath"];
     (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentNode"] = data["node"];
+    console.log((0, $9bdae1cc374cba8f$export$1b94e36de2b67148), option);
     switch(option){
         case "open":
-            renderSideBar(data["xpath"]);
+            // renderSideBar(data["xpath"]);
+            console.log("OPENING SIDEBAR");
             break;
         case "create":
             if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $401e5251b5672128$export$592d9b2be066ea35)(data["node"], data["tag"], data["className"].replace("highlight_element_light", ""), data["id"], data["textContent"]);
@@ -1960,9 +1963,10 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
     if (!website_id || website_id == "") (0, $fd3a760e313b8296$export$de026b00723010c1)("ERROR", "Invalid website ID");
     else (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["website_id"] = website_id;
     const annotations = await (0, $41fbc3b1898586d3$export$d32fca31e5b6ceec)(website_id, api_key);
+    console.log(annotations);
     if (annotations.length > 0) {
         (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"] = annotations;
-        renderExistingAnnotations();
+        (0, $401e5251b5672128$export$1d36b8466b2a4d4c)();
     }
     // 4. (ADMIN ONLY) Start the highlight process
     if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $18a61f8fa6189451$export$1656970ae4fe6f6e)();
@@ -2014,6 +2018,7 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
         if (e.key == "Escape") (0, $18a61f8fa6189451$export$7743824edd59500d)();
     });
 }
+
 
 
 
