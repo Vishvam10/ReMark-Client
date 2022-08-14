@@ -1,6 +1,6 @@
-import { removeHTMLElement } from "./utils/dom_operations";
+const { removeHTMLElement } = require("./utils/dom_operations");
 
-export const alertModal = (type, message) => {
+const alertModal = (type, message) => {
     let markup = ""
     switch (type) {
         case "ERROR":
@@ -30,16 +30,21 @@ export const alertModal = (type, message) => {
     return markup;
 }
 
-export function hideAlert() {
+function hideAlert() {
     const ele = document.querySelector('.remark_error_container');
     if (ele) {
         removeHTMLElement(ele)
     }
 }
 
-export function showAlert(type, message, time = 1.5) {
+function showAlert(type, message, time = 1.5) {
     hideAlert();
     const markup = alertModal(type, message);
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
     window.setTimeout(hideAlert, time * 1000);
+}
+
+module.exports = {
+    hideAlert,
+    showAlert
 }

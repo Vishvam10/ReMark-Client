@@ -1,19 +1,19 @@
-import { remarkGlobalData } from "./global";
-import { VALID_HTML_ELEMENTS } from "./constants";
+const { remarkGlobalData } = require("./global");
+const { VALID_HTML_ELEMENTS } = require("./constants");
 
-import { renderExistingAnnotations } from "./render";
+const { renderExistingAnnotations } = require("./render");
 
-import { getAnnotationByWebsiteID } from "./annotationAPI";
-import { verifyToken } from "./tokenAPI";
-import { isAdmin } from "./auth";
+const { getAnnotationByWebsiteID } = require("./annotationAPI");
+const { verifyToken } = require("./tokenAPI");
+const { isAdmin } = require("./auth");
 
-import { showAlert } from "./alert";
+const { showAlert } = require("./alert");
 
-import { overrideContextMenu } from "./contextmenu"
-import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
-import { getNodeXpath } from "./utils/xpath_operations"
+const { overrideContextMenu } = require("./contextmenu")
+const { highlightElements, removeHTMLElement, removeAllExistingModals } = require("./utils/dom_operations");
+const { getNodeXpath } = require("./utils/xpath_operations");
 
-export default async function startAnnotationProcess() {
+async function startAnnotationProcess() {
     const remarkScriptTag = document.getElementById("remark_annotation_script");
 
     // 1. Check for API_KEY
@@ -125,6 +125,8 @@ export default async function startAnnotationProcess() {
             removeHTMLElement(context_menu_check)
         }
     })
+}
 
-
+module.exports = {
+    startAnnotationProcess
 }

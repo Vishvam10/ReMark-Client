@@ -1,7 +1,7 @@
-import { isAdmin } from "./auth"
-import { remarkGlobalData } from "./global"
+const { isAdmin } = require("./auth");
+const { remarkGlobalData } = require("./global");
 
-export const LOGIN_MARKUP =
+const LOGIN_MARKUP =
     `
     <div class="remark_standard_modal" id="remark_login_modal">
         <div class="remark_standard_modal_header">
@@ -37,7 +37,7 @@ export const LOGIN_MARKUP =
     </div>
 `
 
-export const SIGNUP_MARKUP =
+const SIGNUP_MARKUP =
     `    
     <div class="remark_standard_modal" id="remark_signup_modal">
         <div class="remark_standard_modal_header">
@@ -78,7 +78,7 @@ export const SIGNUP_MARKUP =
 
 `
 
-export const CONTEXT_MENU_MARKUP = (annotation_present) => {
+const CONTEXT_MENU_MARKUP = (annotation_present) => {
 
     let markup = ""
     if (annotation_present) {
@@ -123,7 +123,7 @@ export const CONTEXT_MENU_MARKUP = (annotation_present) => {
     return markup;
 }
 
-export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html_text_content) => {
+const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_id, html_text_content) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -190,7 +190,7 @@ export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_i
     return markup;
 }
 
-export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
+const EDIT_ANNOTATION_MODAL = (node_xpath) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -249,7 +249,7 @@ export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
     return markup;
 }
 
-export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
+const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") {
         return;
@@ -296,7 +296,7 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
     return markup;
 }
 
-export const SIDEBAR = (curAnnotation) => {
+const SIDEBAR = (curAnnotation) => {
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];
@@ -347,7 +347,7 @@ export const SIDEBAR = (curAnnotation) => {
 
 }
 
-export const COMMENTS_MARKUP = (comment, include_actions=false) => {
+const COMMENTS_MARKUP = (comment, include_actions=false) => {
     let d;
     if (comment["updated_at"]) {
         d = comment["updated_at"];
@@ -408,7 +408,7 @@ export const COMMENTS_MARKUP = (comment, include_actions=false) => {
     return markup;
 }
 
-export const DELETE_COMMENT_MODAL = (comment_id) => {
+const DELETE_COMMENT_MODAL = (comment_id) => {
     const markup =
         `
         <div class="remark_standard_modal" id="remark_delete_comment_modal">
@@ -438,4 +438,16 @@ export const DELETE_COMMENT_MODAL = (comment_id) => {
         </div>
     `
     return markup;
+}
+
+module.exports = {
+    LOGIN_MARKUP,
+    SIGNUP_MARKUP,
+    CONTEXT_MENU_MARKUP,
+    CREATE_ANNOTATION_MODAL,
+    EDIT_ANNOTATION_MODAL,
+    DELETE_ANNOTATION_MODAL,
+    SIDEBAR,
+    COMMENTS_MARKUP,
+    DELETE_COMMENT_MODAL
 }

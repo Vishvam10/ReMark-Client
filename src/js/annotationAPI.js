@@ -1,11 +1,10 @@
-import { remarkGlobalData } from "./global";
-import { BASE_API_URL } from "./constants";
-import { removeHTMLElement } from "./utils/dom_operations";
-import { getElementAfterCheck } from "./utils/xpath_operations";
-import { showAlert } from "./alert"; 
+const { remarkGlobalData } = require("./global");
+const { BASE_API_URL } = require("./constants");
+const { removeHTMLElement } = require("./utils/dom_operations");
+const { getElementAfterCheck } = require("./utils/xpath_operations");
+const { showAlert } = require("./alert"); 
 
-
-export async function getAnnotationByWebsiteID() {
+async function getAnnotationByWebsiteID() {
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;
     const api_key = remarkGlobalData["api_key"];
     const res = await fetch(url, {
@@ -22,7 +21,7 @@ export async function getAnnotationByWebsiteID() {
     return data;
 }
 
-export async function createAnnotation(bodyData) {
+async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -50,7 +49,7 @@ export async function createAnnotation(bodyData) {
     return data;
 }
 
-export async function editAnnotation(bodyData) {
+async function editAnnotation(bodyData) {
     const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
@@ -89,7 +88,7 @@ export async function editAnnotation(bodyData) {
     return data;
 }
 
-export async function deleteAnnotation(bodyData) {
+async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -114,4 +113,11 @@ export async function deleteAnnotation(bodyData) {
     }
     getAnnotationByWebsiteID();
     return data;
+}
+
+module.exports = {
+    getAnnotationByWebsiteID,
+    createAnnotation,
+    editAnnotation,
+    deleteAnnotation
 }

@@ -1,11 +1,11 @@
-import { remarkGlobalData } from "./global";
-import { BASE_API_URL } from "./constants";
-import { removeHTMLElement } from "./utils/dom_operations";
-import { showAlert } from "./alert"; 
-import { renderComment } from "./render";
+const { remarkGlobalData } = require("./global");
+const { BASE_API_URL } = require("./constants");
+const { removeHTMLElement } = require("./utils/dom_operations");
+const { showAlert } = require("./alert"); 
+const { renderComment } = require("./render");
 
 
-export async function createComment(bodyData) {
+async function createComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -29,7 +29,7 @@ export async function createComment(bodyData) {
     return data;
 }
 
-export async function editComment(bodyData) {
+async function editComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -56,7 +56,7 @@ export async function editComment(bodyData) {
     return data;
 }
 
-export async function updateCommentVote(bodyData) {
+async function updateCommentVote(bodyData) {
     const url = `${BASE_API_URL}/api/comment/vote/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -81,7 +81,7 @@ export async function updateCommentVote(bodyData) {
     return data;
 }
 
-export async function deleteComment(comment_id) {
+async function deleteComment(comment_id) {
     const url = `${BASE_API_URL}/api/comment/${comment_id}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -107,4 +107,11 @@ export async function deleteComment(comment_id) {
         showAlert("ERROR", "Something went wrong")
     }
     return data;
+}
+
+module.exports = {
+    createComment,
+    editComment,
+    updateCommentVote,
+    deleteComment
 }

@@ -1,13 +1,13 @@
-import { remarkGlobalData } from "./global"
-import { CONTEXT_MENU_MARKUP  } from "./components"
-import { removeHTMLElement } from "./utils/dom_operations"
+const { remarkGlobalData } = require("./global");
+const { CONTEXT_MENU_MARKUP  } = require("./components");
+const { removeHTMLElement } = require("./utils/dom_operations");
 
-import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal, renderSideBar } from "./render"
+const { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal, renderSideBar } = require("./render");
 
-import { showAlert } from "./alert"
-import { isAdmin } from "./auth"
+const { showAlert } = require("./alert");
+const { isAdmin } = require("./auth");
 
-export function overrideContextMenu(e, data) {
+function overrideContextMenu(e, data) {
     const body = document.getElementsByTagName("body")[0];
     const contextMenuMarkup = CONTEXT_MENU_MARKUP(data["annotation_present"])
 
@@ -32,7 +32,7 @@ export function overrideContextMenu(e, data) {
     })
 }
 
-export function positionContextMenu(contextMenu, x, y) {
+function positionContextMenu(contextMenu, x, y) {
     const i = contextMenu.style;
     i.top = `${y + 20}px`;
     i.left = `${x - 40}px`;
@@ -40,7 +40,7 @@ export function positionContextMenu(contextMenu, x, y) {
     i.opacity = "1";
 }
 
-export function handleContextMenuOptions(option, data) {
+function handleContextMenuOptions(option, data) {
 
     remarkGlobalData["currentXPath"] = data["xpath"];
     remarkGlobalData["currentNode"] = data["node"];
@@ -72,4 +72,10 @@ export function handleContextMenuOptions(option, data) {
         default:
             break;
     }
+}
+
+module.exports = {
+    overrideContextMenu,
+    positionContextMenu,
+    handleContextMenuOptions
 }
