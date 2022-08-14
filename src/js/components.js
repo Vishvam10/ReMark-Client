@@ -29,7 +29,7 @@ export const LOGIN_MARKUP =
                     <button type="button" class="remark_standard_button" id="remark_login_button">Login</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Don't have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch">Sign up</span></p>
+                <p style="font-size: 1.4rem;">Don't have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch">Sign up</span></p>
                 </div>
             </form>
         </div>
@@ -69,7 +69,7 @@ export const SIGNUP_MARKUP =
                     <button type="button" class="remark_standard_button" id="remark_signup_button">Sign Up</button>
                 </div>
                 <div class="remark_form_fields">
-                <p>Already have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch" >Login</span></p>
+                <p style="font-size: 1.4rem;">Already have an account ? <span class="loginSignupSwitch" id="loginSignupSwitch" >Login</span></p>
                 </div>
             </form>
         </div>

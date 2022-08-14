@@ -69,7 +69,6 @@ export function signupUser(form) {
     }
     data["authority"] = "user"
     const res = validateForm(data);
-    console.log("IN AUTH : ", res);
     if (res == "OK") {
         const url = `${BASE_API_URL}/api/user`;
         fetch(url, {
@@ -83,7 +82,6 @@ export function signupUser(form) {
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data["status"] == 201) {
                     const signupFormModal = document.getElementById("remark_signup_modal");
                     showAlert("SUCCESS", data["message"]);

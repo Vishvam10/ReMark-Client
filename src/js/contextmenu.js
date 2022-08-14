@@ -44,6 +44,7 @@ export function handleContextMenuOptions(option, data) {
 
     remarkGlobalData["currentXPath"] = data["xpath"];
     remarkGlobalData["currentNode"] = data["node"];
+    console.log("IN CONTEXTMENU : ", remarkGlobalData);
     switch (option) {
         case "open":
             renderSideBar(data["xpath"]);

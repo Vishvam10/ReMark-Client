@@ -79,7 +79,7 @@ export default async function startAnnotationProcess() {
             if (VALID_HTML_ELEMENTS.includes(tag)) {
 
                 let xpath = getNodeXpath(node);
-                xpath = `//${xpath.toLowerCase()}`
+                xpath = `/${xpath.toLowerCase()}`
 
                 const contextMenuData = {
                     node,
@@ -98,7 +98,7 @@ export default async function startAnnotationProcess() {
             if (VALID_HTML_ELEMENTS.includes(tag)) {
 
                 let xpath = getNodeXpath(node);
-                xpath = `//${xpath.toLowerCase()}`
+                xpath = `/${xpath.toLowerCase()}`
 
                 const contextMenuData = {
                     node,

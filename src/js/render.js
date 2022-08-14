@@ -25,7 +25,7 @@ export function renderNewAnnotationModal(html_node, html_tag, html_class, html_i
     const body = document.getElementsByTagName('body')[0];
 
     let node_xpath = getNodeXpath(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`
+    node_xpath = `/${node_xpath.toLowerCase()}`
 
     const newAnnotationModal = CREATE_ANNOTATION_MODAL(node_xpath, html_tag, html_class, html_id, html_text_content)
 
@@ -62,7 +62,7 @@ export function renderEditAnnotationModal(html_node, html_tag, html_id, html_tex
 
     const body = document.getElementsByTagName('body')[0];
     let node_xpath = getNodeXpath(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`
+    node_xpath = `/${node_xpath.toLowerCase()}`
 
     const ele = getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content)
 
@@ -103,7 +103,7 @@ export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_t
     }
 
     let node_xpath = getNodeXpath(html_node);
-    node_xpath = `//${node_xpath.toLowerCase()}`
+    node_xpath = `/${node_xpath.toLowerCase()}`
 
     const body = document.getElementsByTagName('body')[0];
     const ele = getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content)

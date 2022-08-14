@@ -48,7 +48,6 @@ export async function editComment(bodyData) {
     if (!data) {
         showAlert("ERROR", "Something went wrong !", 2)
     } else {
-        console.log(data);
         const content_id = data["comment_id"] + "message";
         const contentEle = document.getElementById(`${content_id}`);
         contentEle.textContent = data["content"];
@@ -73,7 +72,6 @@ export async function updateCommentVote(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
-    console.log(data);
     if (data.status == 200) {   
         showAlert("SUCCESS", `${data["message"]}`)
         document.getElementById(`${bodyData["comment_id"]}upvotes`).textContent = data["comment_upvotes"];
