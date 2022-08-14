@@ -15,7 +15,6 @@ function remark_init() {
     registerScripts();
 
     const body = document.getElementsByTagName('body')[0];
-    const remark_started = false;
     
     let remark_login_button_text = "Login";
     let remark_disabled_class = "remark_disabled_button";
@@ -53,9 +52,7 @@ function remark_init() {
             return;
         }
     })
-
-    
-  
+   
 }
 
 function remark_destroy() {

@@ -53,7 +53,6 @@ export default async function startAnnotationProcess() {
         highlightElements();
     }
 
-    // 5. (ADMIN ONLY) Handle contextmenu event for highlighted element
 
     document.addEventListener("contextmenu", (e) => {
         e.preventDefault();
@@ -119,6 +118,13 @@ export default async function startAnnotationProcess() {
             removeAllExistingModals();
         }
     });
+
+    document.addEventListener("click", (e) => {
+        const context_menu_check = document.getElementById("remark_context_menu");
+        if(context_menu_check) {
+            removeHTMLElement(context_menu_check)
+        }
+    })
 
 
 }

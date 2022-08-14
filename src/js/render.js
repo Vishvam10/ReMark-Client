@@ -57,7 +57,6 @@ export function renderNewAnnotationModal(html_node, html_tag, html_class, html_i
 export function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
-        console.log("Edit annotation modal already present.");
         return;
     }
 
@@ -154,7 +153,7 @@ export function renderExistingAnnotations() {
             ele.classList.add("highlight_element_strong");
             ele.dataset.xpath = annotation["node_xpath"];
         } else {
-            console.log("RE-RENDER REQUIRED : ", ele);
+            console.log("RE-RENDER REQUIRED : ", annotation);
         }
     });
 
@@ -233,7 +232,6 @@ export function renderComment(comment) {
 
     if(deleteBtn) {
         deleteBtn.addEventListener("click", (e) => {
-            console.log("CLICKED");
             e.preventDefault();
             e.stopPropagation();
             handlers.handleDeleteComment(comment_id);
