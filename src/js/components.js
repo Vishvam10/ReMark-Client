@@ -1,3 +1,4 @@
+import { isAdmin } from "./auth"
 import { remarkGlobalData } from "./global"
 
 export const LOGIN_MARKUP =
@@ -300,25 +301,34 @@ export const SIDEBAR = (curAnnotation) => {
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];
     
+    let resolve_button_markup = ""
     let resolve_button_text = ""
     let c = ""
     
-    if(resolved) {
-        resolve_button_text = "UNRESOLVE";
-        c = "remark_unresolve_button";
-    } else {
-        resolve_button_text = "RESOLVE";
+    if(isAdmin()) {
+        console.log("ADMIN ? ", isAdmin());
+        if(resolved) {
+            resolve_button_text = "UNRESOLVE";
+            c = "remark_unresolve_button";
+        } else {
+            resolve_button_text = "RESOLVE";
+        }
+        resolve_button_markup = 
+        `
+            <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
+                ${resolve_button_text}
+            </button>
+        `
     }
-    
+
+   
     const markup =
         `
         <div class="remark_standard_sidebar" id="remark_annotations_sidebar">
         <div class="remark_standard_modal_header">
             <h3 class="remark_standard_modal_title">${annotation_name}</h3>
             <div class="remark_standard_modal_actions">
-                <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
-                    ${resolve_button_text}
-                </button>
+                ${resolve_button_markup}
                 <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
             </div>
         </div>
@@ -337,7 +347,7 @@ export const SIDEBAR = (curAnnotation) => {
 
 }
 
-export const COMMENTS_MARKUP = (comment) => {
+export const COMMENTS_MARKUP = (comment, include_actions=false) => {
     let d;
     if (comment["updated_at"]) {
         d = comment["updated_at"];
@@ -348,6 +358,18 @@ export const COMMENTS_MARKUP = (comment) => {
     let content_id = `${comment_id}message`;
     let upvotes_id = `${comment_id}upvotes`;
     let downvotes_id = `${comment_id}downvotes`;
+
+    let actions_markup = ""
+
+    if(include_actions) {
+        actions_markup = 
+        `
+        <div class="remark_comment_actions">
+            <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
+            <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
+        </div>
+        `
+    }
 
     const markup =
         `
@@ -363,10 +385,7 @@ export const COMMENTS_MARKUP = (comment) => {
                         </span>
                     </div>
                 </div>
-                <div class="remark_comment_actions">
-                    <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
-                    <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
-                </div>
+                ${actions_markup}
             </div>
             <div class="remark_annotation_user_message">
                 <p id="${content_id}">${comment["content"]}</p>

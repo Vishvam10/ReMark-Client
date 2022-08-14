@@ -211,14 +211,29 @@ export function renderSideBar(xpath) {
     }
 
     const comments = curAnnotation["comments"];
-    comments.forEach((comment) => {
-        renderComment(comment)
-    });
+    const user_authority = localStorage.getItem("user_authority");
+    const user_id = localStorage.getItem("user_id");
+    const user_name = localStorage.getItem("user_name");
+    if(user_authority == "admin") {
+        comments.forEach((comment) => {
+            renderComment(comment=comment, include_actions=true);
+        });
+    } else {
+        comments.forEach((comment) => {
+            if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
+                console.log("REACHED IF");
+                renderComment(comment=comment, include_actions=true);
+            } else {
+                console.log("REACHED ELSE", comment["created_by"], user_name);
+                renderComment(comment=comment, include_actions=false);
+            }
+        });
+    }
 }
 
-export function renderComment(comment) {
+export function renderComment(comment, include_actions=false) {
     
-    const markup = COMMENTS_MARKUP(comment);
+    const markup = COMMENTS_MARKUP(comment=comment, include_actions=include_actions);
     const sidebarBody = document.getElementById("remark_comments_body")
     if(sidebarBody) {
         sidebarBody.insertAdjacentHTML("beforeend", markup);
@@ -227,6 +242,7 @@ export function renderComment(comment) {
 
     const deleteBtn = document.getElementById(`${comment_id}delete`);
     const editBtn = document.getElementById(`${comment_id}edit`);
+
     const upvoteBtn = document.getElementById(`${comment_id}upvote`);
     const downvoteBtn = document.getElementById(`${comment_id}downvote`);
 
@@ -280,6 +296,7 @@ export function renderLoginModal() {
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
+            document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const loginForm = document.getElementById("loginForm");
             handlers.handleLoginUser(loginForm);
         })
@@ -288,6 +305,7 @@ export function renderLoginModal() {
         switchBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
+            document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const ele = document.getElementById("remark_login_modal")
             handlers.handleLoginSignupSwitch(ele);
         })

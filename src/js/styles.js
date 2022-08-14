@@ -194,12 +194,12 @@ export default STYLES = `
     .remark_error_container {
         width: 40rem;
         background: var(--remark-color-white);
-        padding: 3.6rem;
-        min-height: 6rem;
+        padding: 2.6rem;
+        height: auto;
         border-radius: 1.6rem;
         position: fixed;
         z-index: 100000000;
-        bottom: 3rem;
+        bottom: 3.2rem;
         left: 36%;
         display: flex;
         box-shadow: var(--remark-default-box-shadow);
@@ -234,7 +234,7 @@ export default STYLES = `
         justify-content: center;
         align-content: center;
         color: inherit;
-        width: 100%;
+        width: 96%;
     }
 
     remark_error_container_error {
@@ -252,7 +252,7 @@ export default STYLES = `
     .remark_standard_modal {
         position: fixed;
         top: 50%;
-        left: 49.8%;
+        left: 47%;
         transform: translate(-50%, -50%);
         width: 40rem;
         background-color: var(--remark-color-white);

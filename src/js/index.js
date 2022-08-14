@@ -35,7 +35,7 @@ function remark_init() {
     document.getElementById("remark_login_button").addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-                
+        document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
         if(e.target.innerText == "Logout") {
             e.target.innerText = "Login";
             logout();

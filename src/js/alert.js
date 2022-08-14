@@ -41,5 +41,5 @@ export function showAlert(type, message, time = 1.5) {
     hideAlert();
     const markup = alertModal(type, message);
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-    window.setTimeout(hideAlert, time * 1000);
+    window.setTimeout(hideAlert, time * 10000000);
 }

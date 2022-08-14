@@ -186,9 +186,4 @@ export function handlePostLoginSetup() {
     startAnnotationProcess();
     document.getElementById('remark_start').textContent = "Stop Annotation";
     repositionStart();
-    // else {
-    //     document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
-    //     document.getElementById('remark_start').textContent = "Start Annotation";
-    //     localStorage.setItem("remark_started", true);
-
 }

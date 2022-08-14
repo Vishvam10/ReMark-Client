@@ -98,6 +98,7 @@ export async function deleteComment(comment_id) {
     if (data.status == 200) {
         const comment = document.getElementById(comment_id);
         removeHTMLElement(comment);
+        showAlert("SUCCESS", "Comment deleted successfully !")
     } else {
         showAlert("ERROR", "Something went wrong")
     }
