@@ -1,6 +1,6 @@
 import { remarkGlobalData } from "./global"
 import { CONTEXT_MENU_MARKUP  } from "./components"
-import { removeHTMLElement } from "./utils"
+import { removeHTMLElement } from "./utils/dom_operations"
 
 import { renderNewAnnotationModal, renderEditAnnotationModal, renderDeleteAnnotationModal, renderSideBar } from "./render"
 

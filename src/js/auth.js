@@ -1,5 +1,6 @@
 import { BASE_API_URL } from "./constants"
-import { removeHTMLElement, validateForm } from "./utils";
+import { removeHTMLElement } from "./utils/dom_operations";
+import { validateForm } from "./utils/validations"
 import { showAlert } from "./alert";
 import { renderLoginModal } from "./render";
 import { handlePostLoginSetup } from "./handlers"

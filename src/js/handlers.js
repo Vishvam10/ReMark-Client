@@ -2,8 +2,8 @@ import { createAnnotation, editAnnotation, deleteAnnotation } from "./annotation
 import { createComment, editComment, deleteComment, updateCommentVote } from "./commentAPI";
 import { loginUser, signupUser } from "./auth";
 
-import { renderLoginModal, renderSignupModal } from "./render";
-import { removeHTMLElement, repositionStart } from "./utils";
+import { renderDeleteCommentModal, renderLoginModal, renderSignupModal } from "./render";
+import { removeHTMLElement, repositionStart } from "./utils/dom_operations";
 import { remarkGlobalData } from "./global";
 import { showAlert } from "./alert";
 import startAnnotationProcess from "./startAnnotation"
@@ -72,7 +72,7 @@ export function handleDeleteAnnotation(formElement) {
     for (var pair of form.entries()) {
         data[pair[0]] = pair[1].trim();
     }
-    if (formElement.dataset.annotation_name == data["deleteConfirmation"]) {
+    if (formElement.dataset.annotation_name == data["deleteAnnotationConfirmation"]) {
         const annotation_id = formElement.dataset.annotation_id;
         const xpath = formElement.dataset.xpath;
         const html_id = formElement.dataset.html_id;
@@ -142,9 +142,19 @@ export function handleEditComment(comment_id) {
 
 }
 
-export function handleDeleteComment(comment_id) {
-    // - ARE YOU SURE ? MODAL NEEDS TO BE ADDED FOR CONFIRMATION
-    deleteComment(comment_id);
+export function handleDeleteComment(formElement) {
+    let form = new FormData(formElement);
+    let data = {}
+    const comment_id = formElement.dataset.comment_id;
+    for (var pair of form.entries()) {
+        data[pair[0]] = pair[1].trim();
+    }
+    if (comment_id == data["deleteCommentConfirmation"]) {
+        deleteComment(comment_id);
+    } else {
+        showAlert("ERROR", "Strings don't match !")
+        return;
+    }
 }
 
 export function handleCommentUpvote(comment_id, action_type) {

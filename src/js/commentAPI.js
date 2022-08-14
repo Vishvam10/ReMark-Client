@@ -1,6 +1,6 @@
 import { remarkGlobalData } from "./global";
 import { BASE_API_URL } from "./constants";
-import { removeHTMLElement } from "./utils";
+import { removeHTMLElement } from "./utils/dom_operations";
 import { showAlert } from "./alert"; 
 import { renderComment } from "./render";
 
@@ -22,7 +22,7 @@ export async function createComment(bodyData) {
     const data = await res.json();
     if (data.status == 201) {
         const comment = data.data;
-        renderComment(comment);
+        renderComment(comment=comment, include_actions=true);
     } else {
         showAlert("ERROR", "Please enter a valid comment !")
     }
@@ -98,6 +98,10 @@ export async function deleteComment(comment_id) {
     if (data.status == 200) {
         const comment = document.getElementById(comment_id);
         removeHTMLElement(comment);
+        const deleteCommentModal = document.getElementById("remark_delete_comment_modal");
+        if(deleteComment) {
+            removeHTMLElement(deleteCommentModal);
+        }
         showAlert("SUCCESS", "Comment deleted successfully !")
     } else {
         showAlert("ERROR", "Something went wrong")

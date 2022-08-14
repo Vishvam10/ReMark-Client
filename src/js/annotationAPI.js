@@ -1,6 +1,7 @@
 import { remarkGlobalData } from "./global";
 import { BASE_API_URL } from "./constants";
-import { getElementAfterCheck, removeHTMLElement } from "./utils";
+import { removeHTMLElement } from "./utils/dom_operations";
+import { getElementAfterCheck } from "./utils/xpath_operations";
 import { showAlert } from "./alert"; 
 
 

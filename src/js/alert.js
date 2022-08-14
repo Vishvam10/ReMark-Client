@@ -1,4 +1,4 @@
-import { removeHTMLElement } from "./utils";
+import { removeHTMLElement } from "./utils/dom_operations";
 
 export const alertModal = (type, message) => {
     let markup = ""
@@ -41,5 +41,5 @@ export function showAlert(type, message, time = 1.5) {
     hideAlert();
     const markup = alertModal(type, message);
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-    window.setTimeout(hideAlert, time * 10000000);
+    window.setTimeout(hideAlert, time * 1000);
 }

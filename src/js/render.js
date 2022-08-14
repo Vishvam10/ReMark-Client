@@ -1,7 +1,8 @@
 import { remarkGlobalData } from "./global"
-import { removeHTMLElement, getNodeXpath, getElementAfterCheck } from "./utils"
+import { removeHTMLElement } from "./utils/dom_operations"
+import { getNodeXpath, getElementAfterCheck } from "./utils/xpath_operations"
 
-import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, DELETE_ANNOTATION_MODAL, COMMENTS_MARKUP } from "./components"
+import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, DELETE_ANNOTATION_MODAL, COMMENTS_MARKUP, DELETE_COMMENT_MODAL } from "./components"
 
 import * as handlers from "./handlers"
 
@@ -221,10 +222,8 @@ export function renderSideBar(xpath) {
     } else {
         comments.forEach((comment) => {
             if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
-                console.log("REACHED IF");
                 renderComment(comment=comment, include_actions=true);
             } else {
-                console.log("REACHED ELSE", comment["created_by"], user_name);
                 renderComment(comment=comment, include_actions=false);
             }
         });
@@ -250,7 +249,7 @@ export function renderComment(comment, include_actions=false) {
         deleteBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handlers.handleDeleteComment(comment_id);
+            renderDeleteCommentModal(comment_id);
         })
     } 
     if(editBtn) {
@@ -272,6 +271,35 @@ export function renderComment(comment, include_actions=false) {
             e.preventDefault();
             e.stopPropagation();
             handlers.handleCommentUpvote(comment_id, "downvote");
+        })
+    }
+}
+
+export function renderDeleteCommentModal(comment_id) {
+    const body = document.getElementsByTagName('body')[0];
+  
+    const deleteCommentModal = DELETE_COMMENT_MODAL(comment_id);
+    body.insertAdjacentHTML("afterbegin", deleteCommentModal);
+    
+    const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn");
+    
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ele = document.getElementById("remark_delete_comment_modal");
+            removeHTMLElement(ele);
+        })
+    }
+
+    const submitBtn = document.getElementById("remark_delete_comment_button");
+
+    if(submitBtn) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const deleteCommentForm = document.getElementById("deleteCommentForm");
+            handlers.handleDeleteComment(deleteCommentForm);
         })
     }
 }

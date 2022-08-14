@@ -284,7 +284,7 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
                         <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
                         Enter the annotation name to confirm : <span class="remark_" style="font-weight: 700;">${curAnnotation["annotation_name"]}</span>
                         </p>
-                        <input type="text" name="deleteConfirmation" class="remark_form_input" id="deleteConfirmation">
+                        <input type="text" name="deleteAnnotationConfirmation" class="remark_form_input" id="deleteAnnotationConfirmation">
                     </div>
                     <div class="remark_form_fields">
                         <button type="button"  class="remark_standard_button remark_delete_button" id="remark_delete_annotation_button">Delete</button>
@@ -405,5 +405,37 @@ export const COMMENTS_MARKUP = (comment, include_actions=false) => {
         </div>
     `
 
+    return markup;
+}
+
+export const DELETE_COMMENT_MODAL = (comment_id) => {
+    const markup =
+        `
+        <div class="remark_standard_modal" id="remark_delete_comment_modal">
+            <div class="remark_standard_modal_header">
+                <h3 class="remark_standard_modal_title">Delete Comment</h3>
+                <div class="remark_standard_modal_actions">
+                    <div class="remark_standard_modal_close_btn">
+                        <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="remark_standard_modal_body">
+                <form id="deleteCommentForm" class="remark_form" data-comment_id="${comment_id}">
+                    <div class="remark_form_fields">
+                        <p class="remark_delete_annotation_form_field"> 
+                        Are you sure you want to delete this annotation ? 
+                        <span class="remark_" style="font-weight: 700;">This can not be undone.</span> 
+                        Enter this string to confirm : <span class="remark_" style="font-weight: 700;">${comment_id}</span>
+                        </p>
+                        <input type="text" name="deleteCommentConfirmation" class="remark_form_input" id="deleteCommentConfirmation">
+                    </div>
+                    <div class="remark_form_fields">
+                        <button type="button"  class="remark_standard_button remark_delete_button" id="remark_delete_comment_button">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `
     return markup;
 }

@@ -2,7 +2,6 @@ import { remarkGlobalData } from "./global";
 import { VALID_HTML_ELEMENTS } from "./constants";
 
 import { renderExistingAnnotations } from "./render";
-import * as handlers from "./handlers"
 
 import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
@@ -11,7 +10,8 @@ import { isAdmin } from "./auth";
 import { showAlert } from "./alert";
 
 import { overrideContextMenu } from "./contextmenu"
-import { highlightElements, removeHTMLElement, removeAllExistingModals, getNodeXpath } from "./utils";
+import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
+import { getNodeXpath } from "./utils/xpath_operations"
 
 export default async function startAnnotationProcess() {
     const remarkScriptTag = document.getElementById("remark_annotation_script");
