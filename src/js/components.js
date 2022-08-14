@@ -296,7 +296,6 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
 }
 
 export const SIDEBAR = (curAnnotation) => {
-    console.log("IN SIDEBAR : ", curAnnotation);
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];

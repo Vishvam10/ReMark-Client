@@ -22,7 +22,6 @@ export async function getAnnotationByWebsiteID() {
 }
 
 export async function createAnnotation(bodyData) {
-    console.log(bodyData);
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -67,7 +66,9 @@ export async function editAnnotation(bodyData) {
     })
     const data = await res.json();
     if (data) {
-        showAlert("SUCCESS", data["message"]);
+        if(!data["message"]) {
+            showAlert("SUCCESS", "Annotation edited successfully !");
+        }
         if(data["message"] == "Annotation resolved successfully !") {
             const resolve_btn = document.getElementById("remark_annotation_resolve_button");
             resolve_btn.classList.add("remark_unresolve_button")
@@ -89,7 +90,6 @@ export async function editAnnotation(bodyData) {
 
 export async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
-    console.log(bodyData);
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
     const res = await fetch(url, {

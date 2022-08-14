@@ -54,7 +54,7 @@ export function handleEditAnnotation(formElement) {
         data[pair[0]] = pair[1].trim();
     }
     let actions = [];
-    if(data["new_name" != ""]) {
+    if(data["new_name" ] != "") {
         actions.push("edit_name")
     }
     if (data["new_tags"] != "") {

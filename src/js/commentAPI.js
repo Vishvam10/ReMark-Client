@@ -6,7 +6,6 @@ import { renderComment } from "./render";
 
 
 export async function createComment(bodyData) {
-    console.log(bodyData);
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");

@@ -23,7 +23,6 @@ export default STYLES = `
         --remark-color-black: #000000;
         --remark-color-white: #FFFFFF;
         --remark-color-danger-opacity: #ff58602d;
-        --remark-color-danger-opacity: #ff58602d;
 
         --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
         --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
