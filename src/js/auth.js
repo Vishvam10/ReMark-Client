@@ -4,12 +4,14 @@ import { showAlert } from "./alert";
 import { renderLoginModal } from "./render";
 
 export function isLoggedIn() {
-    const username = localStorage.getItem("user_name");
     const user_id = localStorage.getItem("user_id");
-    if (username && user_id) {
-        return true
+    const user_access_token = localStorage.getItem("user_access_token");
+    const user_name = localStorage.getItem("user_name");
+    const user_authority = localStorage.getItem("user_authority");
+    if (user_name && user_id && user_authority && user_access_token) {
+        return true;
     }
-    return false
+    return false;
 }
 
 export function logout() {
@@ -46,6 +48,8 @@ export function loginUser(form) {
                     if (loginFormModal) {
                         removeHTMLElement(loginFormModal)
                     }
+                    const loginBtn = document.getElementById("remark_login_button");
+                    loginBtn.innerText = "Logout";
                     showAlert("SUCCESS", "Logged in successfully !")
                 } else {
                     showAlert("ERROR", data["error_message"])

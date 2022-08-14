@@ -169,7 +169,7 @@ export function removeAllExistingModals() {
     const context_menu_check = document.getElementById("remark_context_menu");
 
     hideAlert();
-
+    
     if (create_modal_check) {
         removeHTMLElement(create_modal_check);
     }

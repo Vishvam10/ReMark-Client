@@ -7,7 +7,7 @@ import { VALID_HTML_ELEMENTS } from "./constants";
 import { renderLoginModal, renderExistingAnnotations } from "./render"
 import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
-import { isLoggedIn, isAdmin  } from "./auth";
+import { isLoggedIn, isAdmin, logout  } from "./auth";
 
 import { showAlert } from "./alert";
 import * as handlers from "./handlers"
@@ -20,19 +20,23 @@ window.addEventListener("load", (e) => {
 
 
 function remark_init() {
-    const body = document.getElementsByTagName('body')[0];
-    const remark_started = localStorage.getItem("remark_started");
-
-    // 1. Register the styles and scripts (for icons)
+    
     registerStyles();
     registerScripts();
 
-    // 2. Add the START button
+    const body = document.getElementsByTagName('body')[0];
+    const remark_started = localStorage.getItem("remark_started");
+
+    let remark_login_button_text = "Login";
+    if(isLoggedIn()) {
+        remark_login_button_text = "Logout"
+    }
+
     const remark_markup =
         `
         <div class="remark_init_container">
             <span class="remark_init_text">REMARK</span>
-            <button type="button" class="remark_standard_button remark_init_button remark_login_button" id="remark_login_button">Login</button>
+            <button type="button" class="remark_standard_button remark_init_button remark_login_button" id="remark_login_button">${remark_login_button_text}</button>
             <button type="button" class="remark_standard_button remark_init_button" id="remark_start">Start Annotation</button>
         </div>
     `
@@ -40,7 +44,22 @@ function remark_init() {
     document.getElementById("remark_login_button").addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        renderLoginModal();
+                
+        if(e.target.innerText == "Logout") {
+            e.target.innerText = "Login";
+            logout();
+            return;
+        }
+        else if(e.target.innerText == "Login") {
+            const login_modal_check = document.getElementById("remark_login_modal");
+    
+            if(login_modal_check) {
+                return;
+            }
+            renderLoginModal();
+        } else {
+            return;
+        }
     })
 
     document.getElementById('remark_start').addEventListener("click", (e) => {
