@@ -296,6 +296,7 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
 }
 
 export const SIDEBAR = (curAnnotation) => {
+    console.log("IN SIDEBAR : ", curAnnotation);
     const annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];
@@ -304,10 +305,10 @@ export const SIDEBAR = (curAnnotation) => {
     let c = ""
     
     if(resolved) {
-        resolve_button_text = "Unresolve";
+        resolve_button_text = "UNRESOLVE";
         c = "remark_unresolve_button";
     } else {
-        resolve_button_text = "Resolve";
+        resolve_button_text = "RESOLVE";
     }
     
     const markup =

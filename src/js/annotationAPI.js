@@ -66,19 +66,20 @@ export async function editAnnotation(bodyData) {
         body: JSON.stringify(bodyData)
     })
     const data = await res.json();
-    if (data) {
-        showAlert("SUCCESS", data["message"]);
-        if(data["message"] == "Annotation resolved successfully !") {
-            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
-            resolve_btn.classList.add("remark_unresolve_button")
-            resolve_btn.innerText = "Unresolve";
+    console.log(data);
+    // if (data) {
+    //     showAlert("SUCCESS", data["message"]);
+    //     if(data["message"] == "Annotation resolved successfully !") {
+    //         const resolve_btn = document.getElementById("remark_annotation_resolve_button");
+    //         resolve_btn.classList.add("remark_unresolve_button")
+    //         resolve_btn.innerText = "UNRESOLVE";
             
-        } else if(data["message"] == "Annotation unresolved successfully !") {
-            const resolve_btn = document.getElementById("remark_annotation_resolve_button");
-            resolve_btn.classList.remove("remark_unresolve_button")
-            resolve_btn.innerText = "Resolve";
-        }
-    }
+    //     } else if(data["message"] == "Annotation unresolved successfully !") {
+    //         const resolve_btn = document.getElementById("remark_annotation_resolve_button");
+    //         resolve_btn.classList.remove("remark_unresolve_button")
+    //         resolve_btn.innerText = "RESOLVE";
+    //     }
+    // }
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
         removeHTMLElement(edit_modal_check)
