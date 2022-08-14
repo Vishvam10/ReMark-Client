@@ -297,7 +297,7 @@ var $4f12fe73e0deabbb$export$2e2bcd8739ae039 = STYLES = `
         padding: 1rem;
         box-shadow: var(--remark-default-box-shadow);
         z-index: 1000;
-        height: 72rem;
+        height: 100vh;
         background: var(--remark-color-white);
         padding: 1rem;
         animation: remark_sidebar_animation 0.6s;
@@ -713,6 +713,49 @@ const $af38c480052fd5ae$export$78b464efab6cd2cc = [
 ];
 
 
+
+const $fd3a760e313b8296$export$b92ea88f33b78593 = (type, message)=>{
+    let markup = "";
+    switch(type){
+        case "ERROR":
+            markup = `
+                <div class="remark_error_container remark_error_container_error">
+                    <p class="remark_error_text">${message}</p>
+                </div>
+                `;
+            break;
+        case "SUCCESS":
+            markup = `
+                <div class="remark_error_container remark_error_container_success">
+                    <p class="remark_error_text">${message}</p>
+                </div>
+            `;
+            break;
+        case "INTIMATION":
+            markup = `
+            <div class="remark_error_container remark_error_container_intimation">
+                <p class="remark_error_text">${message}</p>
+            </div>
+            `;
+            break;
+        default:
+            markup = "";
+    }
+    return markup;
+};
+function $fd3a760e313b8296$export$516836c6a9dfc573() {
+    const ele = document.querySelector(".remark_error_container");
+    if (ele) (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
+}
+function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1) {
+    $fd3a760e313b8296$export$516836c6a9dfc573();
+    const markup = $fd3a760e313b8296$export$b92ea88f33b78593(type, message);
+    console.log(type, message);
+    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+    window.setTimeout($fd3a760e313b8296$export$516836c6a9dfc573, time * 1000);
+}
+
+
 function $18a61f8fa6189451$export$ed692cabb252e59b(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {
         if (data["username"] != "") {
@@ -838,7 +881,7 @@ function $18a61f8fa6189451$export$7743824edd59500d() {
     const login_modal_check = document.getElementById("remark_login_modal");
     const signup_modal_check = document.getElementById("remark_signup_modal");
     const context_menu_check = document.getElementById("remark_context_menu");
-    hideAlert();
+    (0, $fd3a760e313b8296$export$516836c6a9dfc573)();
     if (create_modal_check) $18a61f8fa6189451$export$c229772b99a4e439(create_modal_check);
     if (edit_modal_check) $18a61f8fa6189451$export$c229772b99a4e439(edit_modal_check);
     if (delete_modal_check) $18a61f8fa6189451$export$c229772b99a4e439(delete_modal_check);
@@ -860,48 +903,6 @@ var $9bdae1cc374cba8f$export$1b94e36de2b67148 = {
 
 
 
-
-
-const $fd3a760e313b8296$export$b92ea88f33b78593 = (type, message)=>{
-    let markup = "";
-    switch(type){
-        case "ERROR":
-            markup = `
-                <div class="remark_error_container remark_error_container_error">
-                    <p class="remark_error_text">${message}</p>
-                </div>
-                `;
-            break;
-        case "SUCCESS":
-            markup = `
-                <div class="remark_error_container remark_error_container_success">
-                    <p class="remark_error_text">${message}</p>
-                </div>
-            `;
-            break;
-        case "INTIMATION":
-            markup = `
-            <div class="remark_error_container remark_error_container_intimation">
-                <p class="remark_error_text">${message}</p>
-            </div>
-            `;
-            break;
-        default:
-            markup = "";
-    }
-    return markup;
-};
-function $fd3a760e313b8296$export$516836c6a9dfc573() {
-    const ele = document.querySelector(".remark_error_container");
-    if (ele) (0, $18a61f8fa6189451$export$c229772b99a4e439)(ele);
-}
-function $fd3a760e313b8296$export$de026b00723010c1(type, message, time = 1) {
-    $fd3a760e313b8296$export$516836c6a9dfc573();
-    const markup = $fd3a760e313b8296$export$b92ea88f33b78593(type, message);
-    console.log(type, message);
-    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout($fd3a760e313b8296$export$516836c6a9dfc573, time * 1000);
-}
 
 
 async function $41fbc3b1898586d3$export$d32fca31e5b6ceec() {
@@ -1465,6 +1466,7 @@ function $cc4ff3a23db2c1c1$export$5c038338ec3229b7(ele) {
 }
 
 
+
 const $4ccab26f1b142cf4$export$f5cfe9cd58390ad5 = `
     <div class="remark_standard_modal" id="remark_login_modal">
         <div class="remark_standard_modal_header">
@@ -1633,7 +1635,7 @@ const $4ccab26f1b142cf4$export$677e18af8a745d31 = (node_xpath, html_tag, html_cl
 const $4ccab26f1b142cf4$export$c85da9ec7569e35c = (node_xpath)=>{
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") return;
-    const annotations = remarkGlobalData["annotations"];
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
     let curAnnotation;
     annotations.forEach((annotation)=>{
         if (annotation["node_xpath"] == node_xpath) curAnnotation = annotation;
@@ -1682,7 +1684,7 @@ const $4ccab26f1b142cf4$export$c85da9ec7569e35c = (node_xpath)=>{
 const $4ccab26f1b142cf4$export$f1f180b010da0012 = (node_xpath)=>{
     const authority = localStorage.getItem("user_authority");
     if (authority != "admin") return;
-    const annotations = remarkGlobalData["annotations"];
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
     let curAnnotation;
     annotations.forEach((annotation)=>{
         if (annotation["node_xpath"] == node_xpath) curAnnotation = annotation;
@@ -1715,8 +1717,8 @@ const $4ccab26f1b142cf4$export$f1f180b010da0012 = (node_xpath)=>{
     return markup;
 };
 const $4ccab26f1b142cf4$export$2ee9e5a3556c1e43 = (xpath)=>{
-    const annotations = remarkGlobalData["annotations"];
-    remarkGlobalData["currentXPath"] = xpath;
+    const annotations = (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["annotations"];
+    (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = xpath;
     let curAnnotation;
     annotations.forEach((annotation)=>{
         if (annotation["node_xpath"] == xpath) curAnnotation = annotation;
@@ -1822,7 +1824,6 @@ function $3eead4b93c22c35d$export$9826392fdcbe3593(e, data) {
         e.preventDefault();
         e.stopPropagation();
         const option = e.target.dataset.remark_contextmenu_option;
-        console.log("IN OVERRIDE : ", e.target);
         $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data);
         if (contextMenu) setTimeout(()=>{
             (0, $18a61f8fa6189451$export$c229772b99a4e439)(contextMenu);
@@ -1839,11 +1840,10 @@ function $3eead4b93c22c35d$export$d008d9b759c1cf1f(contextMenu, x, y) {
 function $3eead4b93c22c35d$export$93cedd1d63aaca9f(option, data) {
     (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentXPath"] = data["xpath"];
     (0, $9bdae1cc374cba8f$export$1b94e36de2b67148)["currentNode"] = data["node"];
-    console.log((0, $9bdae1cc374cba8f$export$1b94e36de2b67148), option);
     switch(option){
         case "open":
-            // renderSideBar(data["xpath"]);
-            console.log("OPENING SIDEBAR");
+            console.log("OPENING SIDEBAR", data["xpath"]);
+            (0, $401e5251b5672128$export$40be53e378c97146)(data["xpath"]);
             break;
         case "create":
             if ((0, $1462d0332aa03f78$export$fc970ed23da99565)()) (0, $401e5251b5672128$export$592d9b2be066ea35)(data["node"], data["tag"], data["className"].replace("highlight_element_light", ""), data["id"], data["textContent"]);
@@ -2032,6 +2032,7 @@ async function $c49300cd12bc6870$var$startAnnotationProcess() {
 
 
 
+0, $9bdae1cc374cba8f$export$1b94e36de2b67148;
 
 
 //# sourceMappingURL=main.js.map

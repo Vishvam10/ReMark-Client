@@ -297,7 +297,7 @@ export default STYLES = `
         padding: 1rem;
         box-shadow: var(--remark-default-box-shadow);
         z-index: 1000;
-        height: 72rem;
+        height: 100vh;
         background: var(--remark-color-white);
         padding: 1rem;
         animation: remark_sidebar_animation 0.6s;

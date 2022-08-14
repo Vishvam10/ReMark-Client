@@ -1,4 +1,5 @@
 import { VALID_HTML_ELEMENTS } from "./constants";
+import { hideAlert } from "./alert";
 
 export function validateForm(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {

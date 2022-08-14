@@ -11,3 +11,5 @@ import * as tokenAPI from "./tokenAPI"
 import * as utils from "./utils"
 import * as alert from "./alert"
 import { remarkGlobalData } from "./global"
+
+remarkGlobalData = remarkGlobalData

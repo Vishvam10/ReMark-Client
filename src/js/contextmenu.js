@@ -23,7 +23,6 @@ export function overrideContextMenu(e, data) {
         e.preventDefault();
         e.stopPropagation();
         const option = e.target.dataset.remark_contextmenu_option;
-        console.log("IN OVERRIDE : ", e.target);
         handleContextMenuOptions(option, data);
         if (contextMenu) {
             setTimeout(() => {
@@ -45,11 +44,10 @@ export function handleContextMenuOptions(option, data) {
 
     remarkGlobalData["currentXPath"] = data["xpath"];
     remarkGlobalData["currentNode"] = data["node"];
-    console.log(remarkGlobalData, option);
     switch (option) {
         case "open":
-            // renderSideBar(data["xpath"]);
-            console.log("OPENING SIDEBAR");
+            console.log("OPENING SIDEBAR", data["xpath"]);
+            renderSideBar(data["xpath"]);
             break;
         case "create":
             if(isAdmin()) {

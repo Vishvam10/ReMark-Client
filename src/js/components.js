@@ -1,4 +1,5 @@
 import { handleCreateAnnotation, handleCloseModal } from "./handlers"
+import { remarkGlobalData } from "./global"
 
 export const LOGIN_MARKUP =
     `
