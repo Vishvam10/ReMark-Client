@@ -78,3 +78,5 @@ export function isAdmin() {
     }
     return false;
 }
+
+exports.postLogin = handlePostLoginSetup;

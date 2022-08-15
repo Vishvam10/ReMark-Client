@@ -17,15 +17,15 @@ test('ALERTS : Show alert method ', () => {
     }
 });
 
-// test('ALERTS : hide alert method ', () => {
-//     const alertMarkup = `
-//         <div id="remark_error_container" class="remark_error_container remark_error_container_error">
-//             <p class="remark_error_text">Testing Message !</p>
-//         </div>
-//     `
-//     document.body.innerHTML = alertMarkup;
-//     const alert = document.getElementById("remark_error_container");
-//     console.log(alert.childElementCount);
-//     hideAlert()
+test('ALERTS : hide alert method ', () => {
+    const alertMarkup = `
+        <div id="remark_error_container" class="remark_error_container remark_error_container_error">
+            <p class="remark_error_text">Testing Message !</p>
+        </div>
+    `
+    document.body.innerHTML = alertMarkup;
+    const alert = document.getElementById("remark_error_container");
+    console.log(alert.childElementCount);
+    hideAlert()
   
-// });
+});
