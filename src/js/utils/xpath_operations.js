@@ -1,4 +1,4 @@
-export function getNodeXpath(node) {
+function getNodeXpath(node) {
     let comp, comps = [];
     let parent = null;
     let xpath = '';
@@ -52,7 +52,7 @@ export function getNodeXpath(node) {
     return xpath;
 }
 
-export function getElementByXpath(path) {
+function getElementByXpath(path) {
     console.log("CHECK XPATH : ", path);
     let ele = null;
     try {
@@ -64,7 +64,7 @@ export function getElementByXpath(path) {
     return ele;
 }
 
-export function checkXPathMatch(node, xpath) {
+function checkXPathMatch(node, xpath) {
     const res = getElementByXpath(xpath);
     if (res == node) {
         return true;
@@ -72,7 +72,7 @@ export function checkXPathMatch(node, xpath) {
     return false;
 }
 
-export function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
+function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
     const ele_check1 = getElementByXpath(`${node_xpath}`);
     if (ele_check1) {
         return ele_check1;
@@ -99,4 +99,11 @@ export function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_co
             }
         }
     }
+}
+
+module.exports = {
+    getNodeXpath,
+    getElementByXpath,
+    checkXPathMatch,
+    getElementAfterCheck
 }

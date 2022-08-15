@@ -75,4 +75,6 @@ export function registerScripts() {
     icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
     document.head.appendChild(icons);
     return true;
+<<<<<<< HEAD
+=======
 }

@@ -5,7 +5,9 @@ import { showAlert } from "./alert";
 import { renderLoginModal } from "./render";
 import { handlePostLoginSetup } from "./handlers";
 
-export function isLoggedIn() {
+const axios = require("axios");
+
+function isLoggedIn() {
     const user_id = localStorage.getItem("user_id");
     const user_access_token = localStorage.getItem("user_access_token");
     const user_name = localStorage.getItem("user_name");
@@ -16,7 +18,7 @@ export function isLoggedIn() {
     return false;
 }
 
-export function logout() {
+function logout() {
     localStorage.clear();
 }
 
@@ -64,6 +66,7 @@ export async function loginUser(form) {
         } 
     } else {
         showAlert("ERROR", "Form validation failed");
+        return false;;
         return false;
     }
 }
@@ -112,7 +115,7 @@ export async function signupUser(form) {
     }
 }
 
-export function isAdmin() {
+function isAdmin() {
     const authority = localStorage.getItem("user_authority");
     if (authority == "admin") {
         return true;
