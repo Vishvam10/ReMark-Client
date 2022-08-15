@@ -42,7 +42,6 @@ export async function editAnnotation(bodyData) {
     const auth_token = localStorage.getItem("user_access_token");
     const res = await PUT(url, bodyData, api_key, auth_token);
     const data = await res.json();
-    console.log(data);
     if (data) {
         if(data["message"] == "Annotation edited successfully !") {
             showAlert("SUCCESS", data["message"]);
