@@ -2,7 +2,6 @@ import { setHeaders } from "../../src/js/apiFactory";
 
 it("API : FACTORY : Set header method", async () => {
     // Only api_key
-    
     const api_key = "testasdfasdfweq34-12312 pim-239ie-12o3123";
    
   
@@ -18,7 +17,6 @@ it("API : FACTORY : Set header method", async () => {
     expect(headers_1).toEqual(return_value_1);
     
     // Only auth_token
-    
     const auth_token = "testewqe21e1fmasidufnpq93hfe9wfqmc9wex9qywx897qrie";
     
     const return_value_2 = {
@@ -27,7 +25,7 @@ it("API : FACTORY : Set header method", async () => {
         'Content-Type': 'application/json',
         'Authorization' : `Bearer ${auth_token}`
     }
-  
+
     const headers_2 = setHeaders(null, auth_token)
   
     expect(headers_2).toEqual(return_value_2);

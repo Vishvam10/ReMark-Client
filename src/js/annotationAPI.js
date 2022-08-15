@@ -3,20 +3,13 @@ import { BASE_API_URL } from "./constants";
 import { removeHTMLElement } from "./utils/dom_operations";
 import { getElementAfterCheck } from "./utils/xpath_operations";
 import { showAlert } from "./alert";
+import { DELETE, GET, POST, PUT } from "./apiFactory";
 
 export async function getAnnotationByWebsiteID() {
     const website_id = remarkGlobalData["website_id"];
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;
     const api_key = remarkGlobalData["api_key"];
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'API_KEY': `${api_key}`,
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    })
+    const res = await GET(url, api_key);
     const data = await res.json();
     remarkGlobalData["annotations"] = data;
     return data;
@@ -26,16 +19,8 @@ export async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'API_KEY': `${api_key}`,
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${auth_token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyData)
-    })
+    
+    const res = await POST(url, bodyData, api_key, auth_token);
     const data = await res.json();
     if (data.status == 201) {
         const create_modal_check = document.getElementById("remark_create_annotation_modal");
@@ -55,17 +40,9 @@ export async function editAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'API_KEY': `${api_key}`,
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${auth_token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyData)
-    })
+    const res = await PUT(url, bodyData, api_key, auth_token);
     const data = await res.json();
+    console.log(data);
     if (data) {
         if(data["message"] == "Annotation edited successfully !") {
             showAlert("SUCCESS", data["message"]);
@@ -94,15 +71,7 @@ export async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'API_KEY': `${api_key}`,
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${auth_token}`,
-            'Content-Type': 'application/json'
-        },
-    })
+    const res = await DELETE(url, api_key, auth_token)
     const data = await res.json();
     if (data.status == 200) {
         const delete_modal_check = document.getElementById("remark_delete_annotation_modal");

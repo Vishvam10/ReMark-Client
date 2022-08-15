@@ -1,4 +1,4 @@
-function getNodeXpath(node) {
+export function getNodeXpath(node) {
     let comp, comps = [];
     let parent = null;
     let xpath = '';
@@ -48,12 +48,10 @@ function getNodeXpath(node) {
             xpath += '[' + comp.position + ']';
         }
     }
-    console.log("ELEMENT XPATH : ", xpath);
     return xpath;
 }
 
-function getElementByXpath(path) {
-    console.log("CHECK XPATH : ", path);
+export function getElementByXpath(path) {
     let ele = null;
     try {
         ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -64,7 +62,7 @@ function getElementByXpath(path) {
     return ele;
 }
 
-function checkXPathMatch(node, xpath) {
+export function checkXPathMatch(node, xpath) {
     const res = getElementByXpath(xpath);
     if (res == node) {
         return true;
@@ -72,7 +70,7 @@ function checkXPathMatch(node, xpath) {
     return false;
 }
 
-function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
+export function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) {
     const ele_check1 = getElementByXpath(`${node_xpath}`);
     if (ele_check1) {
         return ele_check1;
@@ -99,11 +97,4 @@ function getElementAfterCheck(node_xpath, html_id, html_tag, html_text_content) 
             }
         }
     }
-}
-
-module.exports = {
-    getNodeXpath,
-    getElementByXpath,
-    checkXPathMatch,
-    getElementAfterCheck
 }
