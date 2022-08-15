@@ -22,7 +22,7 @@ export async function getAnnotationByWebsiteID() {
     return data;
 }
 
-async function createAnnotation(bodyData) {
+export async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -50,7 +50,7 @@ async function createAnnotation(bodyData) {
     return data;
 }
 
-async function editAnnotation(bodyData) {
+export async function editAnnotation(bodyData) {
     const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
@@ -67,15 +67,16 @@ async function editAnnotation(bodyData) {
     })
     const data = await res.json();
     if (data) {
-        if(!data["message"]) {
-            showAlert("SUCCESS", "Annotation edited successfully !");
+        if(data["message"] == "Annotation edited successfully !") {
+            showAlert("SUCCESS", data["message"]);
         }
         if(data["message"] == "Annotation resolved successfully !") {
+            showAlert("SUCCESS", data["message"]);
             const resolve_btn = document.getElementById("remark_annotation_resolve_button");
             resolve_btn.classList.add("remark_unresolve_button")
             resolve_btn.innerText = "UNRESOLVE";
-            
         } else if(data["message"] == "Annotation unresolved successfully !") {
+            showAlert("SUCCESS", data["message"]);
             const resolve_btn = document.getElementById("remark_annotation_resolve_button");
             resolve_btn.classList.remove("remark_unresolve_button")
             resolve_btn.innerText = "RESOLVE";
@@ -89,7 +90,7 @@ async function editAnnotation(bodyData) {
     return data;
 }
 
-async function deleteAnnotation(bodyData) {
+export async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");

@@ -5,9 +5,7 @@ import { showAlert } from "./alert";
 import { renderLoginModal } from "./render";
 import { handlePostLoginSetup } from "./handlers";
 
-const axios = require("axios");
-
-function isLoggedIn() {
+export function isLoggedIn() {
     const user_id = localStorage.getItem("user_id");
     const user_access_token = localStorage.getItem("user_access_token");
     const user_name = localStorage.getItem("user_name");
@@ -18,7 +16,7 @@ function isLoggedIn() {
     return false;
 }
 
-function logout() {
+export function logout() {
     localStorage.clear();
 }
 
@@ -115,7 +113,7 @@ export async function signupUser(form) {
     }
 }
 
-function isAdmin() {
+export function isAdmin() {
     const authority = localStorage.getItem("user_authority");
     if (authority == "admin") {
         return true;

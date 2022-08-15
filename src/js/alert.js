@@ -30,14 +30,14 @@ const alertModal = (type, message) => {
     return markup;
 }
 
-function hideAlert() {
+export function hideAlert() {
     const ele = document.querySelector('.remark_error_container');
     if (ele) {
         removeHTMLElement(ele)
     }
 }
 
-function showAlert(type, message, time = 1.5) {
+export function showAlert(type, message, time = 1.5) {
     hideAlert();
     const markup = alertModal(type, message);
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
