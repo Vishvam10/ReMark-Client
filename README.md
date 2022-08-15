@@ -8,7 +8,7 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 - [x] **Dynamic Checking for Annotations** : When XPath fails
 
-- [ ] **Create a class to initialize and store globals**
+- [ ] ~~**Create a class to initialize and store globals**~~
 
 - [ ] ~~**Create a function to make overlays**~~
 
@@ -35,10 +35,10 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
       - [x] `DOMOperations` (`HighlightElements() method left`)
     - [ ] `apiFactory`
     - [ ] APIs :
-      - [ ] AnnotationAPI
+      - [x] AnnotationAPI
       - [ ] CommentAPI
     - [ ] `contextmenu`
-  - Integration Tests :
+  - Integration Tests : (**OPTIONAL**)
     - [ ] `render`
     - [ ] `handlers`
 
