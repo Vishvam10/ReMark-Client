@@ -651,6 +651,7 @@ export const STYLES = `
         outline: dashed 2px var(--remark-color-grey);
         border-radius: 0.4rem;
         padding: 0.4rem;
+        cursor: crosshair;
     }
 
     .highlight_element_strong {

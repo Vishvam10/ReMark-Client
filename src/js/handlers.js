@@ -1,9 +1,10 @@
 import { createAnnotation, editAnnotation, deleteAnnotation } from "./annotationAPI";
 import { createComment, editComment, deleteComment, updateCommentVote } from "./commentAPI";
-import { loginUser, signupUser } from "./auth";
+import { login, signup } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
 import { removeHTMLElement, repositionStart } from "./utils/dom_operations";
+import { validateForm } from "./utils/validations";
 import { remarkGlobalData } from "./global";
 import { showAlert } from "./alert";
 import { startAnnotationProcess } from "./startAnnotation";
@@ -178,12 +179,35 @@ export function handleLoginSignupSwitch(component) {
 
 //+ AUTH HANDLERS
 
-export function handleLoginUser(formElement) {
-    loginUser(formElement);
+export async function handleLoginUser(form) {
+    const formData = new FormData(form);
+    const bodyData = {}
+    for (var pair of formData.entries()) {
+        bodyData[pair[0]] = pair[1];
+    }
+    const res = validateForm(bodyData);
+    if (res == "OK") {
+        login(bodyData)
+    } else {
+        showAlert("ERROR", "Form validation failed");
+        return false;;
+    }
 }
 
-export function handleSignupUser(formElement) {
-    signupUser(formElement);
+export async function handleSignupUser(form) {
+    const formData = new FormData(form);
+    const bodyData = {}
+    for (var pair of formData.entries()) {
+        bodyData[pair[0]] = pair[1];
+    }
+    bodyData["authority"] = "user";
+    const res = validateForm(bodyData);
+    if (res == "OK") {
+       signup(bodyData)
+    } else {
+        showAlert("ERROR", "Form validation failed");
+        return false;
+    }
 }
 
 export function handlePostLoginSetup() {
@@ -197,3 +221,4 @@ export function handlePostLoginSetup() {
     document.getElementById('remark_start').textContent = "Stop Annotation";
     repositionStart();
 }
+

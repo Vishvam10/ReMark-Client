@@ -14,5 +14,3 @@ import * as validation from "./utils/validations"
 import * as alert from "./alert"
 
 import { remarkGlobalData } from "./global"
-
-remarkGlobalData = remarkGlobalData

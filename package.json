@@ -6,6 +6,7 @@
   "main": "dist/main.js",
   "module": "dist/module.js",
   "type": "module",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "serve": "parcel demo/index.html",
     "watch": "parcel watch",
@@ -23,16 +24,17 @@
   },
   "homepage": "https://github.com/Vishvam10/ReMark-Frontend#readme",
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "babel-jest": "^28.1.3",
     "jest": "^28.1.3",
     "parcel": "^2.7.0"
   },
   "engines": {
-    "node": "^18.0.0",
-    "jest": "^28.1.3",
-    "parcel": "^2.7.0",
-    "process": "^0.11.10"
+    "node": "^18.0.0"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "jest-fetch-mock": "^3.0.3"
   }
 }
