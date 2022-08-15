@@ -60,6 +60,7 @@ export function remark_destroy() {
 export function registerStyles() {
     const styleElement = document.createElement("style");
     styleElement.type = "text/css";
+    styleElement.id = "remark_global_styles";
     if (styleElement.styleSheet) {
         styleElement.styleSheet.cssText = STYLES;
     } else {
@@ -71,6 +72,7 @@ export function registerStyles() {
 
 export function registerScripts() {
     const icons = document.createElement("script");
+    icons.id = "remark_global_script_ionicons";
     icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
     document.head.appendChild(icons);
     return true;
