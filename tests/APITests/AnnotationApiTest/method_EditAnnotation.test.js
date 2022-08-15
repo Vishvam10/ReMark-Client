@@ -164,8 +164,8 @@ describe('API : ANNOTATION API : Edit annotation method without error', () => {
     it("Unresolve annotation", async () => {
         const resolve_button_markup = 
         `
-            <button class="remark_standard_button remark_resolve_button" id="remark_annotation_resolve_button">
-                RESOLVE
+            <button class="remark_standard_button remark_resolve_button remark_unresolve_button" id="remark_annotation_resolve_button">
+                UNRESOLVE
             </button>
         `        
         document.body.insertAdjacentHTML("afterbegin", resolve_button_markup);
@@ -177,7 +177,7 @@ describe('API : ANNOTATION API : Edit annotation method without error', () => {
         }
     
         const return_value = {
-            "message": "Annotation resolved successfully !",
+            "message": "Annotation unresolved successfully !",
             "status": 201
         }
     
