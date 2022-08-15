@@ -1,6 +1,6 @@
 import fetchMock from "jest-fetch-mock";
-import { DELETE } from "../../../src/js/apiFactory";
-import { BASE_API_URL } from "../../../src/js/constants";
+import { DELETE } from "../../../../src/js/apiFactory";
+import { BASE_API_URL } from "../../../../src/js/constants";
 
 fetchMock.enableMocks();
 
@@ -46,4 +46,3 @@ describe('API : FACTORY : DELETE method', () => {
   });
 
 })
-
