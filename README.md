@@ -19,9 +19,23 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [x] **Convert to ES6 Syntax :** Currently, we have to include multiple `script` tags. Need to convert all files to ES6 modules 
 
 - [x] **Bundle with `Parcel`** :
-  - [ ] Code Refactoring
+  - [x] Code Refactoring
 
-- [ ] **Testing**
+- [ ] **Testing** :
+  - Unit Tests :   
+    - [ ] `index`
+      - [ ] `registerScripts()`
+      - [ ] `registerStyles()`
+    - [x] `alerts`
+    - [ ] `utils` :
+      - [ ] `validations`
+      - [ ] `XPathOperations`
+      - [x] `DOMOperations` (`HighlightElements() method left`)
+    - [ ] `apiFactory`
+    - [ ] `contextmenu`
+  - Integration Tests :
+    - [ ] `render`
+    - [ ] `handlers`
 
 <br>
 

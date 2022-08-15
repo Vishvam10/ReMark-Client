@@ -202,3 +202,5 @@ test('UTILS/DOM_OPERATIONS : Remove all existing modals method ', () => {
         expect(c).toBeNull();
     }
 });
+
+// TODO :  highlightElements() test
