@@ -1,12 +1,12 @@
-import { VALID_HTML_ELEMENTS } from "../constants";
-import { hideAlert } from "../alert";
+const { VALID_HTML_ELEMENTS } = require("../constants");
+const { hideAlert } = require("../alert");
 
-export function removeHTMLElement(ele) {
+function removeHTMLElement(ele) {
     ele.parentElement.removeChild(ele);
     return;
 }
 
-export function highlightElements() {
+function highlightElements() {
     document.addEventListener("mouseover", (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -36,12 +36,12 @@ export function highlightElements() {
 
 }
 
-export function repositionStart() {
+function repositionStart() {
     const ele = document.querySelector(".remark_init_container");
     ele.classList.add("remark_init_container_resize");
 }
 
-export function removeAllExistingModals() {
+function removeAllExistingModals() {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
 
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
@@ -79,4 +79,11 @@ export function removeAllExistingModals() {
     if (context_menu_check) {
         removeHTMLElement(context_menu_check);
     }
+}
+
+module.exports = {
+    removeHTMLElement,
+    highlightElements,
+    repositionStart,
+    removeAllExistingModals
 }

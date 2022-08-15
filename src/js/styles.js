@@ -1,4 +1,4 @@
-export default STYLES = `
+const STYLES = `
 
     :root {
         --remark-color-primary: #0d6efd;
@@ -721,3 +721,7 @@ export default STYLES = `
     }
 
     `
+
+module.exports = {
+    STYLES
+}

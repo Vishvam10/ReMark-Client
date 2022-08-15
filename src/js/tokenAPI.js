@@ -1,6 +1,6 @@
-import { BASE_API_URL } from "./constants"
+const { BASE_API_URL } = require("./constants")
 
-export async function verifyToken(key) {
+async function verifyToken(key) {
     const url = `${BASE_API_URL}/api/token/verify/${key}`;
     const res = await fetch(url, {
         method: 'GET',
@@ -12,4 +12,8 @@ export async function verifyToken(key) {
     })
     const data = await res.json();
     return data;
+}
+
+module.exports = {
+    verifyToken
 }

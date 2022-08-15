@@ -1,8 +1,7 @@
-import STYLES from "./styles";
-import { renderLoginModal } from "./render"
+const { STYLES } = require('./styles');
+const { renderLoginModal } =  require("./render");
 
-import { isLoggedIn, logout  } from "./auth";
-
+const { isLoggedIn, logout  } = require("./auth");
 
 window.addEventListener("load", (e) => {
     e.preventDefault();
@@ -76,4 +75,11 @@ function registerScripts() {
     icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
     document.head.appendChild(icons);
     return true;
+}
+
+module.exports = {
+    remark_init,
+    remark_destroy,
+    registerStyles,
+    registerScripts   
 }
