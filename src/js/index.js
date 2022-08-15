@@ -22,8 +22,7 @@ export function remark_init() {
         remark_disabled_class = "";
     }
 
-    const remark_markup =
-        `
+    const remark_markup = `
         <div class="remark_init_container">
             <span class="remark_init_text">REMARK</span>
             <button type="button" class="remark_standard_button remark_init_button remark_login_button" id="remark_login_button">${remark_login_button_text}</button>

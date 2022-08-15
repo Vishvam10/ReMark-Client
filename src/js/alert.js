@@ -5,21 +5,21 @@ const alertModal = (type, message) => {
     switch (type) {
         case "ERROR":
             markup = `
-                <div class="remark_error_container remark_error_container_error">
+                <div id="remark_error_container" class="remark_error_container remark_error_container_error">
                     <p class="remark_error_text">${message}</p>
                 </div>
                 `
             break;
         case "SUCCESS":
             markup = `
-                <div class="remark_error_container remark_error_container_success">
+                <div id="remark_error_container" class="remark_error_container remark_error_container_success">
                     <p class="remark_error_text">${message}</p>
                 </div>
             `
             break
         case "INTIMATION":
             markup = `
-            <div class="remark_error_container remark_error_container_intimation">
+            <div id="remark_error_container" class="remark_error_container remark_error_container_intimation">
                 <p class="remark_error_text">${message}</p>
             </div>
             `
@@ -31,9 +31,10 @@ const alertModal = (type, message) => {
 }
 
 export function hideAlert() {
-    const ele = document.querySelector('.remark_error_container');
+    const ele = document.getElementById('remark_error_container');
     if (ele) {
-        removeHTMLElement(ele)
+        removeHTMLElement(ele);
+        return;
     }
 }
 
@@ -42,5 +43,6 @@ export function showAlert(type, message, time = 1.5) {
     const markup = alertModal(type, message);
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
     window.setTimeout(hideAlert, time * 1000);
+    return markup;
 }
 

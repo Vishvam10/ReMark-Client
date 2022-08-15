@@ -206,8 +206,7 @@ export const EDIT_ANNOTATION_MODAL = (node_xpath) => {
         }
     });
 
-    const markup =
-        `
+    const markup = `
         <div class="remark_standard_modal" id="remark_edit_annotation_modal">
             <div class="remark_standard_modal_header">
                 <h3 class="remark_standard_modal_title">Edit Annotation</h3>

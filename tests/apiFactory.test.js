@@ -47,6 +47,5 @@ it("Logs the user in", async () => {
 
   const res = await POST(url, bodyData);
   const data = await res.json();
-  console.log(data);
   expect(data.status).toEqual(200);
 });

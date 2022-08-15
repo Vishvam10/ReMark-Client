@@ -8,6 +8,7 @@ export function removeHTMLElement(ele) {
 
 export function highlightElements() {
     document.addEventListener("mouseover", (e) => {
+        console.log("IN MOUSEOVER");
         e.preventDefault();
         e.stopPropagation();
         const className = e.target.className;
