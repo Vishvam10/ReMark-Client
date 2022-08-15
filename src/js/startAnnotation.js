@@ -1,19 +1,19 @@
-const { remarkGlobalData } = require("./global");
-const { VALID_HTML_ELEMENTS } = require("./constants");
+import { remarkGlobalData } from "./global";
+import { VALID_HTML_ELEMENTS } from "./constants";
 
-const { renderExistingAnnotations } = require("./render");
+import { renderExistingAnnotations } from "./render";
 
-const { getAnnotationByWebsiteID } = require("./annotationAPI");
-const { verifyToken } = require("./tokenAPI");
-const { isAdmin } = require("./auth");
+import { getAnnotationByWebsiteID } from "./annotationAPI";
+import { verifyToken } from "./tokenAPI";
+import { isAdmin } from "./auth";
 
-const { showAlert } = require("./alert");
+import { showAlert } from "./alert";
 
-const { overrideContextMenu } = require("./contextmenu")
-const { highlightElements, removeHTMLElement, removeAllExistingModals } = require("./utils/dom_operations");
-const { getNodeXpath } = require("./utils/xpath_operations");
+import { overrideContextMenu } from "./contextmenu";
+import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
+import { getNodeXpath } from "./utils/xpath_operations";
 
-async function startAnnotationProcess() {
+export async function startAnnotationProcess() {
     const remarkScriptTag = document.getElementById("remark_annotation_script");
 
     // 1. Check for API_KEY
@@ -34,14 +34,14 @@ async function startAnnotationProcess() {
     }
 
     // 3. Load and render existing annotations if any
-    website_id = remarkScriptTag.dataset.website_id
+    const website_id = remarkScriptTag.dataset.website_id;
     if ((!website_id) || (website_id == "")) {
         showAlert("ERROR", "Invalid website ID");
     } else {
         remarkGlobalData["website_id"] = website_id; 
     }
 
-    const annotations = await getAnnotationByWebsiteID(website_id, api_key);
+    const annotations = await getAnnotationByWebsiteID();
 
     if (annotations.length > 0) {
         remarkGlobalData["annotations"] = annotations;
@@ -125,8 +125,4 @@ async function startAnnotationProcess() {
             removeHTMLElement(context_menu_check)
         }
     })
-}
-
-module.exports = {
-    startAnnotationProcess
 }

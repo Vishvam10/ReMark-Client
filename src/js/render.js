@@ -1,24 +1,12 @@
-const { remarkGlobalData } = require("./global");
-const { removeHTMLElement } = require("./utils/dom_operations");
-const { getNodeXpath, getElementAfterCheck } = require("./utils/xpath_operations");
+import { remarkGlobalData } from "./global";
+import { removeHTMLElement } from "./utils/dom_operations";
+import { getNodeXpath, getElementAfterCheck } from "./utils/xpath_operations";
 
-const { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, DELETE_ANNOTATION_MODAL, COMMENTS_MARKUP, DELETE_COMMENT_MODAL } = require("./components")
+import { SIDEBAR, LOGIN_MARKUP, SIGNUP_MARKUP, CREATE_ANNOTATION_MODAL, EDIT_ANNOTATION_MODAL, DELETE_ANNOTATION_MODAL, COMMENTS_MARKUP, DELETE_COMMENT_MODAL } from "./components";
 
-const {
-    handleCreateAnnotation,
-    handleResolveAnnotation,
-    handleEditAnnotation,
-    handleDeleteAnnotation,
-    handleCreateComment,
-    handleEditComment,
-    handleDeleteComment,
-    handleCommentUpvote,
-    handleLoginSignupSwitch,
-    handleLoginUser,
-    handleSignupUser,
-} = require("./handlers")
+import * as handlers from "./handlers";
 
-const { showAlert } = require("./alert")
+import { showAlert } from "./alert";
 
 /*
     
@@ -30,7 +18,7 @@ const { showAlert } = require("./alert")
     
 */
 
-function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html_text_content) {
+export function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html_text_content) {
     const create_modal_check = document.getElementById("remark_create_annotation_modal");
     if (create_modal_check) {
         return;
@@ -61,13 +49,13 @@ function renderNewAnnotationModal(html_node, html_tag, html_class, html_id, html
             e.preventDefault();
             e.stopPropagation();
             const createAnnotationForm = document.getElementById("createAnnotationForm");
-            handleCreateAnnotation(createAnnotationForm)
+            handlers.handleCreateAnnotation(createAnnotationForm)
         })
     }
 
 }
 
-function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_content) {
+export function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const edit_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (edit_modal_check) {
         return;
@@ -104,12 +92,12 @@ function renderEditAnnotationModal(html_node, html_tag, html_id, html_text_conte
             e.preventDefault();
             e.stopPropagation();
             const editAnnotationForm = document.getElementById("editAnnotationForm");
-            handleEditAnnotation(editAnnotationForm)
+            handlers.handleEditAnnotation(editAnnotationForm)
         })
     }
 }
 
-function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
+export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
     const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
     if (delete_modal_check) {
         return;
@@ -147,13 +135,13 @@ function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_con
             e.preventDefault();
             e.stopPropagation();
             const deleteAnnotationForm = document.getElementById("deleteAnnotationForm");
-            handleDeleteAnnotation(deleteAnnotationForm);
+            handlers.handleDeleteAnnotation(deleteAnnotationForm);
         })
     }
 
 }
 
-function renderExistingAnnotations() {
+export function renderExistingAnnotations() {
 
     const annotations = remarkGlobalData["annotations"];
 
@@ -174,7 +162,7 @@ function renderExistingAnnotations() {
     // THIS WILL BE DONE USING THE CONTEXT MENU
 }
 
-function renderSideBar(xpath) {
+export function renderSideBar(xpath) {
     const annotations = remarkGlobalData["annotations"];
     remarkGlobalData["currentXPath"] = xpath;
     let curAnnotation;
@@ -211,7 +199,7 @@ function renderSideBar(xpath) {
         createBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleCreateComment();
+            handlers.handleCreateComment();
         })
     }
 
@@ -219,7 +207,7 @@ function renderSideBar(xpath) {
         resolveBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleResolveAnnotation(curAnnotation["annotation_id"]);
+            handlers.handleResolveAnnotation(curAnnotation["annotation_id"]);
         })
     }
 
@@ -227,22 +215,18 @@ function renderSideBar(xpath) {
     const user_authority = localStorage.getItem("user_authority");
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
-    if(user_authority == "admin") {
-        comments.forEach((comment) => {
-            renderComment(comment=comment, include_actions=true);
-        });
-    } else {
-        comments.forEach((comment) => {
-            if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
-                renderComment(comment=comment, include_actions=true);
-            } else {
-                renderComment(comment=comment, include_actions=false);
-            }
-        });
-    }
+
+    comments.forEach((comment) => {
+        if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
+            renderComment(comment, true);
+        } else {
+            renderComment(comment, false);
+        }
+    });
+
 }
 
-function renderComment(comment, include_actions=false) {
+export function renderComment(comment, include_actions=false) {
     
     const markup = COMMENTS_MARKUP(comment=comment, include_actions=include_actions);
     const sidebarBody = document.getElementById("remark_comments_body")
@@ -268,26 +252,26 @@ function renderComment(comment, include_actions=false) {
         editBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleEditComment(comment_id);
+            handlers.handleEditComment(comment_id);
         })
     }
     if(upvoteBtn) {
         upvoteBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleCommentUpvote(comment_id, "upvote");
+            handlers.handleCommentUpvote(comment_id, "upvote");
         })
     }
     if(downvoteBtn) {
         downvoteBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleCommentUpvote(comment_id, "downvote");
+            handlers.handleCommentUpvote(comment_id, "downvote");
         })
     }
 }
 
-function renderDeleteCommentModal(comment_id) {
+export function renderDeleteCommentModal(comment_id) {
     const body = document.getElementsByTagName('body')[0];
   
     const deleteCommentModal = DELETE_COMMENT_MODAL(comment_id);
@@ -311,12 +295,12 @@ function renderDeleteCommentModal(comment_id) {
             e.preventDefault();
             e.stopPropagation();
             const deleteCommentForm = document.getElementById("deleteCommentForm");
-            handleDeleteComment(deleteCommentForm);
+            handlers.handleDeleteComment(deleteCommentForm);
         })
     }
 }
 
-function renderLoginModal() {
+export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
 
@@ -338,7 +322,7 @@ function renderLoginModal() {
             e.stopPropagation();
             document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const loginForm = document.getElementById("loginForm");
-            handleLoginUser(loginForm);
+            handlers.handleLoginUser(loginForm);
         })
     }
     if(switchBtn) {
@@ -347,12 +331,12 @@ function renderLoginModal() {
             e.stopPropagation();
             document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const ele = document.getElementById("remark_login_modal")
-            handleLoginSignupSwitch(ele);
+            handlers.handleLoginSignupSwitch(ele);
         })
     }
 }
 
-function renderSignupModal() {
+export function renderSignupModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", SIGNUP_MARKUP);
     
@@ -373,7 +357,7 @@ function renderSignupModal() {
             e.preventDefault();
             e.stopPropagation();
             const signupForm = document.getElementById("signupForm");
-            handleSignupUser(signupForm)
+            handlers.handleSignupUser(signupForm)
         })
     }
     if(switchBtn) {
@@ -381,19 +365,7 @@ function renderSignupModal() {
             e.preventDefault();
             e.stopPropagation();
             const ele = document.getElementById("remark_signup_modal");
-            handleLoginSignupSwitch(ele);
+            handlers.handleLoginSignupSwitch(ele);
         })
     }
-}
-
-module.exports = {
-    renderNewAnnotationModal,
-    renderEditAnnotationModal,
-    renderDeleteAnnotationModal,
-    renderExistingAnnotations,
-    renderSideBar,
-    renderComment,
-    renderDeleteCommentModal,
-    renderLoginModal,
-    renderSignupModal
 }

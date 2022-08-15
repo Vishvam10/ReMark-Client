@@ -1,4 +1,4 @@
-const STYLES = `
+export const STYLES = `
 
     :root {
         --remark-color-primary: #0d6efd;
@@ -720,8 +720,4 @@ const STYLES = `
         color: var(--remark-color-grey);
     }
 
-    `
-
-module.exports = {
-    STYLES
-}
+`;

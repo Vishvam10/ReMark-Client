@@ -1,16 +1,16 @@
-const { createAnnotation, editAnnotation, deleteAnnotation } = require("./annotationAPI");
-const { createComment, editComment, deleteComment, updateCommentVote } = require("./commentAPI");
-const { loginUser, signupUser } = require("./auth");
+import { createAnnotation, editAnnotation, deleteAnnotation } from "./annotationAPI";
+import { createComment, editComment, deleteComment, updateCommentVote } from "./commentAPI";
+import { loginUser, signupUser } from "./auth";
 
-const { renderLoginModal, renderSignupModal } = require("./render");
-const { removeHTMLElement, repositionStart } = require("./utils/dom_operations");
-const { remarkGlobalData } = require("./global");
-const { showAlert } = require("./alert");
-const { startAnnotationProcess } = require("./startAnnotation");
+import { renderLoginModal, renderSignupModal } from "./render";
+import { removeHTMLElement, repositionStart } from "./utils/dom_operations";
+import { remarkGlobalData } from "./global";
+import { showAlert } from "./alert";
+import { startAnnotationProcess } from "./startAnnotation";
 
 //+ ANNOTATION HANDLERS
 
-function handleCreateAnnotation(formElement) {
+export function handleCreateAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
     const user_id = localStorage.getItem("user_id");
@@ -31,7 +31,7 @@ function handleCreateAnnotation(formElement) {
     createAnnotation(data);
 }
 
-function handleResolveAnnotation(annotation_id) {
+export function handleResolveAnnotation(annotation_id) {
     let data = {}
     data["annotation_id"] = annotation_id;
     data["action_type"] = "edit_resolved";
@@ -39,7 +39,7 @@ function handleResolveAnnotation(annotation_id) {
     editAnnotation(data);
 }
 
-function handleEditAnnotation(formElement) {
+export function handleEditAnnotation(formElement) {
     let form = new FormData(formElement);
     const annotation_id = formElement.dataset.annotation_id;
     let data = {}
@@ -66,7 +66,7 @@ function handleEditAnnotation(formElement) {
     editAnnotation(data);
 }
 
-function handleDeleteAnnotation(formElement) {
+export function handleDeleteAnnotation(formElement) {
     let form = new FormData(formElement);
     let data = {}
     for (var pair of form.entries()) {
@@ -94,7 +94,7 @@ function handleDeleteAnnotation(formElement) {
 
 //+ COMMENT HANDLERS
 
-function handleCreateComment() {
+export function handleCreateComment() {
     let data = {}
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
@@ -110,7 +110,7 @@ function handleCreateComment() {
     createComment(data);
 }
 
-function handleEditComment(comment_id) {
+export function handleEditComment(comment_id) {
 
     const user_id = localStorage.getItem("user_id");
     const content_id = `${comment_id}message`;
@@ -142,7 +142,7 @@ function handleEditComment(comment_id) {
 
 }
 
-function handleDeleteComment(formElement) {
+export function handleDeleteComment(formElement) {
     let form = new FormData(formElement);
     let data = {}
     const comment_id = formElement.dataset.comment_id;
@@ -157,7 +157,7 @@ function handleDeleteComment(formElement) {
     }
 }
 
-function handleCommentUpvote(comment_id, action_type) {
+export function handleCommentUpvote(comment_id, action_type) {
     const user_id = localStorage.getItem("user_id");
     let data = {}
     data["user_id"] = user_id;
@@ -166,7 +166,7 @@ function handleCommentUpvote(comment_id, action_type) {
     updateCommentVote(data);
 }
 
-function handleLoginSignupSwitch(component) {
+export function handleLoginSignupSwitch(component) {
     if (component.id == "remark_login_modal") {
         removeHTMLElement(component);
         renderSignupModal();
@@ -178,15 +178,15 @@ function handleLoginSignupSwitch(component) {
 
 //+ AUTH HANDLERS
 
-function handleLoginUser(formElement) {
+export function handleLoginUser(formElement) {
     loginUser(formElement);
 }
 
-function handleSignupUser(formElement) {
+export function handleSignupUser(formElement) {
     signupUser(formElement);
 }
 
-function handlePostLoginSetup() {
+export function handlePostLoginSetup() {
     const loginBtn = document.getElementById("remark_login_button");
     loginBtn.innerText = "Logout";
     document.getElementById("remark_start").classList.remove("remark_disabled_button");
@@ -196,19 +196,4 @@ function handlePostLoginSetup() {
     startAnnotationProcess();
     document.getElementById('remark_start').textContent = "Stop Annotation";
     repositionStart();
-}
-
-module.exports = {
-    handleCreateAnnotation,
-    handleResolveAnnotation,
-    handleEditAnnotation,
-    handleDeleteAnnotation,
-    handleCreateComment,
-    handleEditComment,
-    handleDeleteComment,
-    handleCommentUpvote,
-    handleLoginSignupSwitch,
-    handleLoginUser,
-    handleSignupUser,
-    handlePostLoginSetup
 }

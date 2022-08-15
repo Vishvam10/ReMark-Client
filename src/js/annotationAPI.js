@@ -1,10 +1,11 @@
-const { remarkGlobalData } = require("./global");
-const { BASE_API_URL } = require("./constants");
-const { removeHTMLElement } = require("./utils/dom_operations");
-const { getElementAfterCheck } = require("./utils/xpath_operations");
-const { showAlert } = require("./alert"); 
+import { remarkGlobalData } from "./global";
+import { BASE_API_URL } from "./constants";
+import { removeHTMLElement } from "./utils/dom_operations";
+import { getElementAfterCheck } from "./utils/xpath_operations";
+import { showAlert } from "./alert";
 
-async function getAnnotationByWebsiteID() {
+export async function getAnnotationByWebsiteID() {
+    const website_id = remarkGlobalData["website_id"];
     const url = `${BASE_API_URL}/api/annotation/all/${website_id}`;
     const api_key = remarkGlobalData["api_key"];
     const res = await fetch(url, {
@@ -21,7 +22,7 @@ async function getAnnotationByWebsiteID() {
     return data;
 }
 
-async function createAnnotation(bodyData) {
+export async function createAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -49,7 +50,7 @@ async function createAnnotation(bodyData) {
     return data;
 }
 
-async function editAnnotation(bodyData) {
+export async function editAnnotation(bodyData) {
     const annotation_id = bodyData["annotation_id"];
     const url = `${BASE_API_URL}/api/annotation/${annotation_id}`;
     const api_key = remarkGlobalData["api_key"];
@@ -88,7 +89,7 @@ async function editAnnotation(bodyData) {
     return data;
 }
 
-async function deleteAnnotation(bodyData) {
+export async function deleteAnnotation(bodyData) {
     const url = `${BASE_API_URL}/api/annotation/${bodyData["annotation_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -113,11 +114,4 @@ async function deleteAnnotation(bodyData) {
     }
     getAnnotationByWebsiteID();
     return data;
-}
-
-module.exports = {
-    getAnnotationByWebsiteID,
-    createAnnotation,
-    editAnnotation,
-    deleteAnnotation
 }

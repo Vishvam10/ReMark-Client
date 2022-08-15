@@ -1,11 +1,11 @@
-const { remarkGlobalData } = require("./global");
-const { BASE_API_URL } = require("./constants");
-const { removeHTMLElement } = require("./utils/dom_operations");
-const { showAlert } = require("./alert"); 
-const { renderComment } = require("./render");
+import { remarkGlobalData } from "./global";
+import { BASE_API_URL } from "./constants";
+import { removeHTMLElement } from "./utils/dom_operations";
+import {showAlert} from "./alert";
+import { renderComment } from "./render";
 
 
-async function createComment(bodyData) {
+export async function createComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -22,41 +22,51 @@ async function createComment(bodyData) {
     const data = await res.json();
     if (data.status == 201) {
         const comment = data.data;
-        renderComment(comment=comment, include_actions=true);
+        renderComment(comment, true);
     } else {
         showAlert("ERROR", "Please enter a valid comment !")
     }
     return data;
 }
 
-async function editComment(bodyData) {
+export async function editComment(bodyData) {
     const url = `${BASE_API_URL}/api/comment/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'API_KEY': `${api_key}`,
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${auth_token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyData)
-    })
-    const data = await res.json();
-    if (!data) {
-        showAlert("ERROR", "Something went wrong !", 2)
-    } else {
-        const content_id = data["comment_id"] + "message";
-        const contentEle = document.getElementById(`${content_id}`);
-        contentEle.textContent = data["content"];
-        showAlert("SUCCESS", "Comment edited successfully !");
-        contentEle.contentEditable = false;
+    try {
+
+        const res = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'API_KEY': `${api_key}`,
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': `Bearer ${auth_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData)
+        })
+        const data = await res.json();
+        console.log(data);
+        if (data.status_code == 400 || data.status_code == 409) {
+            const content_id = bodyData["comment_id"] + "message";
+            const contentEle = document.getElementById(`${content_id}`);
+            contentEle.contentEditable = false;
+            showAlert("ERROR", data["error_message"], 2)
+        } else {
+            const content_id = bodyData["comment_id"] + "message";
+            const contentEle = document.getElementById(`${content_id}`);
+            contentEle.textContent = data["content"];
+            showAlert("SUCCESS", "Comment edited successfully !");
+            contentEle.contentEditable = false;
+        }
+        return data;
+    } catch(err) {
+        console.log(err);
+        return false;
     }
-    return data;
 }
 
-async function updateCommentVote(bodyData) {
+export async function updateCommentVote(bodyData) {
     const url = `${BASE_API_URL}/api/comment/vote/${bodyData["comment_id"]}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -81,7 +91,7 @@ async function updateCommentVote(bodyData) {
     return data;
 }
 
-async function deleteComment(comment_id) {
+export async function deleteComment(comment_id) {
     const url = `${BASE_API_URL}/api/comment/${comment_id}`;
     const api_key = remarkGlobalData["api_key"];
     const auth_token = localStorage.getItem("user_access_token");
@@ -107,11 +117,4 @@ async function deleteComment(comment_id) {
         showAlert("ERROR", "Something went wrong")
     }
     return data;
-}
-
-module.exports = {
-    createComment,
-    editComment,
-    updateCommentVote,
-    deleteComment
 }

@@ -1,14 +1,14 @@
-const { STYLES } = require('./styles');
-const { renderLoginModal } =  require("./render");
+import { STYLES } from './styles';
+import { renderLoginModal } from "./render";
 
-const { isLoggedIn, logout  } = require("./auth");
+import { isLoggedIn, logout } from "./auth";
 
 window.addEventListener("load", (e) => {
     e.preventDefault();
     remark_init();
 })
 
-function remark_init() {
+export function remark_init() {
     
     registerStyles();
     registerScripts();
@@ -54,11 +54,11 @@ function remark_init() {
    
 }
 
-function remark_destroy() {
+export function remark_destroy() {
     return;
 }
 
-function registerStyles() {
+export function registerStyles() {
     const styleElement = document.createElement("style");
     styleElement.type = "text/css";
     if (styleElement.styleSheet) {
@@ -70,16 +70,9 @@ function registerStyles() {
     return true;
 }
 
-function registerScripts() {
+export function registerScripts() {
     const icons = document.createElement("script");
     icons.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
     document.head.appendChild(icons);
     return true;
-}
-
-module.exports = {
-    remark_init,
-    remark_destroy,
-    registerStyles,
-    registerScripts   
 }

@@ -1,11 +1,12 @@
 {
-  "name": "remark.js",
+  "name": "remarj.js",
   "version": "1.0.0",
-  "description": "Website Annotation Tool",
-  "source": "src/js/index.js",
+  "description": "A website annotation tool",
+  "source": "src/js/main.js",
   "main": "dist/main.js",
+  "module": "dist/module.js",
+  "type": "module",
   "scripts": {
-    "serve": "parcel demo/index.html",
     "watch": "parcel watch",
     "build": "parcel build",
     "test": "jest"
@@ -14,25 +15,18 @@
     "type": "git",
     "url": "git+https://github.com/Vishvam10/ReMark-Frontend.git"
   },
-  "type": "module",
   "author": "Vishvam S",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Vishvam10/ReMark-Frontend/issues"
   },
   "homepage": "https://github.com/Vishvam10/ReMark-Frontend#readme",
-  "engines": {
-    "node": "^14.0.0"
-  },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.7.0",
-    "@parcel/transformer-webmanifest": "^2.7.0",
-    "buffer": "^6.0.3",
     "jest": "^28.1.3",
-    "parcel": "^2.7.0",
-    "process": "^0.11.10"
+    "parcel": "^2.7.0"
   },
-  "dependencies": {
-    "axios": "^0.27.2"
+  "dependencies": {},
+  "engines": {
+    "node": "^18.0.0"
   }
 }

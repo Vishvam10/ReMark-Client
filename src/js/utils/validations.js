@@ -1,4 +1,4 @@
-function isAlphaNumeric(s) {
+export function isAlphaNumeric(s) {
     var code, i, len;
 
     for (i = 0, len = s.length; i < len; i++) {
@@ -12,7 +12,7 @@ function isAlphaNumeric(s) {
     return true;
 };
 
-function validateForm(data) {
+export function validateForm(data) {
     if (data["authority"] == "admin" || data["authority"] == "user") {
         if (data["username"] != "") {
             var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -24,9 +24,4 @@ function validateForm(data) {
         return "Empty Field Present"
     }
     return "Invalid Authority"
-}
-
-module.exports = {
-    isAlphaNumeric,
-    validateForm
 }

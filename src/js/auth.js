@@ -1,13 +1,11 @@
-const { BASE_API_URL } = require("./constants");
-const { removeHTMLElement } = require("./utils/dom_operations");
-const { validateForm } = require("./utils/validations");
-const { showAlert } = require("./alert");
-const { renderLoginModal } = require("./render");
-const { handlePostLoginSetup } = require("./handlers")
+import { BASE_API_URL } from "./constants";
+import { removeHTMLElement } from "./utils/dom_operations";
+import { validateForm } from "./utils/validations";
+import { showAlert } from "./alert";
+import { renderLoginModal } from "./render";
+import { handlePostLoginSetup } from "./handlers";
 
-const axios = require("axios");
-
-function isLoggedIn() {
+export function isLoggedIn() {
     const user_id = localStorage.getItem("user_id");
     const user_access_token = localStorage.getItem("user_access_token");
     const user_name = localStorage.getItem("user_name");
@@ -18,31 +16,32 @@ function isLoggedIn() {
     return false;
 }
 
-function logout() {
+export function logout() {
     localStorage.clear();
 }
 
-async function loginUser(form) {
+export async function loginUser(form) {
     const formData = new FormData(form);
     const bodyData = {}
     for (var pair of formData.entries()) {
         bodyData[pair[0]] = pair[1];
     }
+    console.log(bodyData);
     const res = validateForm(bodyData);
     if (res == "OK") {
         const url = `${BASE_API_URL}/api/login`;
+        console.log("URL : ", url);
         try {
-            const res = await axios({
-                url: url,
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                data: JSON.stringify(bodyData)
+                body: JSON.stringify(bodyData)
             })
-            const data = await res.data;
+            const data = await res.json();
             if (data["status"] == 200) {
                 localStorage.setItem("user_access_token", data["access_token"]);
                 localStorage.setItem("user_id", data["user_id"]);
@@ -61,7 +60,7 @@ async function loginUser(form) {
             }
         } catch(err) {
             console.log("ERROR : ", err);
-            return data;
+            return false;
         } 
     } else {
         showAlert("ERROR", "Form validation failed");
@@ -69,7 +68,7 @@ async function loginUser(form) {
     }
 }
 
-async function signupUser(form) {
+export async function signupUser(form) {
     const formData = new FormData(form);
     const bodyData = {}
     for (var pair of formData.entries()) {
@@ -81,17 +80,16 @@ async function signupUser(form) {
     if (res == "OK") {
         const url = `${BASE_API_URL}/api/user`;
         try {
-            const res = await axios({
-                url: url,
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                data: JSON.stringify(bodyData)
+                body: JSON.stringify(bodyData)
             })
-            const data = await res.data;
+            const data = await res.json();
             if (data["status"] == 201) {
                 const signupFormModal = document.getElementById("remark_signup_modal");
                 showAlert("SUCCESS", data["message"]);
@@ -100,29 +98,24 @@ async function signupUser(form) {
                 }
                 renderLoginModal()
             } else {
-                showAlert("ERROR", data["error_message"]);
+                showAlert("ERROR", 
+                data["error_message"]);
                 return false;
             }
         } catch(err) {
             console.log("ERROR : ", err);
+            return false;
         }
     } else {
-        showAlert("ERROR", "Form validation failed")
+        showAlert("ERROR", "Form validation failed");
+        return false;
     }
 }
 
-function isAdmin() {
+export function isAdmin() {
     const authority = localStorage.getItem("user_authority");
     if (authority == "admin") {
         return true;
     }
     return false;
-}
-
-module.exports = {
-    loginUser,
-    signupUser,
-    isAdmin,
-    logout,
-    isLoggedIn
 }
