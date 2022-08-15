@@ -24,14 +24,19 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [ ] **Testing** :
   - Unit Tests :   
     - [ ] `index`
-      - [ ] `registerScripts()`
-      - [ ] `registerStyles()`
+      - [x] `registerScripts()`
+      - [x] `registerStyles()`
+      - [ ] `remark_init()`
+      - [ ] `remark_destroy()` ( **TODO** )
     - [x] `alerts`
     - [ ] `utils` :
       - [ ] `validations`
       - [ ] `XPathOperations`
       - [x] `DOMOperations` (`HighlightElements() method left`)
     - [ ] `apiFactory`
+    - [ ] APIs :
+      - [ ] AnnotationAPI
+      - [ ] CommentAPI
     - [ ] `contextmenu`
   - Integration Tests :
     - [ ] `render`

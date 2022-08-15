@@ -4,7 +4,6 @@
 
 import { registerScripts, registerStyles } from "../src/js/index";
 
-
 test('INDEX : Register CSS Styles ', () => {
     registerStyles()
     const ele = document.getElementById("remark_global_styles");
