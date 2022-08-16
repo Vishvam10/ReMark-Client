@@ -1,4 +1,4 @@
-import { setHeaders } from "../../src/js/apiFactory";
+import { setHeaders } from "../../../../src/js/apiFactory";
 
 it("API : FACTORY : Set header method", async () => {
     // Only api_key

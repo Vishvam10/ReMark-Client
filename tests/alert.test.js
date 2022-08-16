@@ -4,7 +4,6 @@
 
 import { hideAlert, showAlert } from "./../src/js/alert";
 
-
 test('ALERTS : Show alert method ', () => {
     const types = ["SUCCESS", "INTIMATION", "ERROR"];
     const message = "Testing message !";

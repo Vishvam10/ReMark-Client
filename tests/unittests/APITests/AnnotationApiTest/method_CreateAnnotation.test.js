@@ -3,9 +3,9 @@
 */
 
 import fetchMock from "jest-fetch-mock";
-import { CREATE_ANNOTATION_MODAL } from "../../../src/js/components";
-import { createAnnotation } from "../../../src/js/annotationAPI";
-import { remarkGlobalData } from "../../../src/js/global";
+import { CREATE_ANNOTATION_MODAL } from "../../../../src/js/components";
+import { createAnnotation } from "../../../../src/js/annotationAPI";
+import { remarkGlobalData } from "../../../../src/js/global";
 
 fetchMock.enableMocks();
 

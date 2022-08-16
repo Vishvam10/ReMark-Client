@@ -3,8 +3,8 @@
 */
 
 import fetchMock from "jest-fetch-mock";
-import { deleteAnnotation } from "../../../src/js/annotationAPI";
-import { remarkGlobalData } from "../../../src/js/global";
+import { deleteAnnotation } from "../../../../src/js/annotationAPI";
+import { remarkGlobalData } from "../../../../src/js/global";
 
 fetchMock.enableMocks();
 

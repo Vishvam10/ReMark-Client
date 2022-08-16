@@ -7,7 +7,6 @@ import { createComment } from "../../../../src/js/commentAPI";
 
 fetchMock.enableMocks();
 
-
 describe("API : COMMENT API :", () => {
     beforeEach(() => {
       fetch.resetMocks();

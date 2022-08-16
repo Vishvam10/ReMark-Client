@@ -1,7 +1,7 @@
 
 import fetchMock from "jest-fetch-mock";
-import { POST } from "../../src/js/apiFactory";
-import { BASE_API_URL } from "../../src/js/constants";
+import { POST } from "../../../../src/js/apiFactory";
+import { BASE_API_URL } from "../../../../src/js/constants";
 import { getRandomNumber } from "../../../../src/js/utils/numeric";
 
 fetchMock.enableMocks();

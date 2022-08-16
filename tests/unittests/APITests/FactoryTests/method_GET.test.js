@@ -1,6 +1,6 @@
 import fetchMock from "jest-fetch-mock";
-import { GET } from "../../src/js/apiFactory";
-import { BASE_API_URL } from "../../src/js/constants";
+import { GET } from "../../../../src/js/apiFactory";
+import { BASE_API_URL } from "../../../../src/js/constants";
 
 fetchMock.enableMocks();
 

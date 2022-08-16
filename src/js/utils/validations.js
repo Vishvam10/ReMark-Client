@@ -19,7 +19,10 @@ export function validateAuthority(authority) {
 }
 
 export function validateUsername(username) {
-    return alphanumericWithUnderscoreRegex.test(username);
+    if(username.length > 0) {
+        return alphanumericWithUnderscoreRegex.test(username);
+    }
+    return false;
 }
 
 export function validateAnnotationName(name) {

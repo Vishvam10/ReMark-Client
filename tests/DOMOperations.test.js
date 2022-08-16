@@ -2,7 +2,7 @@
  * @jest-environment jsdom
 */
 
-import { removeHTMLElement, highlightElements, repositionStart, removeAllExistingModals } from "../src/js/utils/dom_operations";
+import { removeHTMLElement, highlightElements, repositionStart, removeAllExistingModals } from "./../src/js/utils/dom_operations";
 
 import * as components from "./../src/js/components";
 

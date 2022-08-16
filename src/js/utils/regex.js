@@ -2,7 +2,7 @@ export const emojisRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]
 
 export const alphanumericRegex = /^[a-z0-9]+$/
 
-export const alphanumericWithUnderscoreRegex = /[0-9a-zA-Z_]/
+export const alphanumericWithUnderscoreRegex = /^[0-9a-zA-Z_]*$/
 
 // NOTE : Underscore and dots are not allowed
 export const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/

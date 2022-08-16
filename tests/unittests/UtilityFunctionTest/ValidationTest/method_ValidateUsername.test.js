@@ -30,10 +30,7 @@ describe('UTILITY FUNCTIONS : VALIDATE USERNAME', () => {
     ]
     for(const t of testCases) {
         const check = validateUsername(t["username"]);
-        // expect(check).toEqual(t["expected_result"]);
-        if(check != t["expected_result"]) {
-            console.log(check, t["expected_result"], t);
-        }
+        expect(check).toEqual(t["expected_result"]);
     }
   });
 
