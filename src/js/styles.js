@@ -313,7 +313,7 @@ export const STYLES = `
         border-radius: 1rem;
         padding: 1rem;
         box-shadow: var(--remark-default-box-shadow);
-        z-index: 1000;
+        z-index: 100000;
         height: 100vh;
         background: var(--remark-color-white);
         padding: 1rem;
