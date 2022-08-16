@@ -200,32 +200,58 @@ export async function handleLoginUser(form) {
         if(pair[0] == "username") {
             if(!validators.validateUsername(pair[1].trim())) {
                 showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
-                return;
+                return false;
             }
         }
+        if(pair[0] == "password") {
+            if(!validators.validatePassword(pair[1].trim())) {
+                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !");
+                return false;
+            }
+        }
+        if(pair[0] == "authority") {
+            if(!validators.validateAuthority(pair[1].trim())) {
+                showAlert("ERROR", "Please enter a valid authority !");
+                return false;
+            }
+        }
+        bodyData[pair[0]] = pair[1].trim();
     }
-    if (res == "OK") {
-        login(bodyData)
-    } else {
-        showAlert("ERROR", "Form validation failed");
-        return false;;
-    }
+    login(bodyData);
 }
 
 export async function handleSignupUser(form) {
     const formData = new FormData(form);
     const bodyData = {}
     for (var pair of formData.entries()) {
-        bodyData[pair[0]] = pair[1];
+        if(pair[0] == "username") {
+            if(!validators.validateUsername(pair[1].trim())) {
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+                return false;
+            }
+        }
+        if(pair[0] == "password") {
+            if(!validators.validatePassword(pair[1].trim())) {
+                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !");
+                return false;
+            }
+        }
+        if(pair[0] == "email_id") {
+            if(!validators.validateEmail(pair[1].trim())) {
+                showAlert("ERROR", "Please enter an email ID without dots or underscores !");
+                return false;
+            }
+        }
+        if(pair[0] == "bio") {
+            if(!validators.validateBio(pair[1].trim())) {
+                showAlert("ERROR", "Please enter a valid bio with less than 80 characters !");
+                return false;
+            }
+        }
+        bodyData[pair[0]] = pair[1].trim();
     }
     bodyData["authority"] = "user";
-    const res = validateForm(bodyData);
-    if (res == "OK") {
-       signup(bodyData)
-    } else {
-        showAlert("ERROR", "Form validation failed");
-        return false;
-    }
+    signup(bodyData)
 }
 
 export function handlePostLoginSetup() {
