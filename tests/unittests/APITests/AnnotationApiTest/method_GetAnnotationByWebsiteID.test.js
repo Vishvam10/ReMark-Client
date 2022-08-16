@@ -2,8 +2,6 @@
  * @jest-environment jsdom
 */
 
-// We need jsdom for Xpath checks
-
 import fetchMock from "jest-fetch-mock";
 import { getAnnotationByWebsiteID } from "../../../../src/js/annotationAPI";
 import { remarkGlobalData } from "../../../../src/js/global";
