@@ -1,3 +1,5 @@
+import { emailRegex, passwordRegex } from "./regex";
+
 export function isAlphaNumeric(s) {
     var code, i, len;
 
@@ -31,3 +33,12 @@ export function getRandomNumber(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function validateEmail(email) {
+    return emailRegex.test(email);
+}
+
+export function validatePassword(password) {
+    return passwordRegex.test(password);
+}
+
