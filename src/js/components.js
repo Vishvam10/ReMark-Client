@@ -23,7 +23,7 @@ export const LOGIN_MARKUP =
                     <input type="password" name="password" class="remark_form_input" id="password">
                 </div>
                 <div class="remark_form_fields">
-                    <label for="authority" class="remark_form_label">Authority</label>
+                    <label for="authority" class="remark_form_label">Authority ( user or admin )</label>
                     <input type="authority" name="authority" class="remark_form_input" id="authority">
                 </div>
                 <div class="remark_form_fields">
