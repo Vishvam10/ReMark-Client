@@ -30,15 +30,15 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
       - [ ] `remark_destroy()` ( **TODO** )
     - [x] `alerts`
     - [ ] `utils` :
-      - [ ] `validations`
+      - [x] `validations`
       - [ ] `XPathOperations`
-      - [x] `DOMOperations` (`HighlightElements() method left`)
-    - [ ] `apiFactory`
+      - [x] `DOMOperations` (`HighlightElements() method is left`)
+    - [x] `apiFactory`
     - [x] APIs :
       - [x] AnnotationAPI
       - [x] CommentAPI
-    - [ ] `contextmenu`
   - Integration Tests : (**OPTIONAL**)
+    - [ ] `contextmenu`
     - [ ] `render`
     - [ ] `handlers`
 
