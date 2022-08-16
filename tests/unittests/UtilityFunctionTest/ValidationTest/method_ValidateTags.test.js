@@ -1,4 +1,4 @@
-import { validateTag } from "../../../../src/js/utils/validations";
+import { validateTags } from "../../../../src/js/utils/validations";
 
 // Only comma separated lower case alphabet and number. 
 // No special character and no trailing or leading spaces.
@@ -64,7 +64,7 @@ describe('UTILITY FUNCTIONS : VALIDATE TAGS', () => {
         },
     ]
     for(const t of testCases) {
-        const check = validateTag(t["tags"]);
+        const check = validateTags(t["tags"]);
         expect(check).toEqual(t["expected_result"]);
     }
   });

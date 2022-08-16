@@ -33,12 +33,12 @@ export function validateAnnotationName(name) {
 }
 
 export function validateBio(bio) {
-    if(bio.length > 80) {
-        return false;
+    if(bio.length > 0 && bio.length <= 80) {
+        return true;
     } 
-    return true;
+    return false;
 }
 
-export function validateTag(tags) {
+export function validateTags(tags) {
     return commaSeparatedTagsRegex.test(tags)
 }

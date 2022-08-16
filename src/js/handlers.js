@@ -4,7 +4,6 @@ import { login, signup } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
 import { removeHTMLElement, repositionStart } from "./utils/dom_operations";
-import { validateForm } from "./utils/validations";
 import { remarkGlobalData } from "./global";
 import { showAlert } from "./alert";
 import { startAnnotationProcess } from "./startAnnotation";
@@ -21,13 +20,13 @@ export function handleCreateAnnotation(formElement) {
     for (var pair of form.entries()) {
         if (pair[0] == "annotation_name") {
             if(!validators.validateAnnotationName(pair[1].trim())) {
-                showAlert("ERROR", "Only alphanumeric values and comma are allowed !");
+                showAlert("ERROR", "Only alphanumeric values and comma are allowed !", 2, 2);
                 return;
             }
         }
         if(pair[0] == "tags") {
-            if(!validators.validataTags(pair[1].trim())) {
-                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+            if(!validators.validateTags(pair[1].trim())) {
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !", 2, 2);
                 return;
             }
         }
@@ -54,16 +53,19 @@ export function handleEditAnnotation(formElement) {
     const annotation_id = formElement.dataset.annotation_id;
     let data = {}
     for (var pair of form.entries()) {
-        if (pair[0] == "new_name") {
-            if(!validators.validateAnnotationName(pair[1].trim())) {
-                showAlert("ERROR", "Only alphanumeric values and comma are allowed !");
-                return;
+        if(pair[1] != "") {
+
+            if (pair[0] == "new_name") {
+                if(!validators.validateAnnotationName(pair[1].trim())) {
+                    showAlert("ERROR", "Please enter a valid annotation name with alphanumeric, the symbols : _ !$%^&, space and emojis !", 4);
+                    return;
+                }
             }
-        }
-        if(pair[0] == "new_tags") {
-            if(!validators.validataTags(pair[1].trim())) {
-                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
-                return;
+            if(pair[0] == "new_tags") {
+                if(!validators.validateTags(pair[1].trim())) {
+                    showAlert("ERROR", "Please enter a valid using with comma separated alphanumeric values with no trailing or leading spaces are allowed !", 2);
+                    return;
+                }
             }
         }
         data[pair[0]] = pair[1].trim();
@@ -199,13 +201,13 @@ export async function handleLoginUser(form) {
     for (var pair of formData.entries()) {
         if(pair[0] == "username") {
             if(!validators.validateUsername(pair[1].trim())) {
-                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !", 4);
                 return false;
             }
         }
         if(pair[0] == "password") {
             if(!validators.validatePassword(pair[1].trim())) {
-                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !");
+                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !", 4);
                 return false;
             }
         }
@@ -226,25 +228,25 @@ export async function handleSignupUser(form) {
     for (var pair of formData.entries()) {
         if(pair[0] == "username") {
             if(!validators.validateUsername(pair[1].trim())) {
-                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+                showAlert("ERROR", "Please enter a username with alphanumerics, underscores and no spaces !", 4);
                 return false;
             }
         }
         if(pair[0] == "password") {
             if(!validators.validatePassword(pair[1].trim())) {
-                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !");
+                showAlert("ERROR", "Please enter a password with minimum 8 letter, with at least a symbol, upper and lower case letters and a number !", 4);
                 return false;
             }
         }
         if(pair[0] == "email_id") {
             if(!validators.validateEmail(pair[1].trim())) {
-                showAlert("ERROR", "Please enter an email ID without dots or underscores !");
+                showAlert("ERROR", "Please enter an email ID without dots or underscores !", 2);
                 return false;
             }
         }
         if(pair[0] == "bio") {
             if(!validators.validateBio(pair[1].trim())) {
-                showAlert("ERROR", "Please enter a valid bio with less than 80 characters !");
+                showAlert("ERROR", "Please enter a valid bio with more than 0 and less than 80 characters !", 2);
                 return false;
             }
         }
