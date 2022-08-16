@@ -1,44 +1,41 @@
-import { emailRegex, passwordRegex } from "./regex";
-
-export function isAlphaNumeric(s) {
-    var code, i, len;
-
-    for (i = 0, len = s.length; i < len; i++) {
-        code = s.charCodeAt(i);
-        if (!(code > 47 && code < 58) && // numeric (0-9)
-            !(code > 64 && code < 91) && // upper alpha (A-Z)
-            !(code > 96 && code < 123)) { // lower alpha (a-z)
-            return false;
-        }
-    }
-    return true;
-};
-
-export function validateForm(data) {
-    if (data["authority"] == "admin" || data["authority"] == "user") {
-        if (data["username"] != "") {
-            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-            if (re.test(data["password"])) {
-                return "OK";
-            }
-            return "Invalid Password Format";
-        }
-        return "Empty Field Present"
-    }
-    return "Invalid Authority"
-}
-
-export function getRandomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { emailRegex, passwordRegex, alphanumericWithSpecialCharactersSpaceAndEmojisRegex, alphanumericWithUnderscoreRegex, commaSeparatedTagsRegex } from "./regex";
 
 export function validateEmail(email) {
     return emailRegex.test(email);
 }
 
 export function validatePassword(password) {
+    if(password.length > 20) {
+        return false;
+    }
     return passwordRegex.test(password);
 }
 
+export function validateAuthority(authority) {
+    if(authority == "admin" || authority == "user") {
+        return true;
+    }
+    return false;
+}
+
+export function validateUsername(username) {
+    return alphanumericWithUnderscoreRegex.test(username);
+}
+
+export function validateAnnotationName(name) {
+    if(name.length > 0) {
+        return alphanumericWithSpecialCharactersSpaceAndEmojisRegex.test(name);
+    }
+    return false;
+}
+
+export function validateBio(bio) {
+    if(bio.length > 80) {
+        return false;
+    } 
+    return true;
+}
+
+export function validateTag(tags) {
+    return commaSeparatedTagsRegex.test(tags)
+}
