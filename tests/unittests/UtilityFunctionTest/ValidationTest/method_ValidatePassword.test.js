@@ -45,12 +45,14 @@ describe('UTILITY FUNCTIONS : VALIDATE PASSWORD', () => {
             "password" : "#!@#Test12312",
             "expected_result" : true
         },
+        {
+            "password" : "#!@#Test12312mdoajfmawejif023234qwekoasifioq34",
+            "expected_result" : false
+        },
     ]
     for(const t of testCases) {
         const check = validatePassword(t["password"]);
-        if(check != t["expected_result"]) {
-            expect(check).toEqual(t["expected_result"]);
-        }
+        expect(check).toEqual(t["expected_result"]);
     }
   });
 

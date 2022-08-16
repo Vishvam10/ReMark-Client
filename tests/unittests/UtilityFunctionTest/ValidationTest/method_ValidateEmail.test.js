@@ -1,6 +1,6 @@
-import { validateEmail } from "../../../src/js/utils/validations";
+import { validateEmail } from "../../../../src/js/utils/validations";
 
-// NOTE : Underscore and dots are not allowed
+// Any email but underscore and dots are not allowed
 
 describe('UTILITY FUNCTIONS : VALIDATE EMAIL', () => {
   it("Without error", async () => {
@@ -48,9 +48,7 @@ describe('UTILITY FUNCTIONS : VALIDATE EMAIL', () => {
     ]
     for(const t of testCases) {
         const check = validateEmail(t["password"]);
-        if(check != t["expected_result"]) {
-            expect(check).toEqual(t["expected_result"]);
-        }
+        expect(check).toEqual(t["expected_result"]);
     }
   });
 
