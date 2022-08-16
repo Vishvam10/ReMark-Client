@@ -9,6 +9,8 @@ import { remarkGlobalData } from "./global";
 import { showAlert } from "./alert";
 import { startAnnotationProcess } from "./startAnnotation";
 
+import * as validators from "./utils/validations";
+
 //+ ANNOTATION HANDLERS
 
 export function handleCreateAnnotation(formElement) {
@@ -17,9 +19,15 @@ export function handleCreateAnnotation(formElement) {
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
     for (var pair of form.entries()) {
-        if (pair[0] == "annotation_name" || pair[0] == "tags") {
-            if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-                showAlert("ERROR", "Only alphanumeric values and comma are allowed !")
+        if (pair[0] == "annotation_name") {
+            if(!validators.validateAnnotationName(pair[1].trim())) {
+                showAlert("ERROR", "Only alphanumeric values and comma are allowed !");
+                return;
+            }
+        }
+        if(pair[0] == "tags") {
+            if(!validators.validataTags(pair[1].trim())) {
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
                 return;
             }
         }
@@ -29,6 +37,7 @@ export function handleCreateAnnotation(formElement) {
     data["user_id"] = user_id;
     data["user_name"] = user_name;
     data["website_id"] = remarkGlobalData["website_id"];
+
     createAnnotation(data);
 }
 
@@ -45,13 +54,18 @@ export function handleEditAnnotation(formElement) {
     const annotation_id = formElement.dataset.annotation_id;
     let data = {}
     for (var pair of form.entries()) {
-        //* TODO : Validation
-        // if (pair[0] == "new_name" || pair[0] == "new_tags") {
-        // if (!pair[1].match(/^[0-9a-zA-Z,_ ]+$/)) {
-        // console.log("Only alphanumeric values and comma are allowed !", pair[0], pair[1]);
-        // return;
-        // }
-        // }
+        if (pair[0] == "new_name") {
+            if(!validators.validateAnnotationName(pair[1].trim())) {
+                showAlert("ERROR", "Only alphanumeric values and comma are allowed !");
+                return;
+            }
+        }
+        if(pair[0] == "new_tags") {
+            if(!validators.validataTags(pair[1].trim())) {
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+                return;
+            }
+        }
         data[pair[0]] = pair[1].trim();
     }
     let actions = [];
@@ -183,9 +197,13 @@ export async function handleLoginUser(form) {
     const formData = new FormData(form);
     const bodyData = {}
     for (var pair of formData.entries()) {
-        bodyData[pair[0]] = pair[1];
+        if(pair[0] == "username") {
+            if(!validators.validateUsername(pair[1].trim())) {
+                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !");
+                return;
+            }
+        }
     }
-    const res = validateForm(bodyData);
     if (res == "OK") {
         login(bodyData)
     } else {
