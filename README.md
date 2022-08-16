@@ -34,9 +34,9 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
       - [ ] `XPathOperations`
       - [x] `DOMOperations` (`HighlightElements() method left`)
     - [ ] `apiFactory`
-    - [ ] APIs :
+    - [x] APIs :
       - [x] AnnotationAPI
-      - [ ] CommentAPI
+      - [x] CommentAPI
     - [ ] `contextmenu`
   - Integration Tests : (**OPTIONAL**)
     - [ ] `render`
