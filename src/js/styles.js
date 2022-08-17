@@ -251,22 +251,31 @@ export const STYLES = `
 
     .remark_standard_modal {
         position: fixed;
-        top: 50%;
-        left: 47%;
-        transform: translate(-50%, -50%);
+        top: 10%;
+        left: 36%;
         width: 40rem;
         background-color: var(--remark-color-white);
         border-radius: 1rem;
         padding: 1rem;
         box-shadow: var(--remark-default-box-shadow);
-        z-index: 1000000;
+        z-index: 1000000000;
         transition: all 0.5s;
         height: auto;
+        animation: remark_modal_animation 0.6s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+
+    @keyframes remark_modal_animation {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 
     .remark_standard_modal_header {
         padding: 1rem;
-        height: 6rem;
+        min-height: 6rem;
         margin: -1rem -1rem 0rem -1rem;
         width: auto;
         display: flex;
@@ -288,11 +297,14 @@ export const STYLES = `
         display: flex;
         flex-direction: row;
         justify-content: start;
-        width: 70%;
+        width: 71%;
         word-wrap: break-word;
         padding: 1rem;
         margin: 1rem 0rem 1rem 2rem;
-        font-size: 1.6rem;
+        font-size: 1.7rem;
+        height: inherit;
+        line-height: 1.9rem;
+        font-weight: 500;
     }
 
     .remark_standard_modal_close_btn {
@@ -304,6 +316,11 @@ export const STYLES = `
         font-size: 1.2rem;
     }
 
+    #remark_create_annotation_modal,
+    #remark_delete_annotation_modal {
+        top: 22%;
+    }
+
     .remark_standard_sidebar {
         position: fixed;
         top: 0;
@@ -313,11 +330,11 @@ export const STYLES = `
         border-radius: 1rem;
         padding: 1rem;
         box-shadow: var(--remark-default-box-shadow);
-        z-index: 100000;
+        z-index: 100000000;
         height: 100vh;
         background: var(--remark-color-white);
         padding: 1rem;
-        animation: remark_sidebar_animation 0.6s;
+        animation: remark_sidebar_animation 0.6s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
     }
 
     @keyframes remark_sidebar_animation {
