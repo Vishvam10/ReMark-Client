@@ -2,6 +2,8 @@ import { STYLES } from './styles';
 import { renderLoginModal } from "./render";
 
 import { isLoggedIn, logout } from "./auth";
+import { stopAnnotationProcess } from './stopAnnotationProcess';
+import { startAnnotationProcess } from './startAnnotationProcess';
 
 window.addEventListener("load", (e) => {
     e.preventDefault();
@@ -30,30 +32,52 @@ export function remark_init() {
         </div>
     `
     body.insertAdjacentHTML("afterbegin", remark_markup);
+    
     document.getElementById("remark_login_button").addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
-        if(e.target.innerText == "Logout") {
-            e.target.innerText = "Login";
-            logout();
-            document.getElementById("remark_start").classList.add("remark_disabled_button");
-            return;
-        }
-        else if(e.target.innerText == "Login") {
+        if(e.target.innerText == "Login") {
+            console.log("CLICKED LOGGED IN");
+            document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const login_modal_check = document.getElementById("remark_login_modal");
             if(login_modal_check) {
                 return;
             }
             renderLoginModal();
+        } else if(e.target.innerText == "Logout") {
+            e.target.innerText = "Login";
+            logout();
+            document.getElementById("remark_start").classList.add   ("remark_disabled_button");
+            document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
+            return;
+        } else {
+            return;
+        }
+    });
+       
+    document.getElementById("remark_start").addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if(e.target.innerText == "Start Annotation") {
+            document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
+            e.target.innerText = "Stop Annotation";
+            console.log("REACHED STOP");
+            startAnnotationProcess();
+        }
+        else if(e.target.innerText == "Stop Annotation") {
+            e.target.innerText = "Start Annotation";
+            stopAnnotationProcess();
+            document.querySelector(".remark_init_container").classList.remove("remark_init_container_resize");
+            return;
         } else {
             return;
         }
     })
-   
+       
 }
 
 export function remark_destroy() {
+    stopAnnotationProcess();
     return;
 }
 

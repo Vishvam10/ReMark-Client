@@ -7,11 +7,9 @@ import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
 import { isAdmin } from "./auth";
 
-import { showAlert } from "./alert";
-
-import { overrideContextMenu } from "./contextmenu";
 import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
-import { getNodeXpath } from "./utils/xpath_operations";
+import { contextMenuListener } from "./utils/dom_listeners";
+import { showAlert } from "./alert";
 
 export async function startAnnotationProcess() {
     const remarkScriptTag = document.getElementById("remark_annotation_script");
@@ -53,76 +51,19 @@ export async function startAnnotationProcess() {
         highlightElements();
     }
 
-
-    document.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const node = e.target;
-        const className = node.className;
-        const tag = node.tagName;
-        const textContent = node.textContent;
-        const id = node.id;
-
-        const contextMenu = document.getElementById("remark_context_menu");
-
-        if (contextMenu) {
-            removeHTMLElement(contextMenu);
-        }
-
-        if (className) {
-            if (className.includes("remark_")) {
-                return;
-            }
-        }
-        if (className.includes("highlight_element_light")) {
-            if (VALID_HTML_ELEMENTS.includes(tag)) {
-
-                let xpath = getNodeXpath(node);
-                xpath = `/${xpath.toLowerCase()}`
-
-                const contextMenuData = {
-                    node,
-                    xpath,
-                    tag,
-                    className,
-                    textContent,
-                    id,
-                    "annotation_present": false
-                }
-
-                overrideContextMenu(e, contextMenuData);
-            }
-
-        } else if (className.includes("highlight_element_strong")) {
-            if (VALID_HTML_ELEMENTS.includes(tag)) {
-
-                let xpath = getNodeXpath(node);
-                xpath = `/${xpath.toLowerCase()}`
-
-                const contextMenuData = {
-                    node,
-                    xpath,
-                    tag,
-                    className,
-                    "annotation_present": true
-                }
-
-                overrideContextMenu(e, contextMenuData);
-            }
-        }
-    });
+  
+    document.addEventListener("contextmenu", contextMenuListener,  true);
 
     document.addEventListener("keydown", (e) => {
         if (e.key == "Escape") {
             removeAllExistingModals();
         }
-    });
+    }); 
 
     document.addEventListener("click", (e) => {
         const context_menu_check = document.getElementById("remark_context_menu");
         if(context_menu_check) {
-            removeHTMLElement(context_menu_check)
+            removeHTMLElement(context_menu_check);
         }
     })
 }

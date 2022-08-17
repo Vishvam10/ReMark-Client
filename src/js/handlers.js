@@ -1,12 +1,15 @@
+import { remarkGlobalData } from "./global";
+import { VALID_HTML_ELEMENTS } from "./constants";
 import { createAnnotation, editAnnotation, deleteAnnotation } from "./annotationAPI";
 import { createComment, editComment, deleteComment, updateCommentVote } from "./commentAPI";
 import { login, signup } from "./auth";
 
 import { renderLoginModal, renderSignupModal } from "./render";
+import { startAnnotationProcess } from "./startAnnotationProcess";
+import { overrideContextMenu } from "./contextmenu";
 import { removeHTMLElement, repositionStart } from "./utils/dom_operations";
-import { remarkGlobalData } from "./global";
+import { getNodeXpath } from "./utils/xpath_operations";
 import { showAlert } from "./alert";
-import { startAnnotationProcess } from "./startAnnotation";
 
 import * as validators from "./utils/validations";
 
@@ -266,5 +269,63 @@ export function handlePostLoginSetup() {
     startAnnotationProcess();
     document.getElementById('remark_start').textContent = "Stop Annotation";
     repositionStart();
+}
+
+//+ CONTEXT MENU HANDLER
+
+export function handleContextMenu(e) {
+    const node = e.target;
+    const className = node.className;
+    const tag = node.tagName;
+    const textContent = node.textContent;
+    const id = node.id;
+
+    const contextMenu = document.getElementById("remark_context_menu");
+
+    if (contextMenu) {
+        removeHTMLElement(contextMenu);
+    }
+
+    if (className) {
+        if (className.includes("remark_")) {
+            return;
+        }
+    }
+    if (className.includes("highlight_element_light")) {
+        if (VALID_HTML_ELEMENTS.includes(tag)) {
+
+            let xpath = getNodeXpath(node);
+            xpath = `/${xpath.toLowerCase()}`
+
+            const contextMenuData = {
+                node,
+                xpath,
+                tag,
+                className,
+                textContent,
+                id,
+                "annotation_present": false
+            }
+
+            overrideContextMenu(e, contextMenuData);
+        }
+
+    } else if (className.includes("highlight_element_strong")) {
+        if (VALID_HTML_ELEMENTS.includes(tag)) {
+
+            let xpath = getNodeXpath(node);
+            xpath = `/${xpath.toLowerCase()}`
+
+            const contextMenuData = {
+                node,
+                xpath,
+                tag,
+                className,
+                "annotation_present": true
+            }
+
+            overrideContextMenu(e, contextMenuData);
+        }
+    }
 }
 

@@ -52,21 +52,21 @@ export function handleContextMenuOptions(option, data) {
             if(isAdmin()) {
                 renderNewAnnotationModal(data["node"], data["tag"], data["className"].replace("highlight_element_light", ""), data["id"], data["textContent"]);
             } else {
-                showAlert("INTIMATION", "Create annotation option is for admins only !", 2)
+                showAlert("INTIMATION", "Create annotation option is for this website's admin only !", 2)
             }
             break;
         case "edit":
             if(isAdmin()) {
                 renderEditAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
             } else {
-                showAlert("INTIMATION", "Edit annotation option is for admins only !", 2)   
+                showAlert("INTIMATION", "Edit annotation option is for this website's admin only !", 2)   
             }
             break;
         case "delete":
             if(isAdmin()) {
                 renderDeleteAnnotationModal(data["node"], data["tag"], data["id"], data["textContent"]);
             } else {
-                showAlert("INTIMATION", "Delete annotation option is for admins only !", 2)       
+                showAlert("INTIMATION", "Delete annotation option is for this website's admin only !", 2)       
             }
             break;
         default:

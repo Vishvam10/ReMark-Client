@@ -98,7 +98,7 @@ export function renderEditAnnotationModal(html_node, html_tag, html_id, html_tex
 }
 
 export function renderDeleteAnnotationModal(html_node, html_tag, html_id, html_text_content) {
-    const delete_modal_check = document.getElementById("remark_edit_annotation_modal");
+    const delete_modal_check = document.getElementById("remark_delete_annotation_modal");
     if (delete_modal_check) {
         return;
     }

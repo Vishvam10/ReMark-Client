@@ -1,5 +1,5 @@
-import { VALID_HTML_ELEMENTS } from "../constants";
 import { hideAlert } from "../alert";
+import { mouseOutListener, mouseOverListener } from "./dom_listeners";
 
 export function removeHTMLElement(ele) {
     ele.parentElement.removeChild(ele);
@@ -7,34 +7,15 @@ export function removeHTMLElement(ele) {
 }
 
 export function highlightElements() {
-    document.addEventListener("mouseover", (e) => {
-        console.log("IN MOUSEOVER");
-        e.preventDefault();
-        e.stopPropagation();
-        const className = e.target.className;
-        if (className.includes("remark_") || className.includes("highlight_element_strong")) {
-            return;
-        }
-        const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
-            const targetHTMLElement = e.target;
-            targetHTMLElement.classList.toggle("highlight_element_light");
-        }
-    });
-    document.addEventListener("mouseout", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const className = e.target.className;
-        if (className.includes("remark_") || className.includes("highlight_element_strong")) {
-            return;
-        }
-        const tag = e.target.tagName;
-        if (VALID_HTML_ELEMENTS.includes(tag)) {
-            const targetHTMLElement = e.target;
-            targetHTMLElement.classList.toggle("highlight_element_light");
-        }
-    });
+    document.addEventListener("mouseover", mouseOverListener, true);
+    document.addEventListener("mouseout", mouseOutListener, true);
+}
 
+export function stopHighlightElements() {
+    const elements = document.getElementsByClassName("highlight_element_strong");
+    while (elements.length) {
+        elements[0].classList.remove("highlight_element_strong");
+    }
 }
 
 export function repositionStart() {
