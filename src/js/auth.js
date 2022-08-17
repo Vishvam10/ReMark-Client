@@ -27,6 +27,7 @@ export async function login(bodyData) {
         const res = await POST(url, bodyData);
         const data = await res.json();
         if (data["status"] == 200) {
+            localStorage.setItem("is_admin_to_website", data["is_admin_to_website"]);
             localStorage.setItem("user_access_token", data["access_token"]);
             localStorage.setItem("user_id", data["user_id"]);
             localStorage.setItem("user_name", data["user_name"]);
@@ -73,7 +74,8 @@ export async function signup(bodyData) {
 
 export function isAdmin() {
     const authority = localStorage.getItem("user_authority");
-    if (authority == "admin") {
+    const is_admin_to_website = localStorage.getItem("is_admin_to_website");
+    if (authority == "admin" && is_admin_to_website == "true") {
         return true;
     }
     return false;
