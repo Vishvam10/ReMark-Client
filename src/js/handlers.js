@@ -204,7 +204,7 @@ export async function handleLoginUser(form) {
     for (var pair of formData.entries()) {
         if(pair[0] == "username") {
             if(!validators.validateUsername(pair[1].trim())) {
-                showAlert("ERROR", "Only comma separated alphanumeric values with no trailing or leading spaces are allowed !", 4);
+                showAlert("ERROR", "Only alphanumeric values with underscore and no trailing or leading spaces are allowed !", 4);
                 return false;
             }
         }
