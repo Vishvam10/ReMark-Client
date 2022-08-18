@@ -115,15 +115,15 @@ export const STYLES = `
         font-weight: 700;
         transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
         cursor: pointer;
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
 
     .loginSignupSwitch:hover {
-        font-size: 1.2rem;
+        font-size: 1.6rem;
     }
-
+    
     .loginSignupSwitch:active {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
 
     .remark_init_container {
@@ -198,7 +198,7 @@ export const STYLES = `
         height: auto;
         border-radius: 1.6rem;
         position: fixed;
-        z-index: 100000000;
+        z-index: 1000000000000;
         bottom: 3.2rem;
         left: 36%;
         display: flex;
@@ -251,7 +251,7 @@ export const STYLES = `
 
     .remark_standard_modal {
         position: fixed;
-        top: 10%;
+        top: 20%;
         left: 36%;
         width: 40rem;
         background-color: var(--remark-color-white);
@@ -275,7 +275,7 @@ export const STYLES = `
 
     .remark_standard_modal_header {
         padding: 1rem;
-        min-height: 6rem;
+        height: 6rem;
         margin: -1rem -1rem 0rem -1rem;
         width: auto;
         display: flex;
@@ -300,10 +300,10 @@ export const STYLES = `
         width: 71%;
         word-wrap: break-word;
         padding: 1rem;
-        margin: 1rem 0rem 1rem 2rem;
+        margin: 3rem 0rem 1rem 2rem;
         font-size: 1.7rem;
         height: inherit;
-        line-height: 1.9rem;
+        line-height: 2rem;
         font-weight: 500;
     }
 
@@ -314,6 +314,10 @@ export const STYLES = `
     .remark_standard_modal_body {
         padding: 2rem;
         font-size: 1.2rem;
+    }
+
+    #remark_signup_modal {
+        top: 10%;
     }
 
     #remark_create_annotation_modal,
@@ -352,7 +356,6 @@ export const STYLES = `
         overflow-y: scroll;
         scrollbar-width: none;
     }
-
 
     /* 
         ********************* ANNOTATIONS *********************

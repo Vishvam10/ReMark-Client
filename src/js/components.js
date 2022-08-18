@@ -295,7 +295,7 @@ export const DELETE_ANNOTATION_MODAL = (node_xpath) => {
 }
 
 export const SIDEBAR = (curAnnotation) => {
-    const annotation_name = curAnnotation["annotation_name"];
+    let annotation_name = curAnnotation["annotation_name"];
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];
     
@@ -319,7 +319,10 @@ export const SIDEBAR = (curAnnotation) => {
         `
     }
 
-   
+    if(annotation_name.length > 60) {
+        annotation_name = annotation_name.substr(0, 60) + ". . ."
+    }
+
     const markup =
         `
         <div class="remark_standard_sidebar" id="remark_annotations_sidebar">

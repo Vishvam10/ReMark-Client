@@ -5,6 +5,7 @@ import { handlePostLoginSetup } from "./handlers";
 import { renderLoginModal } from "./render"
 
 import { POST } from "./apiFactory";
+import { stopAnnotationProcess } from "./stopAnnotationProcess";
 
 export function isLoggedIn() {
     const user_id = localStorage.getItem("user_id");
@@ -18,6 +19,7 @@ export function isLoggedIn() {
 }
 
 export function logout() {
+    stopAnnotationProcess();
     localStorage.clear();
 }
 
@@ -52,23 +54,28 @@ export async function login(bodyData) {
 export async function signup(bodyData) {
     const url = `${BASE_API_URL}/api/user`;
     try {
-        const res = POST(url, bodyData);
-        const data = await res.json();
-        if (data["status"] == 201) {
-            const signupFormModal = document.getElementById("remark_signup_modal");
-            showAlert("SUCCESS", data["message"]);
-            if (signupFormModal) {
-                removeHTMLElement(signupFormModal);
-            }
-            renderLoginModal()
+        const res = await POST(url, bodyData);
+        console.log(res);
+        if(res.status == 400) {
+            showAlert("ERROR", "Either the email or the username is taken already !")
         } else {
-            showAlert("ERROR", 
-            data["error_message"]);
-            return false;
+            const data = await res.json();
+            if (data["status"] == 201) {
+                const signupFormModal = document.getElementById("remark_signup_modal");
+                showAlert("SUCCESS", data["message"]);
+                if (signupFormModal) {
+                    removeHTMLElement(signupFormModal);
+                }
+                renderLoginModal()
+            } else {
+                showAlert("ERROR", 
+                data["error_message"]);
+                return;
+            }
         }
     } catch(err) {
         console.log("ERROR : ", err);
-        return false;
+        return;
     }
 }
 
