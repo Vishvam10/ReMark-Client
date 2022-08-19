@@ -46,7 +46,6 @@ export async function login(bodyData) {
             return data;
         }
     } catch(err) {
-        console.log("ERROR : ", err);
         return false;
     } 
 }
@@ -55,7 +54,6 @@ export async function signup(bodyData) {
     const url = `${BASE_API_URL}/api/user`;
     try {
         const res = await POST(url, bodyData);
-        console.log(res);
         if(res.status == 400) {
             showAlert("ERROR", "Either the email or the username is taken already !")
         } else {
@@ -74,7 +72,6 @@ export async function signup(bodyData) {
             }
         }
     } catch(err) {
-        console.log("ERROR : ", err);
         return;
     }
 }

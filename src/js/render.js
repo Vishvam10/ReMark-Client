@@ -149,12 +149,9 @@ export function renderExistingAnnotations() {
 
     annotations.forEach((annotation) => {
         const ele = getElementAfterCheck(annotation["node_xpath"], annotation["html_id"], annotation["html_tag"], annotation["html_text_content"])
-
         if (ele) {
             ele.classList.add("highlight_element_strong");
             ele.dataset.xpath = annotation["node_xpath"];
-        } else {
-            console.log("RE-RENDER REQUIRED : ", annotation);
         }
     });
 
@@ -174,7 +171,6 @@ export function renderSideBar(xpath) {
     });
 
     const resolved = curAnnotation["resolved"];
-    console.log(curAnnotation, resolved);
     
     const sideBar = SIDEBAR(curAnnotation);
     const body = document.getElementsByTagName('body')[0];
@@ -214,15 +210,21 @@ export function renderSideBar(xpath) {
         })
     }
 
-    const comments = curAnnotation["comments"];
+    let comments = curAnnotation["comments"];
     const user_authority = localStorage.getItem("user_authority");
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
-    comments.forEach((comment) => {
-        if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
-            renderComment(comment, true, !resolved);
-        } else {
-            renderComment(comment, false, resolved);
+    comments = comments.sort( function(a, b) {
+        let x = new Date(a["updated_at"]).getTime(); let y = new Date(b["updated_at"]).getTime();
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    });
+    comments.forEach((comment, ind) => {
+        if(ind < remarkGlobalData["user_preference"]["comments_limit_per_annotation"]) {
+            if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
+                renderComment(comment, true, !resolved);
+            } else {
+                renderComment(comment, false, resolved);
+            }
         }
     });
 

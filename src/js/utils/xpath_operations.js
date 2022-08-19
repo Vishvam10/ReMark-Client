@@ -56,7 +56,6 @@ export function getElementByXpath(path) {
     try {
         ele = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
     } catch (error) {
-        console.log(error);
         return;
     }
     return ele;

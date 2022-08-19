@@ -21,7 +21,6 @@ export async function createComment(bodyData) {
         }
         return data;
     } catch(err) {
-        console.log("ERROR : ", err);
     }
 }
 
@@ -46,7 +45,6 @@ export async function editComment(bodyData) {
         }
         return data;
     } catch(err) {
-        console.log(err);
         return false;
     }
 }

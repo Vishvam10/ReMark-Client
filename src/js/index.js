@@ -60,7 +60,6 @@ export function remark_init() {
         if(e.target.innerText == "Start Annotation") {
             document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             e.target.innerText = "Stop Annotation";
-            console.log("REACHED STOP");
             startAnnotationProcess();
         }
         else if(e.target.innerText == "Stop Annotation") {

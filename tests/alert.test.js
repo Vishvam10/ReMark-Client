@@ -24,7 +24,6 @@ test('ALERTS : hide alert method ', () => {
     `
     document.body.innerHTML = alertMarkup;
     const alert = document.getElementById("remark_error_container");
-    console.log(alert.childElementCount);
     hideAlert()
   
 });

@@ -1,5 +1,4 @@
 import { remarkGlobalData } from "./global";
-import { VALID_HTML_ELEMENTS } from "./constants";
 
 import { renderExistingAnnotations } from "./render";
 
@@ -7,9 +6,11 @@ import { getAnnotationByWebsiteID } from "./annotationAPI";
 import { verifyToken } from "./tokenAPI";
 import { isAdmin } from "./auth";
 
+import {BASE_API_URL} from "./constants";
 import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
 import { contextMenuListener } from "./utils/dom_listeners";
 import { showAlert } from "./alert";
+import { GET } from "./apiFactory";
 
 export async function startAnnotationProcess() {
 
@@ -40,7 +41,10 @@ export async function startAnnotationProcess() {
     }
 
     const user_id = localStorage.getItem("user_id");
-    getUserPreferences(user_id);
+    const user_authority = localStorage.getItem("user_authority");
+    if(user_authority) {
+        getUserPreferences(user_id);
+    }
 
     const annotations = await getAnnotationByWebsiteID();
 
@@ -71,6 +75,21 @@ export async function startAnnotationProcess() {
     })
 }
 
-async function getUserPreferences() {
-
-}
+async function getUserPreferences(user_id) {
+    const url = `${BASE_API_URL}/api/user_preference/${user_id}`;
+    const auth_token = localStorage.getItem("user_access_token");
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${auth_token}`
+        }
+    })
+    const data = await res.json();
+    if(data.user_id != null) {
+        remarkGlobalData["user_preference"] = data;
+    }
+    console.log(remarkGlobalData);
+}   

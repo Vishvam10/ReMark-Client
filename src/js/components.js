@@ -367,7 +367,6 @@ export const COMMENTS_MARKUP = (comment, include_actions=false, resolved=false) 
     } else {
         d = comment["created_at"]
     }
-    console.log(resolved);
     const comment_id = comment["comment_id"]
     let content_id = `${comment_id}message`;
     let upvotes_id = `${comment_id}upvotes`;
