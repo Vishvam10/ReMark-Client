@@ -103,7 +103,7 @@ export const STYLES = `
         color: var(--remark-color-danger);
     }
 
-    .hide {
+    .remark_hide {
         display: none;
         visibility: hidden;
         opacity: 0;
@@ -355,6 +355,15 @@ export const STYLES = `
         overflow-x: hidden;
         overflow-y: scroll;
         scrollbar-width: none;
+    }
+
+    .remark_standard_sidebar_body_full {
+        height: 100%;
+    }
+
+    .remark_faded {
+        background: var(--remark-color-grey-light-3);
+        opacity: 0.42;
     }
 
     /* 

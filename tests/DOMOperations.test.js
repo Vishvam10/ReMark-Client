@@ -65,23 +65,23 @@ test('UTILS/DOM_OPERATIONS : Remove all existing modals method ', () => {
                         <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
                         <input type="tags" name="tags" class="remark_form_input" id="tags">
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="node_xpath" class="remark_form_label">Node XPath</label>
                         <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value='//testing/testing123' readonly>
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_tag" class="remark_form_label">Selected Node</label>
                         <input type="text" name="html_tag" class="remark_form_input" id="html_tag" value="Testing" readonly>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_class" class="remark_form_label">HTML Node Class</label>
                         <input type="html_class" name="html_class" class="remark_form_input" id="html_class" value="Testing" readonly>
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_id" class="remark_form_label">HTML Node ID</label>
                         <input type="html_id" name="html_id" class="remark_form_input" id="html_id" value="Testing" readonly>
                     </div>
                     </div>
-                        <div class="remark_form_fields hide">
+                        <div class="remark_form_fields remark_hide">
                         <label for="html_text_content" class="remark_form_label">HTML Text Content </label>
                         <input type="html_text_content" name="html_text_content" class="remark_form_input" id="html_text_content" value="Testing" readonly>
                     </div>

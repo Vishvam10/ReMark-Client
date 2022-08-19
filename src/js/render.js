@@ -172,6 +172,9 @@ export function renderSideBar(xpath) {
             curAnnotation = annotation;
         }
     });
+
+    const resolved = curAnnotation["resolved"];
+    console.log(curAnnotation, resolved);
     
     const sideBar = SIDEBAR(curAnnotation);
     const body = document.getElementsByTagName('body')[0];
@@ -215,12 +218,11 @@ export function renderSideBar(xpath) {
     const user_authority = localStorage.getItem("user_authority");
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
-
     comments.forEach((comment) => {
         if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
-            renderComment(comment, true);
+            renderComment(comment, true, !resolved);
         } else {
-            renderComment(comment, false);
+            renderComment(comment, false, resolved);
         }
     });
 

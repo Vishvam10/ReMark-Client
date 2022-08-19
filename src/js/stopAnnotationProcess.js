@@ -10,17 +10,4 @@ export async function stopAnnotationProcess() {
     document.removeEventListener("contextmenu", listeners.contextMenuListener, true);
     document.removeEventListener("mouseover", listeners.mouseOverListener, true);
     document.removeEventListener("mouseout", listeners.mouseOutListener, true);
-
-    // document.removeEventListener("keydown", (e) => {
-    //     if (e.key == "Escape") {
-    //         removeAllExistingModals();
-    //     }
-    // });
-
-    // document.addEventListener("click", (e) => {
-    //     const context_menu_check = document.getElementById("remark_context_menu");
-    //     if(context_menu_check) {
-    //         removeHTMLElement(context_menu_check)
-    //     }
-    // })
 }

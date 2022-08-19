@@ -160,23 +160,23 @@ export const CREATE_ANNOTATION_MODAL = (node_xpath, html_tag, html_class, html_i
                         <label for="tags" class="remark_form_label">Tags ( Comma Separated )</label>
                         <input type="tags" name="tags" class="remark_form_input" id="tags">
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="node_xpath" class="remark_form_label">Node XPath</label>
                         <input type="node_xpath" name="node_xpath" class="remark_form_input" id="node_xpath" value='${node_xpath}' readonly>
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_tag" class="remark_form_label">Selected Node</label>
                         <input type="text" name="html_tag" class="remark_form_input" id="html_tag" value="${html_tag.toLowerCase()}" readonly>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_class" class="remark_form_label">HTML Node Class</label>
                         <input type="html_class" name="html_class" class="remark_form_input" id="html_class" value="${html_class}" readonly>
                     </div>
-                    <div class="remark_form_fields hide">
+                    <div class="remark_form_fields remark_hide">
                         <label for="html_id" class="remark_form_label">HTML Node ID</label>
                         <input type="html_id" name="html_id" class="remark_form_input" id="html_id" value="${html_id}" readonly>
                     </div>
                     </div>
-                        <div class="remark_form_fields hide">
+                        <div class="remark_form_fields remark_hide">
                         <label for="html_text_content" class="remark_form_label">HTML Text Content </label>
                         <input type="html_text_content" name="html_text_content" class="remark_form_input" id="html_text_content" value="${html_text_content}" readonly>
                     </div>
@@ -299,24 +299,41 @@ export const SIDEBAR = (curAnnotation) => {
     const annotation_id = curAnnotation["annotation_id"];
     const resolved = curAnnotation["resolved"];
     
-    let resolve_button_markup = ""
-    let resolve_button_text = ""
-    let c = ""
+    let resolve_button_markup = "";
+    let resolve_button_text = "";
+    let comment_input_markup = "";
+    let unresolve_button = "";
+    let fullHeight = "";
+    let faded = ""
     
     if(isAdmin()) {
-        console.log("ADMIN ? ", isAdmin());
         if(resolved) {
             resolve_button_text = "UNRESOLVE";
-            c = "remark_unresolve_button";
+            unresolve_button = "remark_unresolve_button";
+            fullHeight = "remark_standard_sidebar_body_full";
+            faded = "remark_faded";
         } else {
             resolve_button_text = "RESOLVE";
         }
         resolve_button_markup = 
         `
-            <button class="remark_standard_button remark_resolve_button ${c}" id="remark_annotation_resolve_button">
+            <button class="remark_standard_button remark_resolve_button ${unresolve_button}" id="remark_annotation_resolve_button">
                 ${resolve_button_text}
             </button>
         `
+    }
+    if(!resolved) {
+        comment_input_markup = `
+        <div class="remark_annotation_user_input">
+            <textarea placeholder="Text input" id="remark_comment_input" data-annotation_id=${annotation_id}></textarea>
+            <span id="remark_create_comment" class="remark_">
+                <ion-icon name="paper-plane-outline" class="remark_"></ion-icon>
+            </span>
+        </div>
+        `
+    } else {
+        fullHeight = "remark_standard_sidebar_body_full";
+        faded = "remark_faded";
     }
 
     if(annotation_name.length > 60) {
@@ -333,14 +350,9 @@ export const SIDEBAR = (curAnnotation) => {
                 <ion-icon name="close-outline" id="remark_standard_modal_close_btn"></ion-icon>
             </div>
         </div>
-        <div class="remark_standard_modal_body remark_standard_sidebar_body" id="remark_comments_body">
+        <div class="remark_standard_modal_body remark_standard_sidebar_body ${fullHeight} ${faded}" id="remark_comments_body">
         </div>
-        <div class="remark_annotation_user_input">
-            <textarea placeholder="Text input" id="remark_comment_input" data-annotation_id=${annotation_id}></textarea>
-            <span id="remark_create_comment" class="remark_">
-                <ion-icon name="paper-plane-outline" class="remark_"></ion-icon>
-            </span>
-        </div>
+       ${comment_input_markup}
     </div>
     `
 
@@ -348,28 +360,37 @@ export const SIDEBAR = (curAnnotation) => {
 
 }
 
-export const COMMENTS_MARKUP = (comment, include_actions=false) => {
-    let d;
+export const COMMENTS_MARKUP = (comment, include_actions=false, resolved=false) => {
+    let d, actions_hide, votes_hide;
     if (comment["updated_at"]) {
         d = comment["updated_at"];
     } else {
         d = comment["created_at"]
     }
+    console.log(resolved);
     const comment_id = comment["comment_id"]
     let content_id = `${comment_id}message`;
     let upvotes_id = `${comment_id}upvotes`;
     let downvotes_id = `${comment_id}downvotes`;
 
-    let actions_markup = ""
+    let votes_markup = `
+        <span class="remark_annotation_vote_option">
+            <p id="${upvotes_id}">${comment["upvotes"]}</p>
+            
+            <ion-icon name="arrow-up-outline" id="${comment_id}upvote"></ion-icon>
+        </span>
+        <span class="remark_annotation_vote_option">
+            <p id="${downvotes_id}">${comment["downvotes"]}</p>
+            
+            <ion-icon name="arrow-down-outline" id="${comment_id}downvote"></ion-icon>
+        </span>
 
-    if(include_actions) {
-        actions_markup = 
-        `
-        <div class="remark_comment_actions">
-            <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
-            <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
-        </div>
-        `
+    `
+    if(!resolved) {
+        if(!include_actions) {
+            actions_hide = "remark_hide"
+        }
+        votes_hide = "remark_hide"
     }
 
     const markup =
@@ -386,12 +407,15 @@ export const COMMENTS_MARKUP = (comment, include_actions=false) => {
                         </span>
                     </div>
                 </div>
-                ${actions_markup}
+                <div class="remark_comment_actions ${actions_hide}">
+                    <ion-icon name="create-outline" id="${comment_id}edit"></ion-icon>
+                    <ion-icon name="trash-outline" id="${comment_id}delete"></ion-icon>
+                </div>
             </div>
             <div class="remark_annotation_user_message">
                 <p id="${content_id}">${comment["content"]}</p>
             </div>
-            <div class="remark_annotation_vote">
+            <div class="remark_annotation_vote ${votes_hide}">         
                 <span class="remark_annotation_vote_option">
                     <p id="${upvotes_id}">${comment["upvotes"]}</p>
                     
