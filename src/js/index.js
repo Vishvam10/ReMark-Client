@@ -14,7 +14,7 @@ export function remark_init() {
     
     registerStyles();
     registerScripts();
-
+    startAnnotationProcess();
     const body = document.getElementsByTagName('body')[0];
     
     let remark_login_button_text = "Login";
@@ -37,7 +37,6 @@ export function remark_init() {
         e.preventDefault();
         e.stopPropagation();
         if(e.target.innerText == "Login") {
-            console.log("CLICKED LOGGED IN");
             document.querySelector(".remark_init_container").classList.add("remark_init_container_resize");
             const login_modal_check = document.getElementById("remark_login_modal");
             if(login_modal_check) {

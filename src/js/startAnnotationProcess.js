@@ -12,11 +12,11 @@ import { contextMenuListener } from "./utils/dom_listeners";
 import { showAlert } from "./alert";
 
 export async function startAnnotationProcess() {
-    const remarkScriptTag = document.getElementById("remark_annotation_script");
 
     // 1. Check for API_KEY
-    const api_key = remarkScriptTag.dataset.api_key;
-
+    const data = JSON.parse(remark_config);
+    const api_key = data.REMARK_API_KEY;
+    const website_id = data.REMARK_WEBSITE_ID;
     if ((!api_key) || (api_key == "")) {
         showAlert("ERROR", "Invalid API KEY", 1);
         return;
@@ -32,12 +32,15 @@ export async function startAnnotationProcess() {
     }
 
     // 3. Load and render existing annotations if any
-    const website_id = remarkScriptTag.dataset.website_id;
     if ((!website_id) || (website_id == "")) {
         showAlert("ERROR", "Invalid website ID");
+        return;
     } else {
         remarkGlobalData["website_id"] = website_id; 
     }
+
+    const user_id = localStorage.getItem("user_id");
+    getUserPreferences(user_id);
 
     const annotations = await getAnnotationByWebsiteID();
 
@@ -66,4 +69,8 @@ export async function startAnnotationProcess() {
             removeHTMLElement(context_menu_check);
         }
     })
+}
+
+async function getUserPreferences() {
+
 }

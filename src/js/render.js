@@ -228,9 +228,9 @@ export function renderSideBar(xpath) {
 
 }
 
-export function renderComment(comment, include_actions=false) {
+export function renderComment(comment, include_actions=false, resolved=false) {
     
-    const markup = COMMENTS_MARKUP(comment=comment, include_actions=include_actions);
+    const markup = COMMENTS_MARKUP(comment=comment, include_actions=include_actions, resolved=resolved);
     const sidebarBody = document.getElementById("remark_comments_body")
     if(sidebarBody) {
         sidebarBody.insertAdjacentHTML("beforeend", markup);

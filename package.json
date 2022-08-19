@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "jest-fetch-mock": "^3.0.3",
     "terser": "^5.14.2"
   }
