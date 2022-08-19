@@ -10,7 +10,6 @@ import {BASE_API_URL} from "./constants";
 import { highlightElements, removeHTMLElement, removeAllExistingModals } from "./utils/dom_operations";
 import { contextMenuListener } from "./utils/dom_listeners";
 import { showAlert } from "./alert";
-import { GET } from "./apiFactory";
 
 export async function startAnnotationProcess() {
 
@@ -91,5 +90,4 @@ async function getUserPreferences(user_id) {
     if(data.user_id != null) {
         remarkGlobalData["user_preference"] = data;
     }
-    console.log(remarkGlobalData);
 }   

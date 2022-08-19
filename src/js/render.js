@@ -307,7 +307,6 @@ export function renderDeleteCommentModal(comment_id) {
 export function renderLoginModal() {
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML("afterbegin", LOGIN_MARKUP);
-
     const modalCloseBtn = document.getElementById("remark_standard_modal_close_btn")
     const submitBtn = document.getElementById("remark_login_button");
     const switchBtn = document.getElementById("loginSignupSwitch");

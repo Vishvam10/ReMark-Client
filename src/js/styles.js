@@ -20,6 +20,8 @@ export const STYLES = `
         --remark-color-grey: #808080;
         --remark-color-grey-dark-1: #6c6c6c;
         --remark-color-grey-dark-2: #444444;
+        --remark-color-grey-dark-3: #2d2c2c;
+        --remark-color-grey-dark-4: #141313;
         --remark-color-black: #000000;
         --remark-color-white: #FFFFFF;
         --remark-color-danger-opacity: #ff58602d;
@@ -262,6 +264,11 @@ export const STYLES = `
         transition: all 0.5s;
         height: auto;
         animation: remark_modal_animation 0.6s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+
+    .remark_dark_theme {
+        background: var(--remark-color-grey-dark-3);
+        color : var(--remark-color-white);
     }
 
     @keyframes remark_modal_animation {

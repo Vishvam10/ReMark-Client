@@ -23,11 +23,9 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 
 - [ ] **Testing** :
   - Unit Tests :   
-    - [ ] `index`
+    - [x] `index`
       - [x] `registerScripts()`
       - [x] `registerStyles()`
-      - [ ] `remark_init()`
-      - [ ] `remark_destroy()`
     - [x] `alerts`
     - [ ] `utils` :
       - [x] `validations`
@@ -51,4 +49,4 @@ This is the ReMark client which is written in pure Vanilla JS. The styling is ta
 - [x] Add signup form
 - [x] Implement upvote and downvotes
 - [x] Implement EDIT comments
-- [ ] Fix the styling when resolved button is clicked
+- [x] Fix the styling when resolved button is clicked
