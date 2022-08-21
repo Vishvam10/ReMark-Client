@@ -151,7 +151,15 @@ To build the app, run :
 
 # UI Components :
 
-[image10](images/remark(10).png)
+![](images/remark(3).png?raw=true)
+![](images/remark(4).png?raw=true)
+![](images/remark(2).png?raw=true)
+![](images/remark(5).png?raw=true)
+![](images/remark(6).png?raw=true)
+![](images/remark(7).png?raw=true)
+![](images/remark(8).png?raw=true)
+![](images/remark(9).png?raw=true)
+![](images/remark(10).png?raw=true)
 
 
 <br>
