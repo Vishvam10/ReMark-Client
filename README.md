@@ -149,6 +149,13 @@ To build the app, run :
 
 <br>
 
+# UI Components :
+
+[image10](images/remark(10).png)
+
+
+<br>
+
 # Major Todo
 
 - [x] **Dynamic Checking for Annotations** : When XPath fails
