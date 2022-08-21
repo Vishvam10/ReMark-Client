@@ -15,7 +15,7 @@ export async function createComment(bodyData) {
         const data = await res.json();
         if (data.status == 201) {
             const comment = data.data;
-            renderComment(comment, true, false);
+            renderComment(comment, true, true);
         } else {
             showAlert("ERROR", "Please enter a valid comment !")
         }

@@ -14,7 +14,6 @@ export function remark_init() {
     
     registerStyles();
     registerScripts();
-    startAnnotationProcess();
     const body = document.getElementsByTagName('body')[0];
     
     let remark_login_button_text = "Login";

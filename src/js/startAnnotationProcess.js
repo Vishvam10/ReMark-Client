@@ -39,12 +39,6 @@ export async function startAnnotationProcess() {
         remarkGlobalData["website_id"] = website_id; 
     }
 
-    const user_id = localStorage.getItem("user_id");
-    const user_authority = localStorage.getItem("user_authority");
-    if(user_authority) {
-        getUserPreferences(user_id);
-    }
-
     const annotations = await getAnnotationByWebsiteID();
 
     if (annotations.length > 0) {
@@ -74,20 +68,20 @@ export async function startAnnotationProcess() {
     })
 }
 
-async function getUserPreferences(user_id) {
-    const url = `${BASE_API_URL}/api/user_preference/${user_id}`;
-    const auth_token = localStorage.getItem("user_access_token");
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization' : `Bearer ${auth_token}`
-        }
-    })
-    const data = await res.json();
-    if(data.user_id != null) {
-        remarkGlobalData["user_preference"] = data;
-    }
-}   
+// async function getUserPreferences(user_id) {
+//     const url = `${BASE_API_URL}/api/user_preference/${user_id}`;
+//     const auth_token = localStorage.getItem("user_access_token");
+//     const res = await fetch(url, {
+//         method: 'GET',
+//         headers: {
+//             'Access-Control-Allow-Origin': '*',
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json',
+//             'Authorization' : `Bearer ${auth_token}`
+//         }
+//     })
+//     const data = await res.json();
+//     if(data.user_id != null) {
+//         remarkGlobalData["user_preference"] = data;
+//     }
+// }   

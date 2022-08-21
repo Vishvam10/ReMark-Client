@@ -385,13 +385,14 @@ export const COMMENTS_MARKUP = (comment, include_actions=false, resolved=false) 
         </span>
 
     `
-    if(!resolved) {
-        if(!include_actions) {
-            actions_hide = "remark_hide"
-        }
-        votes_hide = "remark_hide"
+    if(include_actions == false) {
+        actions_hide = "remark_hide"
     }
-
+    if(resolved == true) {
+        actions_hide = "remark_hide"
+        votes_hide = "remark_hide"
+    } 
+    
     const markup =
         `
         <div class="remark_annotation" id="${comment["comment_id"]}">

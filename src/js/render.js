@@ -170,7 +170,7 @@ export function renderSideBar(xpath) {
         }
     });
 
-    const resolved = curAnnotation["resolved"];
+    const curAnnotationResolved = curAnnotation["resolved"];
     
     const sideBar = SIDEBAR(curAnnotation);
     const body = document.getElementsByTagName('body')[0];
@@ -211,27 +211,33 @@ export function renderSideBar(xpath) {
     }
 
     let comments = curAnnotation["comments"];
-    const user_authority = localStorage.getItem("user_authority");
     const user_id = localStorage.getItem("user_id");
     const user_name = localStorage.getItem("user_name");
     comments = comments.sort( function(a, b) {
         let x = new Date(a["updated_at"]).getTime(); let y = new Date(b["updated_at"]).getTime();
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
-    comments.forEach((comment, ind) => {
-        if(ind < remarkGlobalData["user_preference"]["comments_limit_per_annotation"]) {
+    console.log("IN COMMENT : ", curAnnotationResolved);
+    comments.forEach((comment) => {
+        if(curAnnotationResolved) {
             if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
-                renderComment(comment, true, !resolved);
+                renderComment(comment, true, true);
             } else {
-                renderComment(comment, false, resolved);
+                renderComment(comment, false, true);
+            }
+        } else {
+            if(comment["created_by"] == user_name && comment["created_by_id"] == user_id) {
+                renderComment(comment, true, false);
+            } else {
+                renderComment(comment, false, false);
             }
         }
     });
 
 }
 
-export function renderComment(comment, include_actions=false, resolved=false) {
-    
+export function renderComment(comment, include_actions, resolved) {
+    console.log("IN RENDER : ", include_actions);
     const markup = COMMENTS_MARKUP(comment=comment, include_actions=include_actions, resolved=resolved);
     const sidebarBody = document.getElementById("remark_comments_body")
     if(sidebarBody) {
