@@ -26,6 +26,44 @@ Install the required dependencies using either `npm` or `yarn`
   yarn install
 ```
 
+Compilation and hot reload
+```
+  yarn run serve
+```
+
+**IMPORTANT :** Since this is a library, the build target is a `.js` file. So, to see the changes live :
+- Goto the `demo` folder
+- Goto `index.html` and add the `main.js` in a script tag along with `remark_config.js`
+- Upon up a live-server which serves the `index.html` file  
+
+<br>
+
+**NOTE :** The `remark_config.js` file has only this : 
+```
+  const remark_config = JSON.stringify({
+    REMARK_API_KEY: "yout_api_key",
+    REMARK_WEBSITE_ID: "your_registered_website_id"  
+  })
+
+```
+
+<br>
+
+So, the `<head>` in `demo/index.html` would look something like this :
+```
+  <head>
+    .
+    .
+    <script src="remark_config.js"></script>
+    <script src="/dist/main.js" type="module" id="remark_annotation_script"></script>
+    .
+    .
+  </head>
+
+```
+
+**Make sure you add the `id`**
+
 <br>
 
 
@@ -104,6 +142,7 @@ To build the app, run :
 - ✅ **Admins** can Create, Update, Delete and Resolve Annotations
 - ✅ Anyone with a valid username and comment on the annotation
 - ✅ Commnet Management (With **CRUD Operations**, **Upvotes and Downvotes** and **Moderation***)
+- ✅ Emoji support (Markdown support present but not implemented at the moment)
 
 
 **NOTE** : * Customization include dark theme, brand color, etc. and moderation is implemented in the backend. Fronted integration will be done in the future 
