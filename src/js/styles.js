@@ -327,6 +327,10 @@ export const STYLES = `
         top: 10%;
     }
 
+    #remark_edit_annotation_modal {
+        top: 10%;
+    }
+
     #remark_create_annotation_modal,
     #remark_delete_annotation_modal {
         top: 22%;
