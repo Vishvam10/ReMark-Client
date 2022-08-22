@@ -28,7 +28,7 @@ Install the required dependencies using either `npm` or `yarn`
 
 Compilation and hot reload
 ```
-  yarn run serve
+  yarn run watch
 ```
 
 **IMPORTANT :** Since this is a library, the build target is a `.js` file. So, to see the changes live :
